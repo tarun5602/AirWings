@@ -1,11 +1,95 @@
 .loginPageBaseContainer {
-}
-
-.loginPageContentCardBaseContainer {
-}
-
-.loginPageContentContainer {
-}
-
-.loginPageImageContainer {
-}
+    width: 100%;
+    height: 100vh;
+    background-color: var(--baseColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loginPageContentCardBaseContainer {
+    height: 80%;
+    width: 80%;
+    background-color: var(--whiteColor);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0px 0px 20px var(--blackColor);
+    display: flex;
+    padding: 15px;
+  }
+  
+  .loginPageContentContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .loginPageHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .loginPageInputContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .loginPageInputTitleContainer {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .loginPageInputBaseContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .loginPageInputForgetContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .loginPageInputForgetContainer p {
+    font-size: 10px;
+    color: var(--greyColor);
+  }
+  
+  .loginPageInputForgetContainer p:hover {
+    cursor: pointer;
+  }
+  
+  .loginPageButtonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+  }
+  
+  .loginPageButtonContainer #signUpText {
+    text-align: center;
+    color: var(--greyColor);
+    font-size: 10px;
+  }
+  
+  .loginPageButtonContainer #signUpText span {
+    cursor: pointer;
+    color: var(--blackColor);
+    font-weight: bold;
+  }
+  
+  .loginPageImageContainer {
+    flex: 1;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 40px;
+  }
