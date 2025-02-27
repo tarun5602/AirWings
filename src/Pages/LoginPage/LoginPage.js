@@ -3,11 +3,11 @@ import { IoIosMail } from "react-icons/io";
 import "./styles.css";
 import { useState } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import COLOR from "../../config/color";
+import COLOR from "../../Config/color";
 import ASSETS from "../../assets";
 
 function LoginPage() {
-  const [email, setEmail] = useState("a");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleForgetPassword = () => {

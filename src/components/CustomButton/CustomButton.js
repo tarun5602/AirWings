@@ -1,4 +1,4 @@
-import COLOR from "../../config/color";
+import COLOR from "../../Config/color.js";
 import "./styles.css";
 
 function CustomButton({ backgroundColor, color, onClick, title }) {

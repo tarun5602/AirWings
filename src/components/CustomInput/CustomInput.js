@@ -1,9 +1,8 @@
 import "./styles.css";
-import COLOR from "../../config/color";
+import COLOR from "../../Config/color.js";
 import { IoMdEye } from "react-icons/io";
 import { LuEyeClosed } from "react-icons/lu";
 import { useState } from "react";
-
 function CustomInput({
   placeholder,
   Icon,
