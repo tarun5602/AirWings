@@ -1,0 +1,53 @@
+.RegisterPageBaseContainer{
+    width: 100%;
+    height: 100vh;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.RegisterPageContentCardBaseContainer{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: var(--whiteColor);
+}
+.RegisterPageContentContainer{   
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+.RegisterPageHeaderContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.RegisterPageInputContainer{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.RegisterPageInputTitleContainer {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+.RegisterPageInputBaseContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.RegisterPageButtonContainer{}
+
+.RegisterPageImageContainer{
+    background-color: green;
+}

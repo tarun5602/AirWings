@@ -93,3 +93,25 @@
     background-repeat: no-repeat;
     border-radius: 40px;
   }
+
+  /* Tablet Device */
+@media (max-width: 1024px) {
+}
+/* Standard Mobile */
+@media (max-width: 768px) {
+  .loginPageImageContainer {
+    display: none;
+  }
+  .loginPageInputContainer {
+    width: 80%;
+  }
+  .loginPageButtonContainer {
+    width: 80%;
+  }
+  .loginPageHeaderContainer h1 {
+    text-align: center;
+  }
+}
+/* Small Device */
+@media (max-width: 480px) {
+}
