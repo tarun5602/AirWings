@@ -1,5 +1,6 @@
 const ASSETS = {
-  loginBackImage: require("../assets/images/loginBackImage.jpg"),
+  loginBackImage: require("./images/loginBackImage.jpg"),
+  registerBackImage: require("./images/registerbackImage.jpg")
 };
 
 export default ASSETS;

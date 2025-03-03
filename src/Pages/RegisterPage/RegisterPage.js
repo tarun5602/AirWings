@@ -41,6 +41,7 @@ function RegisterPage() {
                 placeholder={"Enter name"}
                 Icon={FaUser}
                 type={"text"}
+                disable={registerDone}
               />
               <CustomInput
                 value={email}
@@ -50,6 +51,7 @@ function RegisterPage() {
                 placeholder={"Enter email"}
                 Icon={IoIosMail}
                 type={"email"}
+                disable={registerDone}
               />
               {registerDone && (
                 <>
@@ -82,7 +84,11 @@ function RegisterPage() {
             />
           </div>
         </div>
-        <div className="RegisterPageImageContainer"></div>
+        <div className="RegisterPageImageContainer" style={{
+            backgroundImage: `url(${ASSETS.registerBackImage})`,
+          }}>
+        
+        </div>
       </div>
     </div>
   );

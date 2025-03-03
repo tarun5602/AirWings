@@ -10,13 +10,17 @@ function CustomInput({
   isSecureEntry = false,
   value,
   onChange,
+  disable = false,
 }) {
   const [showText, setShowText] = useState(false);
 
   return (
-    <div className="customInputBaseContainer">
+    <div className="customInputBaseContainer" style={{
+      backgroundColor: disable ? `var(--disableColor)` : `var(--whiteColor)`,
+    }} >
       <div className="customInputContainer">
-        <input
+        <input 
+          disabled={disable}
           value={value}
           onChange={onChange}
           placeholder={placeholder ? placeholder : "Enter text"}

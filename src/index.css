@@ -4,6 +4,7 @@
   --whiteColor: #ffffff;
   --blackColor: #000000;
   --borderColor: #cccccc;
+  --disableColor: #f0f0f0;
 }
 
 * {

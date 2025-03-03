@@ -10,9 +10,10 @@
     width: 80%;
     height: 80%;
     display: flex;
-    border-radius: 25px;
+    border-radius: 50px;
     overflow: hidden;
     background-color: var(--whiteColor);
+    padding: 15px;
 }
 .RegisterPageContentContainer{   
     display: flex;
@@ -55,7 +56,10 @@
 
 .RegisterPageImageContainer{
     flex: 1;
-    background-color: aqua;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 40px;
 }
 
 @media (max-width: 768px) {
