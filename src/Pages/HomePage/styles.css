@@ -1,0 +1,13 @@
+.homePageBaseContainer{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--baseColor);
+}
+.homePageNavbarContainer{
+}
+.homePageRouteContainer{
+    flex: 1;
+    background-color: white;
+}
