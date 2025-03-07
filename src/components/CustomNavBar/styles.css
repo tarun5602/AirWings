@@ -1,27 +1,63 @@
-.customNavBarBaseContainer {
+.customNavbarBaseContainer {
   width: 100%;
-  display: flex;
   padding: 20px 40px;
-  background-color: var(--baseColor);
+  display: flex;
 }
-.navbarLogoContainer {
+
+.customNavbarLogoContainer {
   flex: 1;
   display: flex;
   align-items: center;
 }
 
-.navbarLogoBaseContainer {
+.customNavbarLogoBaseContainer {
   display: flex;
   align-items: center;
   gap: 10px;
   color: var(--whiteColor);
 }
+.customNavbarBaseContainer:hover {
+    cursor: pointer;
+}
 
-.navbarLogoBaseContainer .aeroPlaneIcon {
-  transition: 0.5s ease-in-out;
+.customNavbarLogoBaseContainer .aeroPlaneIcon {
+  transition: 0.8s ease-in-out;
   color: var(--secondaryColor);
 }
-.customNavBarLinkContainer {
+
+.customNavbarLogoBaseContainer .aeroPlaneIcon:hover {
+  transform: translateX(100px);
+  opacity: 0;
 }
-.customNavBarProfileContainer {
+
+.customNavbarLinkContainer {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.customNavbarLinkContainer p {
+  font-size: 18px;
+  color: var(--whiteColor);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.customNavbarLinkContainer p:hover {
+  color: var(--secondaryColor);
+  font-weight: bold;
+}
+
+.customNavbarProfileContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.customNavbarProfileButtonContainer {
+  display: flex;
+  gap: 10px;
 }

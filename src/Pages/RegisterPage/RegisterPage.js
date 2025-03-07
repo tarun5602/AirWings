@@ -78,9 +78,10 @@ function RegisterPage() {
           <div className="RegisterPageButtonContainer">
             <CustomButton
               title={registerButtonText}
-              backgroundColor={COLOR.secondaryColor}
-              color={COLOR.whiteColor}
+              backgroundColor= "var(--baseColor)"
+              color={COLOR.secondaryColor}
               onClick={handleRegister}
+              border={"2px solid var(--secondaryColor)"}
             />
           </div>
         </div>
