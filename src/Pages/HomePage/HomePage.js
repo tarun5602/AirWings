@@ -7,7 +7,7 @@ function HomePage() {
       <div className="homePageNavbarContainer">
         <CustomNavBar />
       </div>
-      <div className="homePageRouteContainer">
+      <div className="homePageRouteContainer" >
       </div>
     </div>
   );
