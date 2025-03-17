@@ -67,7 +67,9 @@
   display: flex;
   gap: 10px;
 }
-
+.customSideNavbarBaseContainer{
+  display: none;
+}
   /* Tablet Device */
   @media (max-width: 1024px) {
     .customNavbarLinkContainer {

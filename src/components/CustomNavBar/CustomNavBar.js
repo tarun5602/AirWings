@@ -4,17 +4,23 @@ import CustomButton from "../CustomButton/CustomButton";
 import { IoAirplaneSharp } from "react-icons/io5";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import gsap from "gsap";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../Config/routes";
 
 function CustomNavBar() {
 
   const sideBarRef = useRef();
 
+  const navigate = useNavigate();
+
   const linkList = [
     {
       title: "Home",
+      path: ROUTES.homePage,
     },
     {
       title: "Services",
+      path: ROUTES.servicesPage,
     },
     {
       title: "About Us",
@@ -35,7 +41,7 @@ function CustomNavBar() {
       <IoReorderThreeOutline className="threeLineIcon" size={30} />
       <div className="customNavbarLogoContainer">
         <div className="customNavbarLogoBaseContainer">
-          <h2>
+          <h2 onClick={() => navigate(ROUTES.homePage)}>
             Air
             <span
               style={{
@@ -51,19 +57,21 @@ function CustomNavBar() {
       </div>
       <div className="customNavbarLinkContainer">
         {linkList.map((item) => {
-          return <p>{item.title}</p>;
+          return <p onClick={() => navigate(item.path)} >{item.title}</p>;
         })}
       </div>
       <div className="customNavbarProfileContainer">
         <div className="customNavbarProfileButtonContainer">
           <CustomButton
             title={"Login"}
+            onClick={() => navigate(ROUTES.loginPage)}
             color={"var(--secondaryColor)"}
             backgroundColor={"transparent"}
             border={"2px solid var(--secondaryColor)"}
           />
           <CustomButton
             title={"Register"}
+            onClick={() => navigate(ROUTES.registerPage)}
             color={"var(--secondaryColor)"}
             backgroundColor={"transparent"}
             border={"2px solid var(--secondaryColor)"}
@@ -73,7 +81,7 @@ function CustomNavBar() {
       <div className="customSideNavbarBaseContainer" ref={sideBarRef}>
         <div className="customSideNavbarLinks">
           {linkList.map((item) => {
-            return <p>{item.title}</p>;
+            return <p onClick={() => navigate(item.path)} >{item.title}</p>;
           })}
         </div>
       </div>
