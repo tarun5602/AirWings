@@ -1,0 +1,44 @@
+.heroSectionBaseContainer {
+  width: 100%;
+  height: 90vh;
+  text-align: center;
+  background-color: var(--borderColor);
+}
+.popularDestinationBaseContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--baseColor);
+}
+.popularDestinationCardContainer{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.popularDestinationCardImage{
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.popularDestinationCardInfo{
+  background-color: var(--whiteColor);
+}
+
+
+
+
+
+
+.offersBaseContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--borderColor);
+}
+
+
+
+
+.testimonialsBaseContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--baseColor);
+}
