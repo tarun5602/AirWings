@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { BiSolidOffer } from "react-icons/bi";
 
 export default function HomePage() {
   const destinations = [
@@ -37,6 +38,21 @@ export default function HomePage() {
     },
   ];
 
+  const Offer = [
+    {
+      id: 1,
+      title: "Special Offer",
+      description: "Book your tickets now and save up to 30%!",
+      Icon: BiSolidOffer
+    },
+    {
+      id: 1,
+      title: "Special Offer",
+      description: "Book your tickets now and save up to 30%!",
+      Icon: BiSolidOffer
+    },
+  ]
+
   return (
     <div>
       <section className="heroSectionBaseContainer">
@@ -71,7 +87,18 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-      <section className="offersBaseContainer"></section>
+      <section className="offersBaseContainer">
+        <div className="offersSectionContainer">
+          {Offer.map(offer => (
+            <div className="offersIconContainer">
+              <offer.Icon className="offersIcon" size={48} />
+              <h2>{offer.title}</h2>
+            </div>
+          ))
+
+          }
+        </div>
+      </section>
       <section className="testimonialsBaseContainer"></section>
     </div>
   );
