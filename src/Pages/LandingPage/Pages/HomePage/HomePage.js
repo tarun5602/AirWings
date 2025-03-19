@@ -48,20 +48,24 @@ export default function HomePage() {
             width: '100%',
             textAlign: "center",
             fontWeight: "bold",
-            paddingTop: '20px',
+            paddingTop: '40px',
+            fontSize: "30px",
             color: "var(--whiteColor)",
           }}>
           Popular Destinations
         </h1>
         <div className="popularDestinationCardContainer">
           {destinations.map((destination) => (
-            <div className="popularDestinationCardImage" 
-              key={destination.id}>
-              <img src={destination.image} alt={destination.city} />
+            <div className="popularDestinationCardImage" key={destination.id}>
+              <div className="popularDestinationImageContainer" style={{backgroundImage: `url(${destination.image})` }}></div>
               <div className="popularDestinationCardInfo">
                 <h2>{destination.city}</h2>
-                <p>{destination.country}</p>
-                <p>Starting from ₹{destination.price}</p>
+                <p style={{
+                  color: "var(--grayColor)",
+                }}>{destination.country}</p>
+                <p style={{
+                  color: "var(--baseColor)",
+                }}>Starting from ₹{destination.price}</p>
               </div>
             </div>
           ))}
