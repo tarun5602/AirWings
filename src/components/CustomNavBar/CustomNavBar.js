@@ -24,9 +24,11 @@ function CustomNavBar() {
     },
     {
       title: "About Us",
+      path: ROUTES.aboutUsPage,
     },
     {
       title: "Contact Us",
+      path: ROUTES.contactUsPage,
     },
     {
       title: "Blog",

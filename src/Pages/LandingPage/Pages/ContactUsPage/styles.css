@@ -1,0 +1,19 @@
+.contactUsBaseContainer{
+    flex:1;
+    background-color: aqua;
+}
+
+.contactUscontainer{
+    flex:1;
+    background-color: blue;
+}
+
+.credentialsContactUscontainer{
+    flex:1;
+    background-color: yellow;
+}
+
+.formContactUscontainer{
+    flex: 1;
+    background-color: sienna;
+}

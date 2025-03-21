@@ -5,6 +5,8 @@ import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import ROUTES from "./Config/routes";
+import ContactUsPage from "./Pages/LandingPage/Pages/ContactUsPage/ContactUspage";
+import AboutUsPage from "./Pages/LandingPage/Pages/AboutUsPage/AboutUsPage";
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +14,8 @@ function App() {
         <Route path={ROUTES.landingPage} element={<LandingPage />}>
           <Route path={ROUTES.homePage} element={<HomePage />} />
           <Route path={ROUTES.servicesPage} element={<ServicesPage />} />
+          <Route path={ROUTES.contactUsPage} element={<ContactUsPage/>} />
+          <Route path={ROUTES.aboutUsPage} element={<AboutUsPage/>}/> 
         </Route>
         <Route path={ROUTES.loginPage} element={<LoginPage />} />
         <Route path={ROUTES.registerPage} element={<RegisterPage />} />
