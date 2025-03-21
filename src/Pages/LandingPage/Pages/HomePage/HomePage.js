@@ -1,6 +1,9 @@
 import React from "react";
 import "./styles.css";
 import { BiSolidOffer } from "react-icons/bi";
+import { IoIosPeople } from "react-icons/io";
+import { TbCirclePercentageFilled } from "react-icons/tb";
+import { MdAirplaneTicket } from "react-icons/md";
 
 export default function HomePage() {
   const destinations = [
@@ -41,15 +44,31 @@ export default function HomePage() {
   const Offer = [
     {
       id: 1,
-      title: "Special Offer",
-      description: "Book your tickets now and save up to 30%!",
+      title: "Welcome Offer",
+      offer: 15,
+      description: "Get 20% off on your first flight",
       Icon: BiSolidOffer
     },
     {
-      id: 1,
-      title: "Special Offer",
-      description: "Book your tickets now and save up to 30%!",
-      Icon: BiSolidOffer
+      id: 2,
+      title: "Family Package",
+      offer: 25,
+      description: "Experience the world with family and friends with a budget friendly offer",
+      Icon: IoIosPeople
+    },
+    {
+      id: 3,
+      title: "Season Offer",
+      offer: 10,
+      description: "Exclusive offer for limited time period",
+      Icon: TbCirclePercentageFilled
+    },
+    {
+      id: 4,
+      title: "Early Bird",
+      offer: 20,
+      description: "Get early bird discount on booking your flight 60 days before",
+      Icon: MdAirplaneTicket
     },
   ]
 
@@ -88,15 +107,28 @@ export default function HomePage() {
         </div>
       </section>
       <section className="offersBaseContainer">
+      <h1 style={{
+        width: "100%",
+        fontWeight: "bold",
+        textAlign: "center",
+        paddingTop: "40px",
+        fontSize: "30px",
+        color: "var(--baseColor)",
+        }}>
+          OFFERS</h1>
         <div className="offersSectionContainer">
           {Offer.map(offer => (
-            <div className="offersIconContainer">
-              <offer.Icon className="offersIcon" size={48} />
-              <h2>{offer.title}</h2>
+            <div className="offersContainer">
+              <div className="offersIconContainer">
+                <offer.Icon className="offersIcon" size={48} />
+                <h2>{offer.offer}%</h2>
+              </div>
+              <div className="offersInfoContainer">
+                <h2 style={{color: "var(--baseColor)"}}>{offer.title}</h2>
+                <p>{offer.description}</p>
+              </div>
             </div>
-          ))
-
-          }
+          ))}
         </div>
       </section>
       <section className="testimonialsBaseContainer"></section>
