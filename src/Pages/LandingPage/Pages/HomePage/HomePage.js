@@ -5,6 +5,7 @@ import { IoIosPeople } from "react-icons/io";
 import { TbCirclePercentageFilled } from "react-icons/tb";
 import { MdAirplaneTicket } from "react-icons/md";
 import ASSETS from "../../../../assets";
+import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
 
 export default function HomePage() {
   const destinations = [
@@ -130,6 +131,7 @@ export default function HomePage() {
         </div>
       </section>
       <section className="testimonialsBaseContainer"></section>
+      <CustomFooter />
     </div>
   );
 }

@@ -5,7 +5,8 @@ const COLOR = {
   blackColor: "#000000",
   blackColorDim: "#00000033",
   borderColor: "#DDDDDD",
-  disableColor: "#f0f0f0"
+  disableColor: "#f0f0f0",
+  footerColor: "#111929",
 };
 
 export default COLOR;

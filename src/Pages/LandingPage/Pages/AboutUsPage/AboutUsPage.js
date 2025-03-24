@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import ASSETS from "../../../../assets";
+import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
 
 export default function AboutUsPage() {
   const Mission = [
@@ -126,6 +127,7 @@ export default function AboutUsPage() {
         )}
         </div>
       </section>
+      <CustomFooter/>
     </div>
   );
 }
