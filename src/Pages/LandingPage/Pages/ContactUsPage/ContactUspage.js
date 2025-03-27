@@ -7,10 +7,16 @@ import CustomButton from "../../../../components/CustomButton/CustomButton";
 import { FaInstagram } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { SlSocialLinkedin } from "react-icons/sl";
+import ASSETS from "../../../../assets";
 
 export default function ContactUsPage() {
   return (
-    <div className="contactUsBaseContainer">
+    <div
+      className="contactUsBaseContainer"
+      style={{
+        backgroundImage: `url(${ASSETS.contactUsBackgroundImage})`,
+      }}
+    >
       <h1
         style={{
           padding: 60,
@@ -22,7 +28,7 @@ export default function ContactUsPage() {
       <div className="contactUsContainer">
         <h2
           style={{
-            color: "var(--grayColor)",
+            color: "var(--whiteColor)",
             paddingBottom: "60px",
           }}
         >
@@ -32,23 +38,34 @@ export default function ContactUsPage() {
         <div className="contactUsMainContainer">
           <div className="credentialsContactUsContainer">
             <h1>Get in Touch</h1>
-            <h2>Phone</h2>
-            <h4>+91 (6969)123-456</h4>
-            <h4>+91 (9696)987-654</h4>
+
+            <p>Phone</p>
+            <p>+91 (6969)123-456</p>
+            <p>+91 (9696)987-654</p>
+
+            <p>Email</p>
+            <p>SupportAirwings@gmail.com</p>
+            <p>InfoAirwings@gmail.com</p>
+
+            <p>Location</p>
+            <p> Industrial Area Phase-1, Sector 28,</p>
+            <p>Chandigarh, CHD 160002</p>
+
             <div className="socialMediaIconsCredentialsContactUsContainer">
-            <FaFacebookF />
-            <FaInstagram />
-            <RiTwitterXFill />
-            <SlSocialLinkedin />
+              <p>Follow US</p>
+              <FaFacebookF />
+              <FaInstagram />
+              <RiTwitterXFill />
+              <SlSocialLinkedin />
             </div>
           </div>
           <div className="formContactUsContainer">
-              <h1>Send us a Message</h1>
-              <CustomInput placeholder={"Name"} />
-              <CustomInput placeholder={"email"} />
-              <CustomInput placeholder={"subject"} />
-              <CustomInput placeholder={"Message"} />
-               <CustomButton title={"Submit"} />
+            <h1>Send us a Message</h1>
+            <CustomInput placeholder={"Name"} />
+            <CustomInput placeholder={"email"} />
+            <CustomInput placeholder={"subject"} />
+            <CustomInput placeholder={"Message"} />
+            <CustomButton title={"Submit"} />
           </div>
         </div>
       </div>

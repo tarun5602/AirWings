@@ -1,3 +1,5 @@
+import ContactUsPage from "../Pages/LandingPage/Pages/ContactUsPage/ContactUspage";
+
 const ASSETS = {
   loginBackImage: require("./images/loginBackImage.jpg"),
   registerBackImage: require("./images/registerbackImage.jpg"),
@@ -6,6 +8,7 @@ const ASSETS = {
   destinationSantoriniImage: require("./images/destinationSantoriniImage.jpg"),
   destinationTokyoImage: require("./images/destinationTokyoImage.jpg"),
   destinationBaliImage: require("./images/destinationBaliImage.jpg"),
+  contactUsBackgroundImage: require("./images/contactUsBackgroundImage.jpg"),
 };
 
 export default ASSETS;
