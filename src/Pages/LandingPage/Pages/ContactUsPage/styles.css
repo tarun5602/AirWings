@@ -1,44 +1,46 @@
-.contactUsBaseContainer{ 
-    height: 100vh;
-    width: 100%;
-    text-align: center;
+.contactUsBaseContainer{
+    flex: 1;
+    background-color: var(--whiteColor);
+    display: flex;
+    padding: 50px;
 }
 
 .contactUsContainer{
-    text-align: center;
-}
-
-.contactUsContainer h2{
-    padding-bottom: 60px;
-}
-
-.contactUsMainContainer{
-
-    width: 100%;
+    flex: 1;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px var(--borderColor);
     display: flex;
-    justify-content: center;
-    gap: 100px;
-}
+    overflow: hidden;
+}    
 
- .credentialsContactUsContainer{
-    width: 40%;
-    border: round;
-    border-radius: 25px; 
-    padding: 20px 40px;
-}
-
-.socialMediaIconsCredentialsContactUsContainer{
+.contactUsFormContainer{
+    flex: 1;
+    background-color: var(--whiteColor);
     display: flex;
-    gap: 10px;
-}
-
- .formContactUsContainer{
-    display: flex;
-    gap: 10px;
-    width: 40%;
-    border: round;
-    border-radius: 25px;
-    padding: 20px 40px;
-    justify-content: center;
     flex-direction: column;
-}  
+    align-items: center;
+    justify-content: center;
+}
+
+.contactUsInfoContainer{
+    position: relative;
+    flex: 1;
+    display: flex;
+}
+
+.contactUsInfoDesignContainer{
+    flex: 1; 
+}
+
+.contactUsInfoContainer .infoSecondDesign{
+    background-color: var(--secondaryColor);
+}
+
+.contactUsInfoCredentialsContainer{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 50%;
+    background-color: var(--baseColor);
+    color: white;
+}
