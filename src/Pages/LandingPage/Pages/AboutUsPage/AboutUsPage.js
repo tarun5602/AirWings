@@ -2,6 +2,9 @@ import React from "react";
 import "./styles.css";
 import ASSETS from "../../../../assets";
 import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
+import { MdOutlineSecurity } from "react-icons/md";
+import { LuHeartHandshake } from "react-icons/lu";
+import { HiOutlineGlobe } from "react-icons/hi";
 
 export default function AboutUsPage() {
   const Mission = [
@@ -37,21 +40,21 @@ export default function AboutUsPage() {
       title: "Saftey First",
       description:
         "Your safety is our top priority. We maintain the highest standards in aviation safety.",
-      icon: "",
+      icon: <MdOutlineSecurity size={35} />,
     },
     {
       id: 2,
       title: "Customer  Care",
       description:
         "We are committed to providing exceptional service at every step of your journey.",
-      icon: "",
+      icon: <LuHeartHandshake size={35}/>,
     },
     {
       id: 3,
       title: "Global Reach",
       description:
         "Connect to over 500 destinations worldwide with our extensive network.",
-      icon: "",
+      icon: <HiOutlineGlobe size={35}/>,
     },
   ];
   return (
@@ -117,7 +120,7 @@ export default function AboutUsPage() {
                 {item.icon}
               </div>
               <div className="aboutUsValueTitle">
-                {item.title}
+                <h1>{item.title}</h1>
               </div>
               <div className="aboutUsValueDescription">
                 {item.description}

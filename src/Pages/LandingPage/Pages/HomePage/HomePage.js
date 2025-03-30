@@ -130,7 +130,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-      <section className="testimonialsBaseContainer"></section>
+      <section className="testimonialsBaseContainer">testimonials</section>
       <CustomFooter />
     </div>
   );
