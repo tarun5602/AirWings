@@ -5,6 +5,7 @@ import { LuFacebook } from "react-icons/lu";
 import { LuInstagram } from "react-icons/lu";
 import { LuLinkedin } from "react-icons/lu";
 import { BsTwitterX } from "react-icons/bs";
+import { MdOutlineLocationOn } from "react-icons/md";
 
 export default function CustomFooter() {
   return (
@@ -12,7 +13,16 @@ export default function CustomFooter() {
       <div className="customFooterContainer">
         <div className="customFooterSocialMediaLink">
           <h3>AirWings</h3>
-          <p>Connecting dreams, one flight at a time. Experience the joy of seamless travel with SkyWings.</p>
+          <p>
+            Connecting dreams, one flight at a time. Experience the joy of
+            seamless travel with SkyWings.
+          </p>
+          <div className="customFooterSocialMediaIconsContainer">
+            <LuFacebook size={22} />
+            <LuInstagram size={22} />
+            <LuLinkedin size={22} />
+            <BsTwitterX size={22} />
+          </div>
         </div>
         <div className="cutomFooterQuickLinksContainer">
           <h3>Quick Links</h3>
@@ -24,7 +34,12 @@ export default function CustomFooter() {
           <h3>Contact Us</h3>
         </div>
       </div>
-      <p style={{textAlign: "center"}}>© 2024 SkyWings Airlines. All rights reserved.</p>
+      <p style={{
+          textAlign: "center",
+          paddingBottom: "20px",
+        }}>
+        © 2024 SkyWings Airlines. All rights reserved.
+      </p>
     </div>
   );
 }
