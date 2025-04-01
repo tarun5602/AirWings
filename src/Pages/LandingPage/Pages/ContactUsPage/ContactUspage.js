@@ -9,6 +9,10 @@ import { RiTwitterXFill } from "react-icons/ri";
 import { SlSocialLinkedin } from "react-icons/sl";
 import ASSETS from "../../../../assets";
 import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { LuPhone } from "react-icons/lu";
+import { PiBuildingOfficeFill } from "react-icons/pi";
+import { ImClock } from "react-icons/im";
 
 export default function ContactUsPage() {
   return (
@@ -26,6 +30,14 @@ export default function ContactUsPage() {
           <div className="contactUsInfoDesignContainer infoSecondDesign"></div>
           <div className="contactUsInfoCredentialsContainer">
             <h1>Info</h1>
+            <MdOutlineMailOutline />
+            <p>airwings@gmail.com</p>
+            <LuPhone />
+            <p>926-486-2249</p>
+            <PiBuildingOfficeFill />
+            <p>23, Main Street, AnyTown, USA</p>
+            <ImClock />
+            <p>8:00AM - 5:00PM</p>
           </div>
         </div>
       </div>
