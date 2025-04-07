@@ -13,6 +13,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { LuPhone } from "react-icons/lu";
 import { PiBuildingOfficeFill } from "react-icons/pi";
 import { ImClock } from "react-icons/im";
+import { BiFontColor } from "react-icons/bi";
 
 export default function ContactUsPage() {
   return (
@@ -20,24 +21,37 @@ export default function ContactUsPage() {
       <div className="contactUsContainer">
         <div className="contactUsFormContainer">
           <h1>Contact Us</h1>
-           <CustomInput placeholder={"Name"} />
-           <CustomInput placeholder={"Email"} />
-           <CustomInput placeholder={"Message"} />
-           <CustomButton />
+          <CustomInput placeholder={"Name"} width={"400px"} />
+          <CustomInput placeholder={"Email"} width={"400px"} />
+          <CustomInput placeholder={"Message"} width={"400px"} />
+          <CustomButton title={"Submit"} width={"400px"} height={"30px"} />
         </div>
         <div className="contactUsInfoContainer">
           <div className="contactUsInfoDesignContainer"></div>
-          <div className="contactUsInfoDesignContainer infoSecondDesign"></div>
+          <div className="contactUsInfoDesignContainer infoSecondDesign">
+            <FaFacebookF />
+            <FaInstagram />
+            <RiTwitterXFill />
+            <SlSocialLinkedin />
+          </div>
           <div className="contactUsInfoCredentialsContainer">
             <h1>Info</h1>
-            <MdOutlineMailOutline />
-            <p>airwings@gmail.com</p>
-            <LuPhone />
-            <p>926-486-2249</p>
-            <PiBuildingOfficeFill />
-            <p>23, Main Street, AnyTown, USA</p>
-            <ImClock />
-            <p>8:00AM - 5:00PM</p>
+            <div classname="contactUsInfoCredentialsInfoContainer">
+              <MdOutlineMailOutline />
+              <p>airwings@gmail.com</p>
+            </div>
+            <div classname="contactUsInfoCredentialsInfoContainer">
+              <LuPhone />
+              <p>926-486-2249</p>
+            </div>
+            <div classname="contactUsInfoCredentialsInfoContainer">
+              <PiBuildingOfficeFill />
+              <p>23, Main Street, AnyTown, USA</p>
+            </div>
+            <div classname="contactUsInfoCredentialsInfoContainer">
+              <ImClock />
+              <p>8:00AM - 5:00PM</p>
+            </div>
           </div>
         </div>
       </div>

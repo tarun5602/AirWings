@@ -1,3 +1,4 @@
+import { FaQ } from "react-icons/fa6";
 
 const ROUTES = {
     landingPage: "/",
@@ -7,6 +8,7 @@ const ROUTES = {
     servicesPage: "/services",
     contactUsPage: "/contactus",
     aboutUsPage: "/aboutus",
+    FAQPage: "/faq",
 };
 
 export default ROUTES;

@@ -11,12 +11,14 @@ function CustomInput({
   value,
   onChange,
   disable = false,
+  width
 }) {
   const [showText, setShowText] = useState(false);
 
   return (
     <div className="customInputBaseContainer" style={{
       backgroundColor: disable ? `var(--disableColor)` : `var(--whiteColor)`,
+      width: width
     }} >
       <div className="customInputContainer">
         <input 

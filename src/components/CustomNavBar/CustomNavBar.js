@@ -35,6 +35,7 @@ function CustomNavBar() {
     },
     {
       title: "FAQs",
+      path: ROUTES.FAQPage,
     },
   ];
 
