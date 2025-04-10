@@ -124,6 +124,7 @@ export default function FAQPage({ question, answer, isopen, onclick }) {
             );
           })}
         </div>
+        
       </div>
     </div>
   );
