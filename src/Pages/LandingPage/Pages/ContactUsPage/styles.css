@@ -32,6 +32,7 @@
 .contactUsInfoDesignContainer {
   display: flex;
   flex: 2;
+  background-color: white;
 }
 
 .infoSecondDesign {

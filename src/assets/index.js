@@ -6,6 +6,7 @@ const ASSETS = {
   destinationSantoriniImage: require("./images/destinationSantoriniImage.jpg"),
   destinationTokyoImage: require("./images/destinationTokyoImage.jpg"),
   destinationBaliImage: require("./images/destinationBaliImage.jpg"),
+  contactUsImage: require("./images/contactUsImage.jpeg")
 };
 
 export default ASSETS;

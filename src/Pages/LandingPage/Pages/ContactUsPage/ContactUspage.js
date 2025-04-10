@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.css";
-import { useState } from "react";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
 import { FaFacebookF } from "react-icons/fa";
 import CustomButton from "../../../../components/CustomButton/CustomButton";
@@ -13,11 +12,10 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { LuPhone } from "react-icons/lu";
 import { PiBuildingOfficeFill } from "react-icons/pi";
 import { ImClock } from "react-icons/im";
-import { BiFontColor } from "react-icons/bi";
 
 export default function ContactUsPage() {
   return (
-    <div className="contactUsBaseContainer">
+    <div className="contactUsBaseContainer" style={{backgroundImage:`url(${ASSETS.contactUsImage})`}}>
       <div className="contactUsContainer">
         <div className="contactUsFormContainer">
           <h1>Contact Us</h1>
