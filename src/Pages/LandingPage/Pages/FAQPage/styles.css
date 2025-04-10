@@ -1,3 +1,34 @@
-.faqBasecontainer{
-    background-color: aqua;
+.faqPageBaseContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.faqPageBaseHeaderContainer {
+  padding: 40px;
+  height: max-content;
+  text-align: center;
+}
+
+.faqPageBaseContentItemContainer {
+  border-radius: 15px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faqPageBaseContentContainer {
+  padding: 40px;
+}
+
+.faqPageBaseContentItemBaseContainer {
+}
+
+.faqPageBaseContentItemBaseContainer .questionContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
