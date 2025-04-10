@@ -1,0 +1,19 @@
+.baggageTrackingBaseContainer{
+    width: 100%;
+}
+.baggageTrackingBaseContainer, h2, p{
+    text-align: center;
+    padding: 5px;
+}
+.baggageTrackingInputBaseContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: aqua;
+}
+.baggageTrackingInputContainer{
+    width: 70%;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px #DDD ;
+    overflow: hidden;
+}

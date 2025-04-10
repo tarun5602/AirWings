@@ -8,13 +8,20 @@ import ROUTES from "./Config/routes";
 import ContactUsPage from "./Pages/LandingPage/Pages/ContactUsPage/ContactUspage";
 import AboutUsPage from "./Pages/LandingPage/Pages/AboutUsPage/AboutUsPage";
 import FAQPage from "./Pages/LandingPage/Pages/FAQPage/FAQPage";
+import FlightBooking from "./Pages/LandingPage/Pages/ServicesPage/Pages/FlightBooking/FlightBooking";
+import BaggageTracking from "./Pages/LandingPage/Pages/ServicesPage/Pages/BaggageTracking/BaggageTracking";
+import Support from "./Pages/LandingPage/Pages/ServicesPage/Pages/Support/Support";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={ROUTES.landingPage} element={<LandingPage />}>
           <Route path={ROUTES.homePage} element={<HomePage />} />
-          <Route path={ROUTES.servicesPage} element={<ServicesPage />} />
+          <Route path={ROUTES.servicesPage} element={<ServicesPage />}>
+            <Route path={ROUTES.servicesPageFlightBookingPage} element={<FlightBooking />}/>
+            <Route path={ROUTES.servicesPageBaggageTrackingPage} element={<BaggageTracking />}/>
+            <Route path={ROUTES.servicesPagesSupportPage} element={<Support />}/>
+          </Route>
           <Route path={ROUTES.contactUsPage} element={<ContactUsPage/>} />
           <Route path={ROUTES.aboutUsPage} element={<AboutUsPage/>}/> 
           <Route path={ROUTES.FAQPage} element={<FAQPage/>} />

@@ -20,7 +20,7 @@ function CustomNavBar() {
     },
     {
       title: "Services",
-      path: ROUTES.servicesPage,
+      path: ROUTES.servicesPageFlightBookingPage,
     },
     {
       title: "About Us",
