@@ -168,6 +168,7 @@ export default function HomePage() {
               textAlign: "center",
               paddingTop: "40px",
               fontSize: "30px",
+              // backgroundColor: "var(--baseColor)",
               color: "var(--whiteColor)",
             }}
           >
