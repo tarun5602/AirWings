@@ -8,6 +8,8 @@
   padding: 40px;
   height: max-content;
   text-align: center;
+  background-color: var(--baseColor);
+  color: var(--secondaryColor);
 }
 
 .faqPageBaseContentItemContainer {
@@ -21,14 +23,20 @@
 }
 
 .faqPageBaseContentContainer {
-  padding: 40px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* adds space between all child containers */
+  padding: 20px;
 }
 
 .faqPageBaseContentItemBaseContainer {
+
 }
 
 .faqPageBaseContentItemBaseContainer .questionContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--baseColor);
 }

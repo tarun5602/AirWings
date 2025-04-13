@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import "./styles.css";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 
-export default function FAQPage({ question, answer, isopen, onclick }) {
+export default function FAQPage() {
   const [bookings, setBooking] = useState([
     {
       question: "How can I book a flight?",
@@ -24,76 +26,84 @@ export default function FAQPage({ question, answer, isopen, onclick }) {
     },
   ]);
 
-  const baggage = [
+  const [baggage, setBaggage] = useState([
     {
       question: "What is the baggage allowance?",
       answer:
         "Economy class passengers are allowed one carry-on bag (8kg) and one checked bag (23kg). Business class passengers get additional allowance.",
+      visible: false,
     },
     {
       question: "When should I arrive at the airport?",
       answer:
         "For domestic flights, arrive 2 hours before departure. For international flights, arrive 3 hours before departure.",
+      visible: false,
     },
     {
       question: "Can I check-in online?",
       answer:
         "Yes, online check-in opens 24 hours before departure and closes 2 hours before the flight.",
+      visible: false,
     },
-  ];
+  ]);
 
-  const flightservices = [
-    [
-      {
-        question: "Is Wi-Fi available on board?",
-        answer:
-          "Yes, Wi-Fi is available on most of our flights. Prices and packages vary by route and duration.",
-      },
-      {
-        question: "Are meals included?",
-        answer:
-          "Complimentary meals are provided on international flights and select domestic routes. Special meal requests must be made 48 hours in advance.",
-      },
-    ],
-  ];
+  const [flightservices, setFlightservices] = useState([
+    {
+      question: "Do you offer in-flight meals?",
+      answer: "Yes, complimentary meals are available on long-haul flights.",
+      visible: false,
+    },
+    {
+      question: "Can I change my flight date?",
+      answer: "Yes, changes can be made depending on fare conditions.",
+      visible: false,
+    },
+  ]);
 
-  const order = [
+  const [order, setOrder] = useState([
     {
       question: "What is your return policy?",
       answer:
         "We offer a 30-day return policy on all items, no questions asked.",
+      visible: false,
     },
     {
       question: "How do I track my order?",
       answer:
         "Once your order ships, you'll receive an email with tracking information.",
+      visible: false,
     },
     {
       question: "Can I purchase items again after returning them?",
       answer: "Yes, you're welcome to reorder any item after a return.",
+      visible: false,
     },
     {
       question: "How do I contact customer support?",
       answer:
         "You can reach us via email at support@example.com or call (123) 456-7890.",
+      visible: false,
     },
-  ];
+  ]);
 
-  const others = [
+  const [others, setOthers] = useState([
     {
       text: "You can ask for assistance with our chatbot",
     },
     {
       text: "Or you can contact us by clicking here",
     },
-  ];
+  ]);
+
+  
 
   return (
     <div className="faqPageBaseContainer">
       <div className="faqPageBaseHeaderContainer">
         <h1>
-          Nisi excepteur sunt aute officia amet nulla do ea eu enim aliqua.
-          Labore proident est amet aliquip officia proident{" "}
+          Need some help. Here are some of the recurrently asked questions that
+          can help you. If you need some help out of them then go on to the
+          other's section where you can find your solution or can contact us.
         </h1>
       </div>
       <div className="faqPageBaseContentContainer">
@@ -110,6 +120,91 @@ export default function FAQPage({ question, answer, isopen, onclick }) {
                       visible: !demo[indexTop].visible,
                     };
                     setBooking([...demo]);
+                  }}
+                >
+                  <h2>{item.question}</h2>
+                  {item.visible ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+                {item.visible && (
+                  <div className="answerContainer">
+                    <p>{item.answer}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div className="faqPageBaseContentItemContainer">
+          {baggage.map((item, indexTop) => {
+            return (
+              <div className="faqPageBaseContentItemBaseContainer">
+                <div
+                  className="questionContainer"
+                  onClick={() => {
+                    let demo = [...baggage];
+                    demo[indexTop] = {
+                      ...demo[indexTop],
+                      visible: !demo[indexTop].visible,
+                    };
+                    setBaggage([...demo]);
+                  }}
+                >
+                  <h2>{item.question}</h2>
+                  {item.visible ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+                {item.visible && (
+                  <div className="answerContainer">
+                    <p>{item.answer}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div className="faqPageBaseContentItemContainer">
+          {flightservices.map((item, indexTop) => {
+            return (
+              <div
+                key={indexTop}
+                className="faqPageBaseContentItemBaseContainer"
+              >
+                <div
+                  className="questionContainer"
+                  onClick={() => {
+                    const updated = [...flightservices];
+                    updated[indexTop] = {
+                      ...updated[indexTop],
+                      visible: !updated[indexTop].visible,
+                    };
+                    setFlightservices(updated);
+                  }}
+                >
+                  <h2>{item.question}</h2>
+                  {item.visible ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+                {item.visible && (
+                  <div className="answerContainer">
+                    <p>{item.answer}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="faqPageBaseContentItemContainer">
+          {order.map((item, indexTop) => {
+            return (
+              <div className="faqPageBaseContentItemBaseContainer">
+                <div
+                  className="questionContainer"
+                  onClick={() => {
+                    let demo = [...order];
+                    demo[indexTop] = {
+                      ...demo[indexTop],
+                      visible: !demo[indexTop].visible,
+                    };
+                    setOrder([...demo]);
                   }}
                 >
                   <h2>{item.question}</h2>
