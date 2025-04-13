@@ -9,6 +9,7 @@ import ContactUsPage from "./Pages/LandingPage/Pages/ContactUsPage/ContactUspage
 import AboutUsPage from "./Pages/LandingPage/Pages/AboutUsPage/AboutUsPage";
 import FAQPage from "./Pages/LandingPage/Pages/FAQPage/FAQPage";
 import FlightBooking from "./Pages/LandingPage/Pages/ServicesPage/Pages/FlightBooking/FlightBooking";
+import MyTrips from "./Pages/LandingPage/Pages/ServicesPage/Pages/MyTrips/MyTrips";
 import BaggageTracking from "./Pages/LandingPage/Pages/ServicesPage/Pages/BaggageTracking/BaggageTracking";
 import Support from "./Pages/LandingPage/Pages/ServicesPage/Pages/Support/Support";
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path={ROUTES.homePage} element={<HomePage />} />
           <Route path={ROUTES.servicesPage} element={<ServicesPage />}>
             <Route path={ROUTES.servicesPageFlightBookingPage} element={<FlightBooking />}/>
+            <Route path={ROUTES.servicesPageMyTripsPage} element= {<MyTrips />}/>
             <Route path={ROUTES.servicesPageBaggageTrackingPage} element={<BaggageTracking />}/>
             <Route path={ROUTES.servicesPagesSupportPage} element={<Support />}/>
           </Route>

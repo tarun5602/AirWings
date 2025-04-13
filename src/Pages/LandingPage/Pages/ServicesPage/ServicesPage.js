@@ -13,6 +13,10 @@ export default function ServicesPage() {
       path: ROUTES.servicesPageFlightBookingPage,
     },
     {
+      title: "My Trip",
+      path: ROUTES.servicesPageMyTripsPage,
+    },
+    {
       title: "Baggage Tracking",
       path: ROUTES.servicesPageBaggageTrackingPage,
     },

@@ -1,0 +1,21 @@
+.myTripsBaseContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.myTripHeadingContainer{
+    border-bottom: 1px solid var(--grayColor);
+}
+.myTripInformationBaseContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 50px;
+    background-color: aqua;
+    
+}
+.myTripInformationItemBaseContainer{
+    width: 60%;
+    background-color: blue;
+}

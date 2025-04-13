@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import CustomInput from "../../../../../../components/CustomInput/CustomInput";
+import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import { MdOutlineSwapHorizontalCircle } from "react-icons/md";
 
 export default function FlightBooking() {
@@ -46,7 +47,7 @@ export default function FlightBooking() {
             padding: "10px 0px",
           }}
         >
-          Flight Information
+          Available Flights
         </h3>
         {flighInfo.map((info, index) => (
           <div
@@ -57,6 +58,7 @@ export default function FlightBooking() {
             <p>{info.time}</p>
             <p>{info.stops} Stops</p>
             <p>Rs. {info.price}</p>
+            <CustomButton title={"Book Now"} />
           </div>
         ))}
       </div>
