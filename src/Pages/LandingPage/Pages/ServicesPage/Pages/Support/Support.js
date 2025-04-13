@@ -9,7 +9,7 @@ export default function Support() {
           textAlign: "center",
         }}
       >
-        Help and Support
+        FeedBack
       </h2>
     </div>
   );

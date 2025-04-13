@@ -45,6 +45,7 @@
 .flightBookingInformationDetailsBaseContainer{
     display: grid;
     justify-items: start;
-    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
     border-bottom: 1px solid var(--grayColor);
 }

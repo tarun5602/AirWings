@@ -5,6 +5,7 @@ const ROUTES = {
     homePage: "/home",
     servicesPage: "/services",
     servicesPageFlightBookingPage: "/services/flight-booking",
+    servicesPageMyTripsPage: "/services/my-trips",
     servicesPageBaggageTrackingPage: "/services/baggage-Tracking",
     servicesPagesSupportPage: "/services/support",
     contactUsPage: "/contactus",
