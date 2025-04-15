@@ -1,8 +1,7 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BsBoxArrowUpRight } from "react-icons/bs";
-import { useNavigate } from 'react-router-dom';
 
 export default function FAQPage() {
   const [bookings, setBooking] = useState([
@@ -85,18 +84,7 @@ export default function FAQPage() {
       visible: false,
     },
   ]);
-
-  const [others, setOthers] = useState([
-    {
-      text: "You can ask for assistance with our chatbot",
-    },
-    {
-      text: "Or you can contact us by clicking here",
-    },
-  ]);
-
   
-
   return (
     <div className="faqPageBaseContainer">
       <div className="faqPageBaseHeaderContainer">
@@ -191,7 +179,6 @@ export default function FAQPage() {
             );
           })}
         </div>
-
         <div className="faqPageBaseContentItemContainer">
           {order.map((item, indexTop) => {
             return (
@@ -219,7 +206,16 @@ export default function FAQPage() {
             );
           })}
         </div>
-        
+        <div className="faqPageBaseContentItemContainer">
+          <div className="faqPageBaseContentItemQueryContainer">
+            <h2>You can ask for assistance with our Chatbot</h2>
+            <BsBoxArrowUpRight />
+          </div>
+          <div className="faqPageBaseContentItemQueryContainer">
+            <h2>Or you can contact us by clicking here</h2>
+            <BsBoxArrowUpRight />
+          </div>
+        </div>
       </div>
     </div>
   );
