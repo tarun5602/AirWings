@@ -209,11 +209,15 @@ export default function FAQPage() {
         <div className="faqPageBaseContentItemContainer">
           <div className="faqPageBaseContentItemQueryContainer">
             <h2>You can ask for assistance with our Chatbot</h2>
-            <BsBoxArrowUpRight />
+            <BsBoxArrowUpRight onClick={() =>{
+              window.location.href = "/chatbot";
+            }} />
           </div>
           <div className="faqPageBaseContentItemQueryContainer">
             <h2>Or you can contact us by clicking here</h2>
-            <BsBoxArrowUpRight />
+            <BsBoxArrowUpRight onClick={() =>{
+              window.location.href = "/contactus";
+            }} />
           </div>
         </div>
       </div>
