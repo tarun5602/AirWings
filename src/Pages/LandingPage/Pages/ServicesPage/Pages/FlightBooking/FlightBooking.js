@@ -40,6 +40,9 @@ export default function FlightBooking() {
             <CustomInput type={"date"} width={"50%"} />
           </div>
         </div>
+        <div className="flightBookingSetRouteSubmitButtonContainer">
+          <CustomButton title={"Submit"} />
+        </div>
       </div>
       <div className="flightBookingInformationBaseContainer">
         <h3

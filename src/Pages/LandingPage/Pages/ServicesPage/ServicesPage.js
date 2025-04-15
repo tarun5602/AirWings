@@ -21,7 +21,7 @@ export default function ServicesPage() {
       path: ROUTES.servicesPageBaggageTrackingPage,
     },
     {
-      title: "Help and Support",
+      title: "Feedback",
       path: ROUTES.servicesPagesSupportPage,
     },
   ];
