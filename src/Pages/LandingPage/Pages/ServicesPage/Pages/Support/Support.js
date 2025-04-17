@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { Rating } from 'react-simple-star-rating'
 import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import { IoMdArrowDropdown } from "react-icons/io";
