@@ -6,6 +6,10 @@ import { useState } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import COLOR from "../../Config/color";
 import ASSETS from "../../assets";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import {Bounce } from 'react-toastify';
+import axios from "axios";
 function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,10 +18,32 @@ function RegisterPage() {
   const [registerDone, setRegisterDone] = useState(false);
   const [registerButtonText, setRegisterButtonText] = useState("Register");
 
-  const handleRegister = () => {
-    if (registerButtonText === "Register") {
+  const customProgressBarStyle ={
+    backgroundColor: "var(--secondaryColor)",
+  }
+
+  const handleRegister = async () => {
+    if (name == "" || email == "") {
+      toast("Please enter your Credentials");
+    } else if (registerButtonText === "Register") {
       setRegisterButtonText("Set Password");
       setRegisterDone(true);
+    } else if (password == "" || confirmPassword == "") {
+      toast("Password and Confirm Password cannot be empty");
+    } else if (password !== confirmPassword) {
+      toast("Passwords do not match");
+    } else {
+      setRegisterButtonText("Please wait...");
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}register/`,
+          { username: name, email, password }
+        );
+        console.log(response);
+      } catch (error) {
+        toast("Failed to register. Please try again later.");
+      }
+      setRegisterButtonText("Set Password");
     }
   };
 
@@ -78,19 +104,22 @@ function RegisterPage() {
           <div className="RegisterPageButtonContainer">
             <CustomButton
               title={registerButtonText}
-              backgroundColor= "var(--baseColor)"
+              backgroundColor="var(--baseColor)"
               color={COLOR.secondaryColor}
               onClick={handleRegister}
               border={"2px solid var(--secondaryColor)"}
             />
           </div>
         </div>
-        <div className="RegisterPageImageContainer" style={{
+        <div
+          className="RegisterPageImageContainer"
+          style={{
             backgroundImage: `url(${ASSETS.registerBackImage})`,
-          }}>
-        
-        </div>
+          }}
+        ></div>
       </div>
+      <ToastContainer draggable autoClose={5000} 
+      transition={Bounce} />
     </div>
   );
 }
