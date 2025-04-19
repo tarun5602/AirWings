@@ -1,18 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import "./styles.css";
+import CustomButton from "../../../../components/CustomButton/CustomButton";
 import { BiSolidOffer } from "react-icons/bi";
 import { IoIosPeople } from "react-icons/io";
 import { TbCirclePercentageFilled } from "react-icons/tb";
 import { MdAirplaneTicket } from "react-icons/md";
 import ASSETS from "../../../../assets";
+// import ASSETS from "../../../../assets/index";
+// import ASSETS from "../../../../assets/images";
 import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
-import {gsap} from "gsap";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
-
   const backImageRef = useRef(null);
 
   const destinations = [
@@ -79,6 +81,41 @@ export default function HomePage() {
     },
   ];
 
+  const testimonials = [
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      role: "Fleet Manager at AirGlobal",
+      image: ASSETS.testimonialOneImage,
+      content:
+        "SkyFlow has transformed how we manage our fleet. The real-time insights are invaluable.",
+    },
+    {
+      id: 2,
+      name: "Michael Chen",
+      role: "Operations Director at SkyLink",
+      image: ASSETS.testimonialTwoImage,
+      content:
+        "The efficiency gains we've achieved with SkyFlow are beyond what we expected. Incredible system!",
+    },
+    {
+      id: 3,
+      name: "Emily Rodriguez",
+      role: "CEO at AeroTech",
+      image: ASSETS.testimonialThreeImage,
+      content:
+        "Best decision we made was switching to SkyFlow. Our operations have never been smoother.",
+    },
+    {
+      id: 4,
+      name: "David Kim",
+      role: "Aviation Manager at Pacific Air",
+      image: ASSETS.testimonialFourImage,
+      content:
+        "The AI-powered insights have helped us reduce costs by 30%. Simply outstanding!",
+    },
+  ];
+
   useEffect(() => {
     gsap.to(backImageRef.current, {
       scale: 10,
@@ -86,21 +123,25 @@ export default function HomePage() {
         trigger: backImageRef.current,
         scrub: true,
         start: "top center",
-        end: "bottom top"
-      }
-    })
-  }, [])
+        end: "bottom top",
+      },
+    });
+  }, []);
 
   return (
     <div
-      style={{
-        flex: 1,
-        backgroundColor: "var(--whiteColor)",
-        display: "flex",
-        position: "relative",
-      }}
+      className="HomePageBaseContainer"
+      style={
+        {
+          // flex: 1,
+          // backgroundColor: "var(--whiteColor)",
+          // display: "flex",
+          // position: "relative",
+        }
+      }
     >
       <div
+        className="HomePageImageBaseContainer"
         style={{
           backgroundImage: `url(${ASSETS.offerSectionBackgroundImage})`,
           backgroundRepeat: "no-repeat",
@@ -114,9 +155,33 @@ export default function HomePage() {
           zIndex: "-1",
         }}
       ></div>
-      <div style={{position: "absolute"}}>
+      <div style={{ position: "absolute" }}>
         <section className="heroSectionBaseContainer">
-          <h1>Hero Section</h1>
+          <div className="heroSectionContainerOneBase">
+            <h1
+              style={{
+                fontSize: "50px",
+              }}
+            >
+              Explore the World with AirWings
+            </h1>
+            <p
+              style={{
+                color: "var(--grayColor)",
+                fontSize: "20px",
+              }}
+            >
+              Your journey begins with us. Discover new horizons and create
+              unforgettable memories.
+            </p>
+            <CustomButton
+              title={"Get Started"}
+              width={"20%"}
+              height={"9%"}
+              color={"var(--baseColor)"}
+            />
+          </div>
+          <div className="heroSectionContainerTwoBase"></div>
         </section>
         <section className="popularDestinationBaseContainer">
           <h1
@@ -161,14 +226,13 @@ export default function HomePage() {
         </section>
         <section className="offersBaseContainer">
           <h1
-           ref={backImageRef}
+            ref={backImageRef}
             style={{
               width: "100%",
               fontWeight: "bold",
               textAlign: "center",
               paddingTop: "40px",
               fontSize: "30px",
-              // backgroundColor: "var(--baseColor)",
               color: "var(--whiteColor)",
             }}
           >
@@ -189,7 +253,44 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-        <section className="testimonialsBaseContainer">testimonials</section>
+        <section className="testimonialsBaseContainer">
+          <div className="testimonialsAbsoluteBaseContainer">
+            <div className="testimonialsAbsoluteBaseOneContainer"></div>
+            <div style={{ flex: 2 }}></div>
+            <div className="testimonialsAbsoluteBaseTwoContainer"></div>
+          </div>
+          <div className="testimonialsMainContentBaseContainer">
+            <h1
+              style={{
+                fontWeight: "bold",
+                textAlign: "center",
+                paddingTop: "30px",
+                fontSize: "30px",
+              }}
+            >
+              Testimonials
+            </h1>
+            <div className="testimonialsCardContainer">
+              {testimonials.map((testimonial) => (
+                <div className="testimonialsCard" key={testimonial.id}>
+                  <div className="testimonialsCardImageBaseContainer">
+                    <div
+                      className="testimonialsCardImageContainer"
+                      style={{ backgroundImage: `url(${testimonial.image})` }}
+                    ></div>
+                    <div className="testimonialsCardImageTextContainer">
+                      <h3>{testimonial.name}</h3>
+                      <p style={{color: "var(--grayColor)"}}>{testimonial.role}</p>
+                    </div>
+                  </div>
+                  <div className="testimonialsCardInfo">
+                    <p>{testimonial.content}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         <CustomFooter />
       </div>
     </div>

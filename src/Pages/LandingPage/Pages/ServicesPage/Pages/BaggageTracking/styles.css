@@ -3,7 +3,7 @@
     flex-direction: column;
     flex: 1;
 }
-.baggageTrackingBaseContainer, h2, p{
+.baggageTrackingBaseContainer h2 p{
     text-align: center;
     padding: 5px;
 }

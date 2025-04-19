@@ -1,7 +1,38 @@
+.HomePageBaseContainer {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.HomePageImageBaseContainer {
+  /* backgroundImage: `url(${ASSETS.offerSectionBackgroundImage})`,
+          backgroundRepeat: "no-repeat"
+          backgroundSize: "cover"
+          backgroundPosition: "right"
+          position: "fixed"
+          top: "0%"
+          left: "0%"
+          width: "100%"
+          height: "100%"
+          zIndex: "-1" */
+}
 .heroSectionBaseContainer {
   width: 100%;
   height: 90vh;
-  text-align: center;
+  display: flex;
+  background-color: white;
+}
+.heroSectionContainerOneBase {
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+.heroSectionContainerTwoBase {
+  width: 100%;
+  padding: 50px;
 }
 .popularDestinationBaseContainer {
   width: 100%;
@@ -10,7 +41,7 @@
   flex-direction: column;
   background-color: var(--baseColor);
 }
-.popularDestinationCardContainer{
+.popularDestinationCardContainer {
   flex: 1;
   display: flex;
   align-items: center;
@@ -18,7 +49,7 @@
   padding: 90px 50px;
   gap: 60px;
 }
-.popularDestinationCardImage{
+.popularDestinationCardImage {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -28,25 +59,21 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: 0.4s ease-in-out;
 }
-.popularDestinationCardImage:hover{
+.popularDestinationCardImage:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
-.popularDestinationImageContainer{
+.popularDestinationImageContainer {
   flex: 1;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
-.popularDestinationCardInfo{
+.popularDestinationCardInfo {
   padding: 20px 10px;
   background-color: var(--whiteColor);
 }
-
-
-
-
 
 .offersBaseContainer {
   width: 100%;
@@ -54,7 +81,7 @@
   position: relative;
   backdrop-filter: blur(4px);
 }
-.offersSectionContainer{
+.offersSectionContainer {
   position: absolute;
   top: 0%;
   bottom: 0%;
@@ -66,7 +93,7 @@
   align-items: center;
   justify-content: center;
 }
-.offersContainer{
+.offersContainer {
   width: 100%;
   height: 35%;
   display: flex;
@@ -80,29 +107,84 @@
   box-shadow: 0 5px 9px var(--borderColor);
   transition: 0.4s ease-in-out;
 }
-.offersContainer:hover{
+.offersContainer:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
-.offersIconContainer{
+.offersIconContainer {
   display: flex;
   width: 90%;
   align-items: center;
   justify-content: space-between;
 }
-.offersIcon{
+.offersIcon {
   color: var(--baseColor);
 }
-.offersInfoContainer{
+.offersInfoContainer {
   width: 90%;
   display: flex;
   flex-direction: column;
 }
-
 
 .testimonialsBaseContainer {
   width: 100%;
   height: 90vh;
   background-color: white;
   text-align: center;
+}
+.testimonialsAbsoluteBaseContainer {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 90vh;
+}
+.testimonialsAbsoluteBaseOneContainer {
+  flex: 1;
+  background: linear-gradient(to right, #ffffff, #ffffff00);
+}
+.testimonialsAbsoluteBaseTwoContainer {
+  flex: 1;
+  background: linear-gradient(to right, #ffffff00, #ffffff);
+}
+.testimonialsMainContentBaseContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* gap: 20px; */
+}
+.testimonialsCardContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.testimonialsCard {
+  width: 100%;
+  height: 40%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.testimonialsCardImageBaseContainer {
+  display: flex;
+}
+.testimonialsCardImageContainer {
+  width: 90px;
+  height: 83px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50px;
+}
+.testimonialsCardImageTextContainer {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
