@@ -7,8 +7,8 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import COLOR from "../../Config/color";
 import ASSETS from "../../assets";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import {Bounce } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 import axios from "axios";
 function RegisterPage() {
   const [name, setName] = useState("");
@@ -18,9 +18,9 @@ function RegisterPage() {
   const [registerDone, setRegisterDone] = useState(false);
   const [registerButtonText, setRegisterButtonText] = useState("Register");
 
-  const customProgressBarStyle ={
-    backgroundColor: "var(--secondaryColor)",
-  }
+  // const customProgressBarStyle = {
+  //   backgroundColor: "var(--secondaryColor)",
+  // };
 
   const handleRegister = async () => {
     if (name == "" || email == "") {
@@ -118,8 +118,7 @@ function RegisterPage() {
           }}
         ></div>
       </div>
-      <ToastContainer draggable autoClose={5000} 
-      transition={Bounce} />
+      <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );
 }

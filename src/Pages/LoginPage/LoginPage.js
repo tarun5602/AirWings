@@ -75,7 +75,7 @@ function LoginPage() {
       <div className="loginPageContentCardBaseContainer">
         <div className="loginPageContentContainer">
           <div className="loginPageHeaderContainer">
-            <h1>Welcome Back 👋</h1>
+            <h1>Welcome Back</h1>
           </div>
           <div className="loginPageInputContainer">
             <div className="loginPageInputTitleContainer">

@@ -1,26 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import { MdOutlineSwapHorizontalCircle } from "react-icons/md";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 export default function FlightBooking() {
-  const flighInfo = [
-    {
-      id: 1,
-      location: "Punjab to Delhi",
-      time: "3hrs",
-      stops: "0",
-      price: "1500",
-    },
-    {
-      id: 2,
-      location: "Punjab to Delhi",
-      time: "3hrs",
-      stops: "0",
-      price: "1500",
-    },
-  ];
+  const [loading, setLoading] = useState(true);
+  const [color] = useState("var(--baseColor)");
+  const [flightInfo, setFlightInfo] = useState([]);
+
+  const fetchFlights = async () => {
+    const start = Date.now();
+
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}flights/create/`
+      );
+      setFlightInfo(response.data || []);
+    } catch (error) {
+      console.error("Error fetching flights:", error);
+      toast("Failed to fetch flights.");
+      setFlightInfo([]);
+    } finally {
+      const elapsed = Date.now() - start;
+      const remainingTime = Math.max(0, 200 - elapsed);
+
+      setTimeout(() => setLoading(false), remainingTime);
+    }
+  };
+
+  useEffect(() => {
+    fetchFlights();
+  }, []);
+
   return (
     <div className="flightBookingBaseContainer">
       <div className="flightBookingSetRouteBaseContainer">
@@ -29,41 +44,58 @@ export default function FlightBooking() {
           <p>1 Passenger</p>
           <p>Economy</p>
         </div>
+
         <div className="flightBookingSetRouteInputBaseContainer">
           <div className="flightBookingSetRouteInputOne">
             <CustomInput width={"50%"} placeholder={"From"} />
             <MdOutlineSwapHorizontalCircle size={25} />
-            <CustomInput width={"50%"} placeholder={"Too"} />
+            <CustomInput width={"50%"} placeholder={"To"} />
           </div>
           <div className="flightBookingSetRouteInputTwo">
             <CustomInput type={"date"} width={"50%"} />
             <CustomInput type={"date"} width={"50%"} />
           </div>
         </div>
+
         <div className="flightBookingSetRouteSubmitButtonContainer">
           <CustomButton title={"Submit"} />
         </div>
       </div>
+
       <div className="flightBookingInformationBaseContainer">
-        <h3
-          style={{
-            padding: "10px 0px",
-          }}
-        >
-          Available Flights
-        </h3>
-        {flighInfo.map((info, index) => (
+        <h3 style={{ padding: "10px 0px" }}>Available Flights</h3>
+
+        {loading ? (
           <div
-            key={info.id}
-            className="flightBookingInformationDetailsBaseContainer"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              padding: "20px",
+            }}
           >
-            <p>{info.location}</p>
-            <p>{info.time}</p>
-            <p>{info.stops} Stops</p>
-            <p>Rs. {info.price}</p>
-            <CustomButton title={"Book Now"} />
+            <ClipLoader color={color} size={50} />
           </div>
-        ))}
+        ) : flightInfo.length === 0 ? (
+          <p>No flights found.</p>
+        ) : (
+          flightInfo.map((info) => (
+            <div
+              key={info.id}
+              className="flightBookingInformationDetailsBaseContainer"
+            >
+              <p>
+                {info.departure} → {info.arrival}
+              </p>
+              <p>
+                {new Date(info.departure_time).toLocaleTimeString()} -{" "}
+                {new Date(info.arrival_time).toLocaleTimeString()}
+              </p>
+              <p>{info.flights_class} Class</p>
+              <p>Rs. {info.price}</p>
+              <CustomButton title={"Book Now"} />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
