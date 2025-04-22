@@ -194,7 +194,7 @@ export default function HomePage() {
               color: "var(--whiteColor)",
             }}
           >
-            Popular Destinations
+            Find Special Prices To Favorite Destinations
           </h1>
           <div className="popularDestinationCardContainer">
             {destinations.map((destination) => (
@@ -236,7 +236,7 @@ export default function HomePage() {
               color: "var(--whiteColor)",
             }}
           >
-            OFFERS
+            Find Special Prices To Favorite Destinations
           </h1>
           <div className="offersSectionContainer">
             {Offer.map((offer) => (

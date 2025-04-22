@@ -90,12 +90,12 @@ export default function AboutUsPage() {
               paddingLeft: "100px",
               paddingBottom: "80px",
               textAlign: "justify",
+              fontSize: "20px",
             }}
           >
             At SkyWings, we are more than just an airline. We are your trusted
             partner in creating unforgettable travel experiences. Our mission is
-            to connect people and places with comfort, reliability, and
-            sustainability at the heart of everything we do.
+            to connect people and places with comfort and exciting experiences at the heart of everything we do.
           </p>
         </div>
         <div className="aboutUsMissionAnimationContainer">

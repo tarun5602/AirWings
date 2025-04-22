@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import CustomButton from "../CustomButton/CustomButton";
 import { IoAirplaneSharp } from "react-icons/io5";
@@ -8,10 +8,16 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../../Config/routes";
 
 function CustomNavBar() {
-
   const sideBarRef = useRef();
-
   const navigate = useNavigate();
+
+  const [isLogin, setIsLogin] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    setUsername(localStorage.getItem("username"))
+    setIsLogin(localStorage.getItem("isLogin"));
+  }, []);
 
   const linkList = [
     {
@@ -29,9 +35,6 @@ function CustomNavBar() {
     {
       title: "Contact Us",
       path: ROUTES.contactUsPage,
-    },
-    {
-      title: "Blog",
     },
     {
       title: "FAQs",
@@ -60,31 +63,35 @@ function CustomNavBar() {
       </div>
       <div className="customNavbarLinkContainer">
         {linkList.map((item) => {
-          return <p onClick={() => navigate(item.path)} >{item.title}</p>;
+          return <p onClick={() => navigate(item.path)}>{item.title}</p>;
         })}
       </div>
       <div className="customNavbarProfileContainer">
-        <div className="customNavbarProfileButtonContainer">
-          <CustomButton
-            title={"Login"}
-            onClick={() => navigate(ROUTES.loginPage)}
-            color={"var(--secondaryColor)"}
-            backgroundColor={"transparent"}
-            border={"2px solid var(--secondaryColor)"}
-          />
-          <CustomButton
-            title={"Register"}
-            onClick={() => navigate(ROUTES.registerPage)}
-            color={"var(--secondaryColor)"}
-            backgroundColor={"transparent"}
-            border={"2px solid var(--secondaryColor)"}
-          />
-        </div>
+        {isLogin ? (
+          <p style={{color: "var(--whiteColor)"}}>Hi, {username.charAt(0).toUpperCase() + username.slice(1)}</p>
+        ) : (
+          <div className="customNavbarProfileButtonContainer">
+            <CustomButton
+              title={"Login"}
+              onClick={() => navigate(ROUTES.loginPage)}
+              color={"var(--secondaryColor)"}
+              backgroundColor={"transparent"}
+              border={"2px solid var(--secondaryColor)"}
+            />
+            <CustomButton
+              title={"Register"}
+              onClick={() => navigate(ROUTES.registerPage)}
+              color={"var(--secondaryColor)"}
+              backgroundColor={"transparent"}
+              border={"2px solid var(--secondaryColor)"}
+            />
+          </div>
+        )}
       </div>
       <div className="customSideNavbarBaseContainer" ref={sideBarRef}>
         <div className="customSideNavbarLinks">
           {linkList.map((item) => {
-            return <p onClick={() => navigate(item.path)} >{item.title}</p>;
+            return <p onClick={() => navigate(item.path)}>{item.title}</p>;
           })}
         </div>
       </div>
