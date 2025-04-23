@@ -10,6 +10,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../Config/routes";
+
 function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +20,8 @@ function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [registerDone, setRegisterDone] = useState(false);
   const [registerButtonText, setRegisterButtonText] = useState("Register");
+
+  const navigate = useNavigate();
 
   // const customProgressBarStyle = {
   //   backgroundColor: "var(--secondaryColor)",
@@ -39,7 +44,9 @@ function RegisterPage() {
           `${process.env.REACT_APP_API_URL}register/`,
           { username: name, email, password }
         );
-        console.log(response);
+        if (response.data.status) {
+          navigate(ROUTES.loginPage);
+        }
       } catch (error) {
         toast("Failed to register. Please try again later.");
       }
