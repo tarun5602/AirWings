@@ -26,17 +26,19 @@
 }
 .baggageTrackingInformationBaseContainer{
     width: 100%;
-    padding-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--grayColor);
 }
 .baggageTrackingInformationContainer{
     display: grid;
     justify-items: start;
     grid-template-columns: repeat(5, 1fr);
-    padding: 20px 0px;
-    padding-top: 30px;
+    padding: 10px 0px;
+    padding-top: 10px;
 }
 .baggageTrackingInformationItemContainer{
     display: grid;
     justify-items: start;
     grid-template-columns: repeat(5, 1fr);
+    padding: 2px;
 }
