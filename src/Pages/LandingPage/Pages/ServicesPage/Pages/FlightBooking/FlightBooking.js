@@ -4,32 +4,25 @@ import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import { MdOutlineSwapHorizontalCircle } from "react-icons/md";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 
 export default function FlightBooking() {
   const [loading, setLoading] = useState(true);
-  const [color] = useState("var(--baseColor)");
   const [flightInfo, setFlightInfo] = useState([]);
+  const [color] = useState("var(--baseColor)");
 
   const fetchFlights = async () => {
-    const start = Date.now();
-
+    setLoading(true);
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}flights/create/`
+        `${process.env.REACT_APP_API_URL}flights/create/`,
       );
       setFlightInfo(response.data || []);
     } catch (error) {
       console.error("Error fetching flights:", error);
-      toast("Failed to fetch flights.");
       setFlightInfo([]);
-    } finally {
-      const elapsed = Date.now() - start;
-      const remainingTime = Math.max(0, 200 - elapsed);
-
-      setTimeout(() => setLoading(false), remainingTime);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
