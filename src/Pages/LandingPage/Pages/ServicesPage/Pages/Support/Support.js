@@ -5,6 +5,7 @@ import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { Bounce } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 
 export default function Support() {
@@ -143,7 +144,7 @@ export default function Support() {
           )}
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer draggable autoClose={5000} transition={Bounce}/>
     </div>
   );
 }
