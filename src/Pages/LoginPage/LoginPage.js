@@ -23,7 +23,7 @@ function LoginPage() {
   };
 
   const handleSignUp = () => {
-    alert("Sign Up functionality is not implemented yet.");
+    navigate(ROUTES.registerPage)
   };
 
   const handleLogin = async () => {
