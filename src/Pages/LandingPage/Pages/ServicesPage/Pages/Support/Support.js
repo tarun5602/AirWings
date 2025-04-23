@@ -1,46 +1,70 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import { Rating } from "react-simple-star-rating";
 import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
-import { toast } from "react-toastify";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 export default function Support() {
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const categoryRef = useRef();
-  const messageRef = useRef();
-  const [rating, setRating] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    category: "",
+    message: "",
+    rating: 0,
+  });
 
-  const handleRating = (rate) => {
-    setRating(rate / 20); // Convert from 0–100 to 1–5
+  const categories = [
+    { value: "service", label: "Service" },
+    { value: "flight_experience", label: "Flight Experience" },
+    { value: "booking", label: "Booking" },
+    { value: "staff", label: "Staff" },
+    { value: "other", label: "Other" },
+  ];
+
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async () => {
-    const payload = {
-      name: nameRef.current.value,
-      email: emailRef.current.value,
-      category: categoryRef.current.value,
-      message: messageRef.current.value,
-      rating: rating,
-    };
-
+    if (!formData.name || !formData.email || !formData.category || !formData.message) {
+      toast.error("Please fill all fields before submitting.");
+      return;
+    }
+  
+    if (formData.rating < 1) {
+      toast.error("Please provide a rating.");
+      return;
+    }
+  
+    setLoading(true);
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}api/feedback/`, payload);
-      toast.success("Feedback submitted!");
-      
-      // Optional: Clear inputs
-      nameRef.current.value = "";
-      emailRef.current.value = "";
-      categoryRef.current.value = "";
-      messageRef.current.value = "";
-      setRating(0);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}feedback/`,
+        formData
+      );
+      if (response.data.status) {
+        toast.success("Feedback submitted successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+          category: "",
+          rating: 0,
+        });
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     } catch (error) {
-      console.error("Submission failed:", error);
-      toast.error("Failed to submit feedback.");
+      toast.error("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   return (
     <div className="feedbackBaseContainer">
@@ -56,33 +80,70 @@ export default function Support() {
         <div className="feedbackFormNameEmailBaseContainer">
           <div className="feedbackFormNameBaseContainer">
             <h5>Name</h5>
-            <CustomInput placeholder="Enter Name" inputRef={nameRef} />
+            <CustomInput
+              placeholder={"Enter Name"}
+              value={formData.name}
+              onChange={(e) => handleInputChange("name", e.target.value)}
+            />
           </div>
           <div className="FeedbackFormEmailBaseContainer">
             <h5>Email</h5>
-            <CustomInput placeholder="Enter Email" type="email" inputRef={emailRef} />
+            <CustomInput
+              placeholder={"Enter Email"}
+              type={"email"}
+              value={formData.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+            />
           </div>
         </div>
 
         <div className="feedbackFormCategoryBaseContainer">
           <h5>What would you like to give feedback about?</h5>
-          <CustomInput placeholder="Select Category" inputRef={categoryRef} />
+          <select
+            className="customSelectInput"
+            value={formData.category}
+            onChange={(e) => handleInputChange("category", e.target.value)}
+          >
+            <option value="">Select Category</option>
+            {categories.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                {cat.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="feedbackFormFeedbackBaseContainer">
-          <h5>Feedback</h5>
-          <CustomInput placeholder="Enter Feedback" inputRef={messageRef} />
+          <h5>Message</h5>
+          <CustomInput
+            placeholder={"Enter your message"}
+            value={formData.message}
+            onChange={(e) => handleInputChange("message", e.target.value)}
+          />
         </div>
 
         <div className="feedbackFormOverallExperienceBaseContainer">
           <h5>How would you rate your overall experience?</h5>
-          <Rating onClick={handleRating} initialValue={rating * 20} />
+          <Rating
+            onClick={(rate) => handleInputChange("rating", rate)}
+            ratingValue={formData.rating}
+            size={25}
+            label
+            transition
+            fillColor="orange"
+            emptyColor="gray"
+          />
         </div>
 
         <div className="feedbackFormSubmitButtonContainer">
-          <CustomButton title="Submit" onClick={handleSubmit} />
+          {loading ? (
+            <ClipLoader color="var(--baseColor)" size={30} />
+          ) : (
+            <CustomButton title={"Submit"} onClick={handleSubmit} />
+          )}
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 }
