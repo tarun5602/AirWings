@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import CustomButton from "../../../../components/CustomButton/CustomButton";
 import { BiSolidOffer } from "react-icons/bi";
@@ -11,11 +11,18 @@ import ASSETS from "../../../../assets";
 import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import axios from "axios";
+import { ClipLoader } from "react-spinners";
+import { Rating } from "react-simple-star-rating";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const backImageRef = useRef(null);
+
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [color] = useState("var(--baseColor)");
 
   const destinations = [
     {
@@ -81,40 +88,23 @@ export default function HomePage() {
     },
   ];
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      role: "Fleet Manager at AirGlobal",
-      image: ASSETS.testimonialOneImage,
-      content:
-        "SkyFlow has transformed how we manage our fleet. The real-time insights are invaluable.",
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "Operations Director at SkyLink",
-      image: ASSETS.testimonialTwoImage,
-      content:
-        "The efficiency gains we've achieved with SkyFlow are beyond what we expected. Incredible system!",
-    },
-    {
-      id: 3,
-      name: "Emily Rodriguez",
-      role: "CEO at AeroTech",
-      image: ASSETS.testimonialThreeImage,
-      content:
-        "Best decision we made was switching to SkyFlow. Our operations have never been smoother.",
-    },
-    {
-      id: 4,
-      name: "David Kim",
-      role: "Aviation Manager at Pacific Air",
-      image: ASSETS.testimonialFourImage,
-      content:
-        "The AI-powered insights have helped us reduce costs by 30%. Simply outstanding!",
-    },
-  ];
+  const fetchTestimonials = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}feedback/`
+      );
+      setTestimonials(response.data || []);
+    } catch (error) {
+      console.error("Failed to fetch testimonials:", error);
+      setTestimonials([]);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
 
   useEffect(() => {
     gsap.to(backImageRef.current, {
@@ -129,17 +119,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div
-      className="HomePageBaseContainer"
-      style={
-        {
-          // flex: 1,
-          // backgroundColor: "var(--whiteColor)",
-          // display: "flex",
-          // position: "relative",
-        }
-      }
-    >
+    <div className="HomePageBaseContainer">
       <div
         className="HomePageImageBaseContainer"
         style={{
@@ -270,25 +250,45 @@ export default function HomePage() {
             >
               Testimonials
             </h1>
-            <div className="testimonialsCardContainer">
-              {testimonials.map((testimonial) => (
-                <div className="testimonialsCard" key={testimonial.id}>
-                  <div className="testimonialsCardImageBaseContainer">
-                    <div
-                      className="testimonialsCardImageContainer"
-                      style={{ backgroundImage: `url(${testimonial.image})` }}
-                    ></div>
-                    <div className="testimonialsCardImageTextContainer">
-                      <h3>{testimonial.name}</h3>
-                      <p style={{color: "var(--grayColor)"}}>{testimonial.role}</p>
+
+            {loading ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "20px",
+                }}
+              >
+                <ClipLoader color={color} size={50} />
+              </div>
+            ) : testimonials.length === 0 ? (
+              <p style={{ textAlign: "center", marginTop: "20px" }}>
+                No testimonials available.
+              </p>
+            ) : (
+              <div className="testimonialsCardContainer">
+                {testimonials.map((testimonial) => (
+                  <div className="testimonialsCard" key={testimonial.id}>
+                    <div className="testimonialsCardImageBaseContainer">
+                      <div className="testimonialsCardImageContainer">
+                        {testimonial.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="testimonialsCardImageTextContainer">
+                        <h3
+                          style={{ textAlign: "left" }}
+                        >{`${testimonial.name[0].toUpperCase()}${testimonial.name.slice(
+                          1
+                        )}`}</h3>
+                        <Rating size={16} initialValue={testimonial.rating} />
+                      </div>
+                    </div>
+                    <div className="testimonialsCardInfo">
+                      <p>{testimonial.message}</p>
                     </div>
                   </div>
-                  <div className="testimonialsCardInfo">
-                    <p>{testimonial.content}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
         <CustomFooter />

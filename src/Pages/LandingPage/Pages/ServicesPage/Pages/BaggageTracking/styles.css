@@ -27,9 +27,9 @@
 .baggageTrackingInformationBaseContainer{
     width: 100%;
     padding-top: 20px;
-    border-top: 1px solid var(--grayColor);
 }
 .baggageTrackingInformationContainer{
+    border-top: 1px solid var(--grayColor);
     display: grid;
     justify-items: start;
     grid-template-columns: repeat(5, 1fr);

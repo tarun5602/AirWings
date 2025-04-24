@@ -4,10 +4,9 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  /* position: fixed; */
   background-color: var(--baseColor);
 }
-.threeLineIcon{
+.threeLineIcon {
   display: none;
   color: var(--whiteColor);
 }
@@ -25,7 +24,7 @@
   color: var(--whiteColor);
 }
 .customNavbarBaseContainer:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .customNavbarLogoBaseContainer .aeroPlaneIcon {
@@ -69,45 +68,44 @@
   display: flex;
   gap: 10px;
 }
-.customSideNavbarBaseContainer{
+.customSideNavbarBaseContainer {
   display: none;
 }
-  /* Tablet Device */
-  @media (max-width: 1024px) {
-    .customNavbarLinkContainer {
-      display: none;
-    }
-    .threeLineIcon{
-      display: flex;  
-    }
-    .customNavbarProfileButtonContainer{
-      display: none;
-    }
-    .customSideNavbarBaseContainer{
-      display: flex;
-      position: absolute;
-      /* opacity: 0; */
-      top: 12%;
-      bottom: 0%;
-      left: 0%;
-      right: 0%;
-      background-color: var(--blackColorDim);
-      backdrop-filter: blur(20px);
-    }
-    .customSideNavbarLinks{
-      width: 65%;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      background-color: var(--whiteColor);
-    }
+/* Tablet Device */
+@media (max-width: 1024px) {
+  .customNavbarLinkContainer {
+    display: none;
   }
-  /* Standard Mobile */
-  @media (max-width: 768px) {
-    
+  .threeLineIcon {
+    display: flex;
   }
-  /* Small Device */
-  @media (max-width: 480px) {
+  .customNavbarProfileButtonContainer {
+    display: none;
   }
+  .customSideNavbarBaseContainer {
+    display: flex;
+    position: absolute;
+    /* opacity: 0; */
+    top: 12%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+    background-color: var(--blackColorDim);
+    backdrop-filter: blur(20px);
+  }
+  .customSideNavbarLinks {
+    width: 65%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--whiteColor);
+  }
+}
+/* Standard Mobile */
+@media (max-width: 768px) {
+}
+/* Small Device */
+@media (max-width: 480px) {
+}
