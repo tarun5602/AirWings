@@ -6,7 +6,6 @@ import CustomButton from "../../../../../../components/CustomButton/CustomButton
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { Bounce } from "react-toastify";
-import { ClipLoader } from "react-spinners";
 
 export default function Support() {
   const [loading, setLoading] = useState(false);
@@ -31,16 +30,21 @@ export default function Support() {
   };
 
   const handleSubmit = async () => {
-    if (!formData.name || !formData.email || !formData.category || !formData.message) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.category ||
+      !formData.message
+    ) {
       toast.error("Please fill all fields before submitting.");
       return;
     }
-  
+
     if (formData.rating < 1) {
       toast.error("Please provide a rating.");
       return;
     }
-  
+
     setLoading(true);
     try {
       const response = await axios.post(
@@ -65,7 +69,6 @@ export default function Support() {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="feedbackBaseContainer">
@@ -137,14 +140,14 @@ export default function Support() {
         </div>
 
         <div className="feedbackFormSubmitButtonContainer">
-          {loading ? (
-            <ClipLoader color="var(--baseColor)" size={30} />
-          ) : (
-            <CustomButton title={"Submit"} onClick={handleSubmit} />
-          )}
+          <CustomButton
+            title={loading ? "Please wait..." : "Submit"}
+            onClick={handleSubmit}
+            disabled={loading}
+          />
         </div>
       </div>
-      <ToastContainer draggable autoClose={5000} transition={Bounce}/>
+      <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );
 }
