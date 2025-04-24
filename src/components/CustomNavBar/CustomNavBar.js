@@ -15,7 +15,7 @@ function CustomNavBar() {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    setUsername(localStorage.getItem("username"))
+    setUsername(localStorage.getItem("username"));
     setIsLogin(localStorage.getItem("isLogin"));
   }, []);
 
@@ -68,7 +68,9 @@ function CustomNavBar() {
       </div>
       <div className="customNavbarProfileContainer">
         {isLogin ? (
-          <p style={{color: "var(--whiteColor)"}}>Hi, {username.charAt(0).toUpperCase() + username.slice(1)}</p>
+          <p style={{ color: "var(--whiteColor)" }}>
+            Hi, {username.charAt(0).toUpperCase() + username.slice(1)}
+          </p>
         ) : (
           <div className="customNavbarProfileButtonContainer">
             <CustomButton
@@ -87,6 +89,9 @@ function CustomNavBar() {
             />
           </div>
         )}
+        <div>
+          <p>logout</p>
+        </div>
       </div>
       <div className="customSideNavbarBaseContainer" ref={sideBarRef}>
         <div className="customSideNavbarLinks">
