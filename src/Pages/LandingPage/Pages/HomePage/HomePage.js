@@ -124,15 +124,6 @@ export default function HomePage() {
         className="HomePageImageBaseContainer"
         style={{
           backgroundImage: `url(${ASSETS.offerSectionBackgroundImage})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "right",
-          position: "fixed",
-          top: "0%",
-          left: "0%",
-          width: "100%",
-          height: "100%",
-          zIndex: "-1",
         }}
       ></div>
       <div style={{ position: "absolute" }}>
@@ -145,8 +136,7 @@ export default function HomePage() {
             >
               Explore the World with AirWings
             </h1>
-            <p
-              style={{
+            <p style={{
                 color: "var(--grayColor)",
                 fontSize: "20px",
               }}
@@ -164,18 +154,7 @@ export default function HomePage() {
           <div className="heroSectionContainerTwoBase"></div>
         </section>
         <section className="popularDestinationBaseContainer">
-          <h1
-            style={{
-              width: "100%",
-              textAlign: "center",
-              fontWeight: "bold",
-              paddingTop: "40px",
-              fontSize: "30px",
-              color: "var(--whiteColor)",
-            }}
-          >
-            Find Special Prices To Favorite Destinations
-          </h1>
+          <h1>Find Special Prices To Favorite Destinations</h1>
           <div className="popularDestinationCardContainer">
             {destinations.map((destination) => (
               <div className="popularDestinationCardImage" key={destination.id}>
@@ -205,17 +184,7 @@ export default function HomePage() {
           </div>
         </section>
         <section className="offersBaseContainer">
-          <h1
-            ref={backImageRef}
-            style={{
-              width: "100%",
-              fontWeight: "bold",
-              textAlign: "center",
-              paddingTop: "40px",
-              fontSize: "30px",
-              color: "var(--whiteColor)",
-            }}
-          >
+          <h1 ref={backImageRef}>
             Find Special Prices To Favorite Destinations
           </h1>
           <div className="offersSectionContainer">

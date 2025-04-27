@@ -4,16 +4,15 @@
   position: relative;
 }
 .HomePageImageBaseContainer {
-  /* backgroundImage: `url(${ASSETS.offerSectionBackgroundImage})`,
-          backgroundRepeat: "no-repeat"
-          backgroundSize: "cover"
-          backgroundPosition: "right"
-          position: "fixed"
-          top: "0%"
-          left: "0%"
-          width: "100%"
-          height: "100%"
-          zIndex: "-1" */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: "right";
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 .heroSectionBaseContainer {
   width: 100%;
@@ -41,6 +40,15 @@
   flex-direction: column;
   background-color: var(--baseColor);
 }
+.popularDestinationBaseContainer h1 {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 40px;
+  font-size: 30px;
+  color: var(--whiteColor);
+}
+
 .popularDestinationCardContainer {
   flex: 1;
   display: flex;
@@ -81,6 +89,15 @@
   position: relative;
   backdrop-filter: blur(4px);
 }
+.offersBaseContainer h1 {
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 40px;
+  font-size: 30px;
+  color: var(--whiteColor);
+}
+
 .offersSectionContainer {
   position: absolute;
   top: 0%;

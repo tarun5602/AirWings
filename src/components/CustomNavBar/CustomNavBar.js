@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import CustomButton from "../CustomButton/CustomButton";
-import { IoAirplaneSharp } from "react-icons/io5";
-import { IoReorderThreeOutline } from "react-icons/io5";
+import { IoAirplaneSharp, IoReorderThreeOutline } from "react-icons/io5";
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../Config/routes";
@@ -13,33 +12,28 @@ function CustomNavBar() {
 
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
-    setUsername(localStorage.getItem("username"));
-    setIsLogin(localStorage.getItem("isLogin"));
+    const storedUsername = localStorage.getItem("username");
+    const storedIsLogin = localStorage.getItem("isLogin") === "true";
+    setUsername(storedUsername);
+    setIsLogin(storedIsLogin);
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("isLogin");
+    setIsLogin(false);
+    navigate(ROUTES.loginPage);
+  };
+
   const linkList = [
-    {
-      title: "Home",
-      path: ROUTES.homePage,
-    },
-    {
-      title: "Services",
-      path: ROUTES.servicesPageFlightBookingPage,
-    },
-    {
-      title: "About Us",
-      path: ROUTES.aboutUsPage,
-    },
-    {
-      title: "Contact Us",
-      path: ROUTES.contactUsPage,
-    },
-    {
-      title: "FAQs",
-      path: ROUTES.FAQPage,
-    },
+    { title: "Home", path: ROUTES.homePage },
+    { title: "Services", path: ROUTES.servicesPageFlightBookingPage },
+    { title: "About Us", path: ROUTES.aboutUsPage },
+    { title: "Contact Us", path: ROUTES.contactUsPage },
+    { title: "FAQs", path: ROUTES.FAQPage },
   ];
 
   return (
@@ -62,15 +56,44 @@ function CustomNavBar() {
         </div>
       </div>
       <div className="customNavbarLinkContainer">
-        {linkList.map((item) => {
-          return <p onClick={() => navigate(item.path)}>{item.title}</p>;
-        })}
+        {linkList.map((item) => (
+          <p key={item.title} onClick={() => navigate(item.path)}>
+            {item.title}
+          </p>
+        ))}
       </div>
       <div className="customNavbarProfileContainer">
         {isLogin ? (
-          <p style={{ color: "var(--whiteColor)" }}>
-            Hi, {username.charAt(0).toUpperCase() + username.slice(1)}
-          </p>
+          <div
+            className="customNavbarProfile"
+            onClick={() => setShowDropdown((prev) => !prev)}
+          >
+            <div className="customNavbarProfileIcon">
+              {username.charAt(0).toUpperCase()}
+            </div>
+            <p style={{ color: "var(--whiteColor)" }}>
+              Hi, {username.charAt(0).toUpperCase() + username.slice(1)}
+            </p>
+            {showDropdown && (
+              <div className="customNavbarDropdownContainer">
+                <div
+                  className="customNavbarDropdownProfileContainer"
+                  onClick={() => {
+                    setShowDropdown(false);
+                    navigate(ROUTES.profilePage);
+                  }}
+                >
+                  Profile
+                </div>
+                <div
+                  className="customNavbarDropdownLogoutContainer"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </div>
+              </div>
+            )}
+          </div>
         ) : (
           <div className="customNavbarProfileButtonContainer">
             <CustomButton
@@ -89,15 +112,14 @@ function CustomNavBar() {
             />
           </div>
         )}
-        <div>
-          <p>logout</p>
-        </div>
       </div>
       <div className="customSideNavbarBaseContainer" ref={sideBarRef}>
         <div className="customSideNavbarLinks">
-          {linkList.map((item) => {
-            return <p onClick={() => navigate(item.path)}>{item.title}</p>;
-          })}
+          {linkList.map((item) => (
+            <p key={item.title} onClick={() => navigate(item.path)}>
+              {item.title}
+            </p>
+          ))}
         </div>
       </div>
     </div>
