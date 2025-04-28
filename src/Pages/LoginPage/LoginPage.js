@@ -59,6 +59,7 @@ function LoginPage() {
         toast(response.data.message);
         localStorage.setItem("isLogin", true);
         localStorage.setItem("username", response.data.data.username);
+        localStorage.setItem("email", response.data.data.email);
         navigate(ROUTES.homePage);
       } else {
         toast("Login failed. Please check your credentials.");

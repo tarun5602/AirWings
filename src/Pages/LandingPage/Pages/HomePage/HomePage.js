@@ -1,14 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import CustomButton from "../../../../components/CustomButton/CustomButton";
-import { BiSolidOffer } from "react-icons/bi";
-import { IoIosPeople } from "react-icons/io";
-import { TbCirclePercentageFilled } from "react-icons/tb";
-import { MdAirplaneTicket } from "react-icons/md";
 import ASSETS from "../../../../assets";
-// import ASSETS from "../../../../assets/index";
-// import ASSETS from "../../../../assets/images";
 import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
+import CustomIcon from "../../../../components/CustomIcon/CustomIcon";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import axios from "axios";
@@ -20,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HomePage() {
   const backImageRef = useRef(null);
 
+  const [offers, setOffers] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(false);
   const [color] = useState("var(--baseColor)");
@@ -55,38 +51,23 @@ export default function HomePage() {
     },
   ];
 
-  const Offer = [
-    {
-      id: 1,
-      title: "Welcome Offer",
-      offer: 15,
-      description: "Get 20% off on your first flight",
-      Icon: BiSolidOffer,
-    },
-    {
-      id: 2,
-      title: "Family Package",
-      offer: 25,
-      description:
-        "Experience the world with family and friends with a budget friendly offer",
-      Icon: IoIosPeople,
-    },
-    {
-      id: 3,
-      title: "Season Offer",
-      offer: 10,
-      description: "Exclusive offer for limited time period",
-      Icon: TbCirclePercentageFilled,
-    },
-    {
-      id: 4,
-      title: "Early Bird",
-      offer: 20,
-      description:
-        "Get early bird discount on booking your flight 60 days before",
-      Icon: MdAirplaneTicket,
-    },
-  ];
+  useEffect(() => {
+    const fetchOffers = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}offer/`
+        );
+        setOffers(response.data || []);
+      } catch (error) {
+        console.error("Error fetching offers:", error);
+        setOffers([]);
+      }
+      setLoading(false);
+    };
+
+    fetchOffers();
+  }, []);
 
   const fetchTestimonials = async () => {
     setLoading(true);
@@ -136,7 +117,8 @@ export default function HomePage() {
             >
               Explore the World with AirWings
             </h1>
-            <p style={{
+            <p
+              style={{
                 color: "var(--grayColor)",
                 fontSize: "20px",
               }}
@@ -151,7 +133,10 @@ export default function HomePage() {
               color={"var(--baseColor)"}
             />
           </div>
-          <div className="heroSectionContainerTwoBase"></div>
+          <div
+            className="heroSectionContainerTwoBase"
+            style={{ backgroundImage: `url(${ASSETS.heroSectionPlaneImage})` }}
+          ></div>
         </section>
         <section className="popularDestinationBaseContainer">
           <h1>Find Special Prices To Favorite Destinations</h1>
@@ -187,21 +172,39 @@ export default function HomePage() {
           <h1 ref={backImageRef}>
             Find Special Prices To Favorite Destinations
           </h1>
-          <div className="offersSectionContainer">
-            {Offer.map((offer) => (
-              <div className="offersContainer">
-                <div className="offersIconContainer">
-                  <offer.Icon className="offersIcon" size={48} />
-                  <h2>{offer.offer}%</h2>
+
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "20px",
+              }}
+            >
+              <ClipLoader color={color} size={50} />
+            </div>
+          ) : offers.length === 0 ? (
+            <p style={{ textAlign: "center", padding: "20px" }}>
+              No offers found.
+            </p>
+          ) : (
+            <div className="offersSectionContainer">
+              {offers.map((offer) => (
+                <div className="offersContainer" key={offer.id}>
+                  <div className="offersIconContainer">
+                    <CustomIcon iconName={offer.iconName} />
+                    <h2>{offer.offer}</h2>
+                  </div>
+                  <div className="offersInfoContainer">
+                    <h2 style={{ color: "var(--baseColor)" }}>{offer.title}</h2>
+                    <p>{offer.description}</p>
+                  </div>
                 </div>
-                <div className="offersInfoContainer">
-                  <h2 style={{ color: "var(--baseColor)" }}>{offer.title}</h2>
-                  <p>{offer.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
+
         <section className="testimonialsBaseContainer">
           <div className="testimonialsAbsoluteBaseContainer">
             <div className="testimonialsAbsoluteBaseOneContainer"></div>

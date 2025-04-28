@@ -8,10 +8,7 @@ const ASSETS = {
   destinationBaliImage: require("./images/destinationBaliImage.jpg"),
   contactUsImage: require("./images/contactUsImage.jpeg"),
   offerSectionBackgroundImage: require("./images/SectionOfferBackground.png"),
-  testimonialOneImage: require("./images/Testimonial1.jpg"),
-  testimonialTwoImage: require("./images/Testimonial2.jpg"),
-  testimonialThreeImage: require("./images/Testimonial3.jpg"),
-  testimonialFourImage: require("./images/Testimonial4.jpg"),
+  heroSectionPlaneImage: require("./images/HeroSectionPlace.png")
 };
 
 export default ASSETS;

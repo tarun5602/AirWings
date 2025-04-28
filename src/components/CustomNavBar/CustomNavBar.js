@@ -22,8 +22,7 @@ function CustomNavBar() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("isLogin");
+    localStorage.clear();
     setIsLogin(false);
     navigate(ROUTES.loginPage);
   };
@@ -71,11 +70,11 @@ function CustomNavBar() {
             <div className="customNavbarProfileIcon">
               {username.charAt(0).toUpperCase()}
             </div>
-            <p style={{ color: "var(--whiteColor)" }}>
-              Hi, {username.charAt(0).toUpperCase() + username.slice(1)}
-            </p>
             {showDropdown && (
               <div className="customNavbarDropdownContainer">
+                <div className="customNavbarDropdownProfileContainer">
+                  {`${username.charAt(0).toUpperCase()}${username.slice(1)}`}
+                </div>
                 <div
                   className="customNavbarDropdownProfileContainer"
                   onClick={() => {

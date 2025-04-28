@@ -78,7 +78,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--secondaryColor);
-  color: var(--whiteColor);
+  color: var(--baseColor);
   font-weight: bold;
   font-size: 18px;
 }
@@ -90,7 +90,7 @@
   z-index: 1;
   padding: 5px;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px #ddd;
+  box-shadow: 0px 4px 12px #00000033;
 }
 .customNavbarDropdownProfileContainer {
   padding: 10px 20px;
