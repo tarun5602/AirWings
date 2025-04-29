@@ -42,7 +42,7 @@ export default function ProfilePage() {
           }));
         }
       } catch (error) {
-        console.error("Error fetching profile:", error);
+        toast.error("Error fetching profile:", error);
       }
     };
     fetchProfile();
@@ -56,7 +56,7 @@ export default function ProfilePage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault?.(); // check if e.preventDefault exists (if triggered from button click)
+    e.preventDefault?.();
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}profile/`,

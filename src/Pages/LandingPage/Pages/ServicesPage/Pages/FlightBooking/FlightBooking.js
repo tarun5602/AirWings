@@ -5,11 +5,16 @@ import CustomButton from "../../../../../../components/CustomButton/CustomButton
 import { MdOutlineSwapHorizontalCircle } from "react-icons/md";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
+import { toast, ToastContainer } from "react-toastify";
+import { Bounce } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../../../../../Config/routes";
 
 export default function FlightBooking() {
   const [loading, setLoading] = useState(true);
   const [flightInfo, setFlightInfo] = useState([]);
   const [color] = useState("var(--baseColor)");
+  const navigate = useNavigate();
 
   const fetchFlights = async () => {
     setLoading(true);
@@ -28,6 +33,31 @@ export default function FlightBooking() {
   useEffect(() => {
     fetchFlights();
   }, []);
+
+
+  const handleBookNow= async(data) => {
+    try{
+      const flightDetail = data ?? {}
+      const username = localStorage.getItem('username');
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}profile?username=${username}`
+      );
+      const response2 = await axios.get(
+        `${process.env.REACT_APP_API_URL}baggage/`
+      );
+      if (response.data.status) {
+        navigate(ROUTES.servicesPageFlightBookingFormPage, {
+          state: {
+            flightDetail: flightDetail,
+            profileDetail: response.data.data,
+            baggageDetail: response2.data.data,
+          }
+        })
+      }
+    }catch(error){
+      toast.error("Complete your Profile First");
+    }
+  }
 
   return (
     <div className="flightBookingBaseContainer">
@@ -85,11 +115,12 @@ export default function FlightBooking() {
               </p>
               <p>{info.flights_class} Class</p>
               <p>Rs. {info.price}</p>
-              <CustomButton title={"Book Now"} />
+              <CustomButton title={"Book Now"} onClick={() => handleBookNow(info)} />
             </div>
           ))
         )}
       </div>
+      <ToastContainer draggable autoClose={5000} transition={Bounce}/>
     </div>
   );
 }

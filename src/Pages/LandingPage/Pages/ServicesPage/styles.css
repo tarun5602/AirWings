@@ -1,27 +1,36 @@
-.servicesPageBaseContainer{
-    flex: 1;
-    display: flex;
+.servicesPageBaseContainer {
+  flex: 1;
+  display: flex;
 }
-.servicesPageSideBarContainer{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    box-shadow: 0px 0px 10px #DDD;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+.servicesPageSideBarContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px #ddd;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
-.servicePageItemBaseContainer{
-    background-color: var(--whiteColor);
-    border-radius: 10px;
-    cursor: pointer;
-    padding: 10px 20px;
-    text-align: left;
+.servicePageItemBaseContainer {
+  background-color: var(--whiteColor);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-align: left;
 }
-.servicesPageContentContainer{
-    display: flex;
-    flex: 6;
-    overflow: auto;
-    padding: 20px;
+.servicesPageContentContainer {
+  position: relative;
+  display: flex;
+  flex: 6;
+  overflow: auto;
+}
+.servicesPageUpperContainer {
+  position: absolute;
+  overflow: auto;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  padding: 20px;
 }

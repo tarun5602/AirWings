@@ -1,0 +1,25 @@
+.flightBookingFormBaseContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.flightBookingFormsContainer{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #ddd;
+}
+.flightBookingFormGridBaseContainer{
+    display: grid;
+    grid-template-columns: repeat(4, 2fr);
+    gap: 30px;
+}
+.flighBookingFormGrid{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

@@ -47,7 +47,9 @@ export default function ServicesPage() {
         ))}
       </div>
       <div className="servicesPageContentContainer">
-        <Outlet />
+        <div className="servicesPageUpperContainer">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

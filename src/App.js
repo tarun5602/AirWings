@@ -13,6 +13,7 @@ import FlightBooking from "./Pages/LandingPage/Pages/ServicesPage/Pages/FlightBo
 import MyTrips from "./Pages/LandingPage/Pages/ServicesPage/Pages/MyTrips/MyTrips";
 import BaggageTracking from "./Pages/LandingPage/Pages/ServicesPage/Pages/BaggageTracking/BaggageTracking";
 import Support from "./Pages/LandingPage/Pages/ServicesPage/Pages/Support/Support";
+import FlightBookingForm from "./Pages/LandingPage/Pages/ServicesPage/Pages/FlightBooking/Pages/FlightBookingForm/FlightBookingForm";
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +24,10 @@ function App() {
             <Route
               path={ROUTES.servicesPageFlightBookingPage}
               element={<FlightBooking />}
+            />
+            <Route 
+              path={ROUTES.servicesPageFlightBookingFormPage}
+              element={<FlightBookingForm />}
             />
             <Route
               path={ROUTES.servicesPageMyTripsPage}
