@@ -16,9 +16,7 @@ export default function FlightBookingForm() {
   const handleSubmit = async () => {
     const username = localStorage.getItem("username");
     const flightId = data.flightDetail.id;
-    const baggageId = data.baggageDetail.id;
-
-    console.log(baggageId);
+    const profileId = data.profileDetail.id;
 
     if (!passportNumber) {
       alert("Please enter your passport number");
@@ -26,24 +24,62 @@ export default function FlightBookingForm() {
     }
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}booking/`,
-        {
-          username: username,
-          passport_number: passportNumber,
-          flight_id: flightId,
-          baggage_id: baggageId,
+      const baggageIds = [];
+      let user_id;
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}profile?username=${username}`
+        );
+        if (response.data.id) {
+          user_id = response.data.id;
         }
-      );
-
-      if (response.data.status) {
-        alert("Booking Successful!");
-      } else {
-        alert("Booking failed.");
+      } catch (error) {
+        toast.error("Error fetching profile.");
+        console.error("Profile fetch error:", error);
       }
+
+      for (const baggage of baggageList) {
+        const baggageRes = await axios.post(
+          `${process.env.REACT_APP_API_URL}baggage/`,
+          {
+            user: user_id,
+            weight: baggage.weight,
+            dimensions: baggage.dimensions,
+            description: baggage.description,
+            quantity: baggage.quantity,
+          }
+        );
+
+        if (baggageRes.data.status) {
+          baggageIds.push(baggageRes.data.data.id);
+        } else {
+          toast.error("Failed to add baggage");
+          return;
+        }
+      }
+      for (const baggageId of baggageIds) {
+        const bookingRes = await axios.post(
+          `${process.env.REACT_APP_API_URL}booking/`,
+          {
+            user_id: user_id,
+            profile_id: profileId,
+            flight_id: flightId,
+            baggage_id: baggageId,
+            username: username,
+            passport_number: passportNumber,
+          }
+        );
+
+        if (!bookingRes.data.status) {
+          toast.error("Booking failed for baggage ID " + baggageId);
+          return;
+        }
+      }
+
+      toast.success("Booking Successful!");
     } catch (error) {
       console.error("Booking error:", error);
-      alert("Error during booking. Check console.");
+      toast.error("Error during booking. Check console.");
     }
   };
 
@@ -236,6 +272,7 @@ export default function FlightBookingForm() {
         </div>
       </div>
       <CustomButton title={"Submit"} onClick={handleSubmit} />
+      <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );
 }
