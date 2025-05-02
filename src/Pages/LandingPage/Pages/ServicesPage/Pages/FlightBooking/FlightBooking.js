@@ -20,9 +20,9 @@ export default function FlightBooking() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}flights/create/`,
+        `${process.env.REACT_APP_API_URL}flights/create/`
       );
-      setFlightInfo(response.data || []);
+      setFlightInfo(response.data.data || []);
     } catch (error) {
       console.error("Error fetching flights:", error);
       setFlightInfo([]);
@@ -34,11 +34,10 @@ export default function FlightBooking() {
     fetchFlights();
   }, []);
 
-
-  const handleBookNow= async(data) => {
-    try{
-      const flightDetail = data ?? {}
-      const username = localStorage.getItem('username');
+  const handleBookNow = async (data) => {
+    try {
+      const flightDetail = data ?? {};
+      const username = localStorage.getItem("username");
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}profile?username=${username}`
       );
@@ -51,13 +50,13 @@ export default function FlightBooking() {
             flightDetail: flightDetail,
             profileDetail: response.data.data,
             baggageDetail: response2.data.data,
-          }
-        })
+          },
+        });
       }
-    }catch(error){
+    } catch (error) {
       toast.error("Complete your Profile First");
     }
-  }
+  };
 
   return (
     <div className="flightBookingBaseContainer">
@@ -115,12 +114,15 @@ export default function FlightBooking() {
               </p>
               <p>{info.flights_class} Class</p>
               <p>Rs. {info.price}</p>
-              <CustomButton title={"Book Now"} onClick={() => handleBookNow(info)} />
+              <CustomButton
+                title={"Book Now"}
+                onClick={() => handleBookNow(info)}
+              />
             </div>
           ))
         )}
       </div>
-      <ToastContainer draggable autoClose={5000} transition={Bounce}/>
+      <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );
 }

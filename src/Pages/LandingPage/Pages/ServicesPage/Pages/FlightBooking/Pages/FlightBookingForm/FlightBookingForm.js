@@ -1,11 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import { Bounce } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import CustomInput from "../../../../../../../../components/CustomInput/CustomInput";
+import CustomButton from "../../../../../../../../components/CustomButton/CustomButton";
 
 export default function FlightBookingForm() {
   const location = useLocation();
   const data = location.state;
+  const [passportNumber, setPassportNumber] = React.useState("");
+
+  const handleSubmit = async () => {
+    const username = localStorage.getItem("username");
+    const flightId = data.flightDetail.id;
+    const baggageId = data.baggageDetail.id;
+
+    console.log(baggageId);
+
+    if (!passportNumber) {
+      alert("Please enter your passport number");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}booking/`,
+        {
+          username: username,
+          passport_number: passportNumber,
+          flight_id: flightId,
+          baggage_id: baggageId,
+        }
+      );
+
+      if (response.data.status) {
+        alert("Booking Successful!");
+      } else {
+        alert("Booking failed.");
+      }
+    } catch (error) {
+      console.error("Booking error:", error);
+      alert("Error during booking. Check console.");
+    }
+  };
+
+  const [baggageList, setBaggageList] = useState([
+    { weight: "", dimensions: "", quantity: "", description: "" },
+  ]);
+
+  const handleChange = (index, field, value) => {
+    const updatedList = [...baggageList];
+    updatedList[index][field] = value;
+    setBaggageList(updatedList);
+  };
+
+  const addBaggage = () => {
+    setBaggageList([
+      ...baggageList,
+      { weight: "", dimensions: "", quantity: "", description: "" },
+    ]);
+  };
+
+  const removeBaggage = (index) => {
+    const updatedList = baggageList.filter((_, i) => i !== index);
+    setBaggageList(updatedList);
+  };
 
   function calculateAge() {
     const dob = data.profileDetail.date_of_birth;
@@ -95,32 +157,72 @@ export default function FlightBookingForm() {
       </div>
 
       <div className="flightBookingFormsContainer">
-        <h3>Baggage Details</h3>
-        <div className="flightBookingFormGridBaseContainer">
-          <div className="flighBookingFormGrid">
-            <label>{JSON.stringify(data)}</label>
-          </div>
+        <div className="flightBookingFormAddBaseContainer">
+          <h3>Add Baggage</h3>
+          <CustomButton
+            width={"18%"}
+            title={"Add Bag"}
+            onClick={addBaggage}
+            className="addBtn"
+          />
         </div>
+        {baggageList.map((item, index) => (
+          <div key={index} className="flightBookingFormGridBaseContainer">
+            <div className="flighBookingFormGrid">
+              <label>Weight (kg)</label>
+              <CustomInput
+                value={item.weight}
+                onChange={(e) => handleChange(index, "weight", e.target.value)}
+              />
+            </div>
+            <div className="flighBookingFormGrid">
+              <label>Dimensions</label>
+              <CustomInput
+                value={item.dimensions}
+                onChange={(e) =>
+                  handleChange(index, "dimensions", e.target.value)
+                }
+              />
+            </div>
+            <div className="flighBookingFormGrid">
+              <label>Quantity</label>
+              <CustomInput
+                value={item.quantity}
+                onChange={(e) =>
+                  handleChange(index, "quantity", e.target.value)
+                }
+              />
+            </div>
+            <div className="flighBookingFormGrid">
+              <label>Description</label>
+              <CustomInput
+                value={item.description}
+                onChange={(e) =>
+                  handleChange(index, "description", e.target.value)
+                }
+              />
+            </div>
+            <div className="flighBookingFormGrid baggageActionButtons">
+              <CustomButton
+                title={"Remove"}
+                onClick={() => removeBaggage(index)}
+                className="removeBtn"
+              />
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="flightBookingFormsContainer">
         <h3>Passport Details</h3>
         <div className="flightBookingFormGridBaseContainer">
           <div className="flighBookingFormGrid">
-            <label>Flight Number</label>
-            <CustomInput />
-          </div>
-          <div className="flighBookingFormGrid">
-            <label>Passport Country</label>
-            <CustomInput />
-          </div>
-          <div className="flighBookingFormGrid">
-            <label>Passport Expiry Date</label>
-            <CustomInput />
-          </div>
-          <div className="flighBookingFormGrid">
-            <label>Nationality</label>
-            <CustomInput />
+            <label>Passport Number</label>
+            <CustomInput
+              value={passportNumber}
+              onChange={(e) => setPassportNumber(e.target.value)}
+              placeholder="Enter Passport Number"
+            />
           </div>
         </div>
       </div>
@@ -129,10 +231,11 @@ export default function FlightBookingForm() {
         <h3>Add Members</h3>
         <div className="flightBookingFormGridBaseContainer">
           <div className="flighBookingFormGrid">
-            <label></label>
+            <label>{JSON.stringify(data.baggageDetail)}</label>
           </div>
         </div>
       </div>
+      <CustomButton title={"Submit"} onClick={handleSubmit} />
     </div>
   );
 }

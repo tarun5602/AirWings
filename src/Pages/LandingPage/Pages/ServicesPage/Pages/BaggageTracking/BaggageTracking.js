@@ -17,7 +17,7 @@ export default function BaggageTracking() {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}baggage/`
       );
-      setBaggages(response.data);
+      setBaggages(response.data.data);
     } catch (error) {
       toast.error("Error fetching baggage data");
       setBaggages([]);
