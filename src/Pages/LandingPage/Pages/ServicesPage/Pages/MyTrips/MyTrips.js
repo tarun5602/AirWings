@@ -1,35 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
+import axios from "axios";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoAirplaneOutline } from "react-icons/io5";
-import { MdDateRange } from "react-icons/md";
-import { MdOutlineAccessTime } from "react-icons/md";
-import { MdOutlinePeopleAlt } from "react-icons/md";
+import {
+  MdDateRange,
+  MdOutlineAccessTime,
+  MdOutlinePeopleAlt,
+} from "react-icons/md";
 import { ImPriceTags } from "react-icons/im";
 import { LuBaggageClaim } from "react-icons/lu";
 
 export default function MyTrips() {
-  const flights = [
-    {
-      id: 1,
-      flightNo: "AB123",
-      fromLocation: "Pune",
-      fromDate: "12 December 2022",
-      fromTime: "10:00 AM",
-      toLocation: "Delhi",
-      toDate: "12 December 2022",
-      toTime: "12:00 PM",
-      terminal: "T4",
-      gate: "G7",
-      seat: "12A",
-      class: "Economy",
-      passengers: "2 Persons",
-      totalPrice: "1500",
-      Baggage: "2x23Kg",
-      status: "On Time",
-    },
-  ];
+  const [flights, setFlights] = useState([]);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const username = localStorage.getItem("username");
+
+      let user_id;
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}profile?username=${username}`
+        );
+        if (response.data.data.id) {
+          user_id = response.data.data.id;
+          try {
+            const response1 = await axios.get(
+              `${process.env.REACT_APP_API_URL}booking?username=${username}`
+            );
+            if (response1.data.status) {
+              const formattedBookings = response1.data.data.map(
+                (booking, index) => ({
+                  id: index,
+                  flightNo: booking.flight.flight_number,
+                  fromLocation: booking.flight.departure,
+                  toLocation: booking.flight.arrival,
+                  fromDate: booking.flight.departure_time.split("T")[0],
+                  fromTime: new Date(
+                    booking.flight.departure_time
+                  ).toLocaleTimeString(),
+                  toDate: booking.flight.arrival_time.split("T")[0],
+                  toTime: new Date(
+                    booking.flight.arrival_time
+                  ).toLocaleTimeString(),
+                  terminal: "T4",
+                  gate: "G7",
+                  seat: "12A",
+                  class: booking.flight.flights_class,
+                  passengers: "1 Person",
+                  totalPrice: booking.flight.price || "N/A",
+                  baggage: `${booking.baggage.quantity}x${booking.baggage.weight}Kg`,
+                  status: "On Time",
+                })
+              );
+
+              setFlights(formattedBookings);
+            }
+            console.log("Booking response:", response1.data);
+          } catch (error) {
+            console.error("Failed to fetch bookings:", error);
+          }
+        }
+      } catch (error) {
+        console.error("Profile fetch error:", error);
+      }
+    };
+
+    fetchBookings();
+  }, []);
 
   return (
     <div className="myTripsBaseContainer">
@@ -37,6 +77,7 @@ export default function MyTrips() {
         <h2>My Trips</h2>
         <p>Manage your upcoming flights and travel plans</p>
       </div>
+
       <div className="myTripInformationBaseContainer">
         {flights.map((item) => (
           <div key={item.id} className="myTripInformationItemBaseContainer">
@@ -52,6 +93,7 @@ export default function MyTrips() {
                 </div>
               </div>
             </div>
+
             <div className="myTripInfromationMainItemBaseContainer">
               <div className="myTripInformationMainItemLoctionBaseContainer">
                 <div className="myTripInformationMainItemFromLocationBaseContainer">
@@ -64,9 +106,11 @@ export default function MyTrips() {
                     <p>{item.fromTime}</p>
                   </div>
                 </div>
+
                 <div className="myTripInformationMainItemLocationArrowContainer">
                   <FaArrowRight size={30} />
                 </div>
+
                 <div className="mytripInformationMainItemToLocationBaseLoaction">
                   <p>To</p>
                   <h4>{item.toLocation}</h4>
@@ -78,6 +122,7 @@ export default function MyTrips() {
                   </div>
                 </div>
               </div>
+
               <div className="myTripInformationMainItemTypeBaseContainer">
                 <div className="myTripInformationMainItemTypeTerminalContianer">
                   <p>Terminal</p>
@@ -96,6 +141,7 @@ export default function MyTrips() {
                   <h4>{item.class}</h4>
                 </div>
               </div>
+
               <div className="mytripInformationMainItemPriceBaseContainer">
                 <div className="myTripInformationMainItemPricePassengersBaseContainer">
                   <MdOutlinePeopleAlt />
@@ -119,9 +165,10 @@ export default function MyTrips() {
                   </div>
                 </div>
               </div>
+
               <div className="myTripsInformationMainItemModifactionButtonBaseContainer">
-                <CustomButton title={"Modification"}/>
-                <CustomButton title={"Cancel"}/>
+                <CustomButton title={"Modification"} />
+                <CustomButton title={"Cancel"} />
               </div>
             </div>
           </div>

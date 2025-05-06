@@ -170,12 +170,12 @@ export default function FlightBookingForm() {
             <CustomInput value={data.flightDetail.arrival} />
           </div>
           <div className="flighBookingFormGrid">
-            <label>Form Date</label>
-            <CustomInput value={data.flightDetail.departure_time} />
+            <label>From Date</label>
+            <CustomInput value={new Date(data.flightDetail.departure_time).toLocaleString()} />
           </div>
           <div className="flighBookingFormGrid">
             <label>To Date</label>
-            <CustomInput value={data.flightDetail.arrival_time} />
+            <CustomInput value={new Date(data.flightDetail.arrival_time).toLocaleString()} />
           </div>
           <div className="flighBookingFormGrid">
             <label>Airline</label>
@@ -224,9 +224,13 @@ export default function FlightBookingForm() {
               <label>Quantity</label>
               <CustomInput
                 value={item.quantity}
-                onChange={(e) =>
-                  handleChange(index, "quantity", e.target.value)
-                }
+                type={"number"}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value <= 46) {
+                    handleChange(index, "quantity", e.target.value);
+                  }
+                }}
               />
             </div>
             <div className="flighBookingFormGrid">
