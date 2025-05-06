@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
+import CustomLoader from "../../../../../../components/CustomLoader/CustomLoader";
 import { MdOutlineSwapHorizontalCircle } from "react-icons/md";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
@@ -88,14 +89,8 @@ export default function FlightBooking() {
         <h3 style={{ padding: "10px 0px" }}>Available Flights</h3>
 
         {loading ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "20px",
-            }}
-          >
-            <ClipLoader color={color} size={50} />
+          <div>
+            <CustomLoader />
           </div>
         ) : flightInfo.length === 0 ? (
           <p>No flights found.</p>
