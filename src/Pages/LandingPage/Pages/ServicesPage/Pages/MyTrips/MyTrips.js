@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import axios from "axios";
+import CustomLoader from "../../../../../../components/CustomLoader/CustomLoader";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoAirplaneOutline } from "react-icons/io5";
@@ -11,11 +12,19 @@ import {
 } from "react-icons/md";
 import { ImPriceTags } from "react-icons/im";
 import { LuBaggageClaim } from "react-icons/lu";
+import { toast, ToastContainer } from "react-toastify";
+import { Bounce } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../../../../../Config/routes";
 
 export default function MyTrips() {
+  const [loading, setLoading] = useState(true);
   const [flights, setFlights] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
+    setLoading(true);
     const fetchBookings = async () => {
       const username = localStorage.getItem("username");
 
@@ -30,7 +39,7 @@ export default function MyTrips() {
             const response1 = await axios.get(
               `${process.env.REACT_APP_API_URL}booking?username=${username}`
             );
-            if (response1.data.status) {
+            if (response1.data.status) { 
               const formattedBookings = response1.data.data.map(
                 (booking, index) => ({
                   id: index,
@@ -58,18 +67,27 @@ export default function MyTrips() {
 
               setFlights(formattedBookings);
             }
-            console.log("Booking response:", response1.data);
           } catch (error) {
-            console.error("Failed to fetch bookings:", error);
+            toast.error("Failed to fetch bookings:", error);
           }
         }
       } catch (error) {
-        console.error("Profile fetch error:", error);
+        toast.error("Profile fetch error:", error);
       }
+      setLoading(false);
     };
-
     fetchBookings();
   }, []);
+
+  const handlePDF = (trip) => {
+    navigate(ROUTES.servicesPageMyTripsPageViewPDF, {
+      state: {
+        tripDetails: trip,
+        
+      },
+    });
+  };
+  
 
   return (
     <div className="myTripsBaseContainer">
@@ -77,103 +95,112 @@ export default function MyTrips() {
         <h2>My Trips</h2>
         <p>Manage your upcoming flights and travel plans</p>
       </div>
-
-      <div className="myTripInformationBaseContainer">
-        {flights.map((item) => (
-          <div key={item.id} className="myTripInformationItemBaseContainer">
-            <div className="myTripInformationHeadingBaseContainer">
-              <IoAirplaneOutline size={29} />
-              <div className="myTripInformationHeadingContainer">
-                <div className="myTripInformationHeading">
-                  <p>Flight Number</p>
-                  <h4>{item.flightNo}</h4>
+      {loading ? (
+        <div>
+          <CustomLoader />
+        </div>
+      ) : flights.length === 0 ? (
+        <p style={{paddingTop: "20px",}}>No Trips found.</p>
+      ) : (
+        <div className="myTripInformationBaseContainer">
+          {flights.map((item) => (
+            <div key={item.id} className="myTripInformationItemBaseContainer">
+              <div className="myTripInformationHeadingBaseContainer">
+                <IoAirplaneOutline size={29} />
+                <div className="myTripInformationHeadingContainer">
+                  <div className="myTripInformationHeading">
+                    <p>Flight Number</p>
+                    <h4>{item.flightNo}</h4>
+                  </div>
+                  <div className="myTripInformationHeadingButton">
+                    <CustomButton title={item.status} />
+                  </div>
                 </div>
-                <div className="myTripInformationHeadingButton">
-                  <CustomButton title={item.status} />
+              </div>
+
+              <div className="myTripInfromationMainItemBaseContainer">
+                <div className="myTripInformationMainItemLoctionBaseContainer">
+                  <div className="myTripInformationMainItemFromLocationBaseContainer">
+                    <p>From</p>
+                    <h4>{item.fromLocation}</h4>
+                    <div className="myTripInfromationMainItemFromLoactionDateTimeContainer">
+                      <MdDateRange />
+                      <p>{item.fromDate}</p>
+                      <MdOutlineAccessTime />
+                      <p>{item.fromTime}</p>
+                    </div>
+                  </div>
+
+                  <div className="myTripInformationMainItemLocationArrowContainer">
+                    <FaArrowRight size={30} />
+                  </div>
+
+                  <div className="mytripInformationMainItemToLocationBaseLoaction">
+                    <p>To</p>
+                    <h4>{item.toLocation}</h4>
+                    <div className="myTripInfromationMainItemFromLoactionDateTimeContainer">
+                      <MdDateRange />
+                      <p>{item.toDate}</p>
+                      <MdOutlineAccessTime />
+                      <p>{item.toTime}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="myTripInformationMainItemTypeBaseContainer">
+                  <div className="myTripInformationMainItemTypeTerminalContianer">
+                    <p>Terminal</p>
+                    <h4>{item.terminal}</h4>
+                  </div>
+                  <div className="myTripInformationMainItemTypeGateContianer">
+                    <p>Gate</p>
+                    <h4>{item.gate}</h4>
+                  </div>
+                  <div className="myTripInformationMainItemTypeSeatContianer">
+                    <p>Seat</p>
+                    <h4>{item.seat}</h4>
+                  </div>
+                  <div className="myTripInformationMainItemTypeClassContianer">
+                    <p>Class</p>
+                    <h4>{item.class}</h4>
+                  </div>
+                </div>
+
+                <div className="mytripInformationMainItemPriceBaseContainer">
+                  <div className="myTripInformationMainItemPricePassengersBaseContainer">
+                    <MdOutlinePeopleAlt />
+                    <div className="myTripInformationMainItemPricePassengerContainer">
+                      <p>Passengers</p>
+                      <h4>{item.passengers}</h4>
+                    </div>
+                  </div>
+                  <div className="myTripInforamtionMainItemPricePriceBaseContainer">
+                    <ImPriceTags />
+                    <div className="myTripInformationMainItemPricePriceContainer">
+                      <p>Total Price</p>
+                      <h4>{item.totalPrice}</h4>
+                    </div>
+                  </div>
+                  <div className="myTripInformationMainItemPriceBaggageBaseContainer">
+                    <LuBaggageClaim />
+                    <div className="myTripInformationMainItemPriceBaggageContainer">
+                      <p>Baggage</p>
+                      <h4>{item.baggage}</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="myTripsInformationMainItemModifactionButtonBaseContainer">
+                  <CustomButton title={"Download PDF"} onClick={() => handlePDF(item)} />
+                  <CustomButton title={"Modification"} />
+                  <CustomButton title={"Cancel"} />
                 </div>
               </div>
             </div>
-
-            <div className="myTripInfromationMainItemBaseContainer">
-              <div className="myTripInformationMainItemLoctionBaseContainer">
-                <div className="myTripInformationMainItemFromLocationBaseContainer">
-                  <p>From</p>
-                  <h4>{item.fromLocation}</h4>
-                  <div className="myTripInfromationMainItemFromLoactionDateTimeContainer">
-                    <MdDateRange />
-                    <p>{item.fromDate}</p>
-                    <MdOutlineAccessTime />
-                    <p>{item.fromTime}</p>
-                  </div>
-                </div>
-
-                <div className="myTripInformationMainItemLocationArrowContainer">
-                  <FaArrowRight size={30} />
-                </div>
-
-                <div className="mytripInformationMainItemToLocationBaseLoaction">
-                  <p>To</p>
-                  <h4>{item.toLocation}</h4>
-                  <div className="myTripInfromationMainItemFromLoactionDateTimeContainer">
-                    <MdDateRange />
-                    <p>{item.toDate}</p>
-                    <MdOutlineAccessTime />
-                    <p>{item.toTime}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="myTripInformationMainItemTypeBaseContainer">
-                <div className="myTripInformationMainItemTypeTerminalContianer">
-                  <p>Terminal</p>
-                  <h4>{item.terminal}</h4>
-                </div>
-                <div className="myTripInformationMainItemTypeGateContianer">
-                  <p>Gate</p>
-                  <h4>{item.gate}</h4>
-                </div>
-                <div className="myTripInformationMainItemTypeSeatContianer">
-                  <p>Seat</p>
-                  <h4>{item.seat}</h4>
-                </div>
-                <div className="myTripInformationMainItemTypeClassContianer">
-                  <p>Class</p>
-                  <h4>{item.class}</h4>
-                </div>
-              </div>
-
-              <div className="mytripInformationMainItemPriceBaseContainer">
-                <div className="myTripInformationMainItemPricePassengersBaseContainer">
-                  <MdOutlinePeopleAlt />
-                  <div className="myTripInformationMainItemPricePassengerContainer">
-                    <p>Passengers</p>
-                    <h4>{item.passengers}</h4>
-                  </div>
-                </div>
-                <div className="myTripInforamtionMainItemPricePriceBaseContainer">
-                  <ImPriceTags />
-                  <div className="myTripInformationMainItemPricePriceContainer">
-                    <p>Total Price</p>
-                    <h4>{item.totalPrice}</h4>
-                  </div>
-                </div>
-                <div className="myTripInformationMainItemPriceBaggageBaseContainer">
-                  <LuBaggageClaim />
-                  <div className="myTripInformationMainItemPriceBaggageContainer">
-                    <p>Baggage</p>
-                    <h4>{item.baggage}</h4>
-                  </div>
-                </div>
-              </div>
-
-              <div className="myTripsInformationMainItemModifactionButtonBaseContainer">
-                <CustomButton title={"Modification"} />
-                <CustomButton title={"Cancel"} />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+      <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -7,11 +7,14 @@ import { Bounce } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import CustomInput from "../../../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../../../components/CustomButton/CustomButton";
+import ROUTES from "../../../../../../../../Config/routes";
 
 export default function FlightBookingForm() {
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const data = location.state;
   const [passportNumber, setPassportNumber] = React.useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const username = localStorage.getItem("username");
@@ -35,7 +38,6 @@ export default function FlightBookingForm() {
         }
       } catch (error) {
         toast.error("Error fetching profile.");
-        console.error("Profile fetch error:", error);
       }
 
       for (const baggage of baggageList) {
@@ -67,6 +69,7 @@ export default function FlightBookingForm() {
             baggage_id: baggageId,
             username: username,
             passport_number: passportNumber,
+            num_passengers: 5,
           }
         );
 
@@ -77,8 +80,8 @@ export default function FlightBookingForm() {
       }
 
       toast.success("Booking Successful!");
+      // navigate(ROUTES.homePage);
     } catch (error) {
-      console.error("Booking error:", error);
       toast.error("Error during booking. Check console.");
     }
   };

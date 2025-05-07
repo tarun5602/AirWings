@@ -5,7 +5,6 @@ import CustomButton from "../../../../../../components/CustomButton/CustomButton
 import CustomLoader from "../../../../../../components/CustomLoader/CustomLoader";
 import { MdOutlineSwapHorizontalCircle } from "react-icons/md";
 import axios from "axios";
-import { ClipLoader } from "react-spinners";
 import { toast, ToastContainer } from "react-toastify";
 import { Bounce } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +13,6 @@ import ROUTES from "../../../../../../Config/routes";
 export default function FlightBooking() {
   const [loading, setLoading] = useState(true);
   const [flightInfo, setFlightInfo] = useState([]);
-  const [color] = useState("var(--baseColor)");
   const navigate = useNavigate();
 
   const fetchFlights = async () => {
