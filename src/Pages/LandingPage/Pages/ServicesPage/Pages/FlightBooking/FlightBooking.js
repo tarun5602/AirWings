@@ -19,7 +19,7 @@ export default function FlightBooking() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}flights/create/`
+        `${process.env.REACT_APP_API_URL}flights/`
       );
       setFlightInfo(response.data.data || []);
     } catch (error) {
