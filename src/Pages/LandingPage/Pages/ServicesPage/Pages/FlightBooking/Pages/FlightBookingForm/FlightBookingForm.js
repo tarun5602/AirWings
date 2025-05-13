@@ -96,18 +96,6 @@ export default function FlightBookingForm() {
     setBaggageList(updatedList);
   };
 
-  const addBaggage = () => {
-    setBaggageList([
-      ...baggageList,
-      { weight: "", dimensions: "", quantity: "", description: "" },
-    ]);
-  };
-
-  const removeBaggage = (index) => {
-    const updatedList = baggageList.filter((_, i) => i !== index);
-    setBaggageList(updatedList);
-  };
-
   function calculateAge() {
     const dob = data.profileDetail.date_of_birth;
     const birthDate = new Date(dob);
@@ -120,8 +108,8 @@ export default function FlightBookingForm() {
     }
     return age;
   }
-
   const age = calculateAge();
+  data.profileDetail.age = age; 
 
   return (
     <div className="flightBookingFormBaseContainer">
@@ -174,11 +162,17 @@ export default function FlightBookingForm() {
           </div>
           <div className="flighBookingFormGrid">
             <label>From Date</label>
-            <CustomInput value={new Date(data.flightDetail.departure_time).toLocaleString()} />
+            <CustomInput
+              value={new Date(
+                data.flightDetail.departure_time
+              ).toLocaleString()}
+            />
           </div>
           <div className="flighBookingFormGrid">
             <label>To Date</label>
-            <CustomInput value={new Date(data.flightDetail.arrival_time).toLocaleString()} />
+            <CustomInput
+              value={new Date(data.flightDetail.arrival_time).toLocaleString()}
+            />
           </div>
           <div className="flighBookingFormGrid">
             <label>Airline</label>
@@ -198,12 +192,6 @@ export default function FlightBookingForm() {
       <div className="flightBookingFormsContainer">
         <div className="flightBookingFormAddBaseContainer">
           <h3>Add Baggage</h3>
-          <CustomButton
-            width={"18%"}
-            title={"Add Bag"}
-            onClick={addBaggage}
-            className="addBtn"
-          />
         </div>
         {baggageList.map((item, index) => (
           <div key={index} className="flightBookingFormGridBaseContainer">
@@ -245,13 +233,6 @@ export default function FlightBookingForm() {
                 }
               />
             </div>
-            <div className="flighBookingFormGrid baggageActionButtons">
-              <CustomButton
-                title={"Remove"}
-                onClick={() => removeBaggage(index)}
-                className="removeBtn"
-              />
-            </div>
           </div>
         ))}
       </div>
@@ -274,7 +255,7 @@ export default function FlightBookingForm() {
         <h3>Add Members</h3>
         <div className="flightBookingFormGridBaseContainer">
           <div className="flighBookingFormGrid">
-            <label>{JSON.stringify(data.baggageDetail)}</label>
+            <label></label>
           </div>
         </div>
       </div>

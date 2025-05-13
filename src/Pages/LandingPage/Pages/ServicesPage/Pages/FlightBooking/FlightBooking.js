@@ -23,7 +23,7 @@ export default function FlightBooking() {
       );
       setFlightInfo(response.data.data || []);
     } catch (error) {
-      console.error("Error fetching flights:", error);
+      toast.error("Error fetching flights:", error);
       setFlightInfo([]);
     }
     setLoading(false);

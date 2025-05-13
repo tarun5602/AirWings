@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "./styles.css";
 import { useLocation } from "react-router-dom";
 import {
   Document,
@@ -6,114 +7,219 @@ import {
   Text,
   View,
   StyleSheet,
-  PDFDownloadLink,
   PDFViewer,
+  Image,
 } from "@react-pdf/renderer";
-import "./styles.css";
+import ASSETS from "../../../../../../../assets";
+import axios from "axios";
 
-// PDF styles
 const styles = StyleSheet.create({
   page: {
     padding: 30,
     fontSize: 12,
-    fontFamily: "Helvetica",
     backgroundColor: "#fff",
   },
-  title: {
-    fontSize: 20,
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#333",
-  },
-  section: {
-    marginBottom: 10,
-    padding: 10,
-    border: "1px solid #eee",
-    borderRadius: 5,
-  },
-  row: {
+  mainHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 6,
+    alignItems: "center",
+    marginBottom: 20,
   },
-  label: {
+  heading: {
+    paddingBottom: 5,
+    fontSize: 14,
     fontWeight: "bold",
-    color: "#444",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  wings: {
+    color: "#debb89",
+  },
+  confirmedSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    color: "#21ab23",
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 6,
+  },
+  greeting: {
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#000",
+    borderBottomStyle: "solid",
+  },
+  routeBaseRow: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#000",
+    borderBottomStyle: "solid",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 20,
+  },
+  routeRow: {
+    flexDirection: "column",
+  },
+  arrowIcon: {
+    width: 25,
+    height: 25,
+  },
+  BaseInfoContainer: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#000",
+    borderBottomStyle: "solid",
+  },
+  grid: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  gridItem: {
+    width: "25%",
   },
 });
 
-// Component for PDF content
-const TripPDF = ({ trip }) => (
+const TripPDF = ({ trip, profile, baggage }) => (
   <Document>
-    <Page style={styles.page} size={"A4"}>
-      <Text style={styles.title}>Flight Ticket</Text>
+    <Page style={styles.page} size="A4">
+      <View style={styles.mainHeader}>
+        <Text style={styles.title}>
+          Air<Text style={styles.wings}>Wings</Text>
+        </Text>
+        <View style={styles.confirmedSection}>
+          <Image src={ASSETS.viewPdfTickIcon} style={styles.icon} />
+          <Text>Booking Confirmed</Text>
+        </View>
+      </View>
 
-      <View style={styles.section}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Flight Number:</Text>
-          <Text>{trip.flightNo}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>From:</Text>
-          <Text>{trip.fromLocation}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>To:</Text>
-          <Text>{trip.toLocation}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Departure:</Text>
+      <View style={styles.greeting}>
+        <Text>Hi,</Text>
+        <Text>
+          Your flight from <Text>{trip.fromLocation}</Text> to{" "}
+          <Text>{trip.toLocation}</Text> is confirmed.
+        </Text>
+      </View>
+
+      <View style={styles.routeBaseRow}>
+        <View style={styles.routeRow}>
           <Text>
-            {trip.fromDate} at {trip.fromTime}
+            {trip.fromLocation} {trip.fromTime}
           </Text>
+          <Text>{trip.fromDate}</Text>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Arrival:</Text>
+        <Image src={ASSETS.viewPdfArrowRightIcon} style={styles.arrowIcon} />
+        <View style={styles.routeRow}>
           <Text>
-            {trip.toDate} at {trip.toTime}
+            {trip.toLocation} {trip.toTime}
           </Text>
+          <Text>{trip.toDate}</Text>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Terminal:</Text>
-          <Text>{trip.terminal}</Text>
+      </View>
+
+      <View style={styles.BaseInfoContainer}>
+        <Text style={styles.heading}>Passenger Information</Text>
+        <View style={styles.grid}>
+          <View style={styles.gridItem}>
+            <Text>Name</Text>
+            <Text>
+              1. {profile.first_name} {profile.last_name}
+            </Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text>Age</Text>
+            <Text>{profile.age}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text>Gender</Text>
+            <Text>{profile.gender || "N/A"}</Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Gate:</Text>
-          <Text>{trip.gate}</Text>
+      </View>
+
+      <View style={styles.BaseInfoContainer}>
+        <Text style={styles.heading}>Flight Details</Text>
+        <View style={styles.grid}>
+          <View style={styles.gridItem}>
+            <Text>Terminal</Text>
+            <Text>{trip.terminal}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text>Gate</Text>
+            <Text>{trip.gate}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text>Seat</Text>
+            <Text>{trip.seat}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text>Class</Text>
+            <Text>{trip.class}</Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Seat:</Text>
-          <Text>{trip.seat}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Class:</Text>
-          <Text>{trip.class}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Passengers:</Text>
-          <Text>{trip.passengers}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Total Price:</Text>
-          <Text>{trip.totalPrice}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Baggage:</Text>
-          <Text>{trip.baggage}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Status:</Text>
-          <Text>{trip.status}</Text>
+      </View>
+
+      <View style={styles.BaseInfoContainer}>
+        <Text style={styles.heading}>Baggage Details</Text>
+        <View style={styles.grid}>
+          {baggage ? (
+            <>
+              <View style={styles.gridItem}>
+                <Text>Baggage ID</Text>
+                <Text>{baggage.baggage_id}</Text>
+              </View>
+              <View style={styles.gridItem}>
+                <Text>Quantity</Text>
+                <Text>{baggage.quantity}</Text>
+              </View>
+              <View style={styles.gridItem}>
+                <Text>Weight</Text>
+                <Text>{baggage.weight} Kg</Text>
+              </View>
+              <View style={styles.gridItem}>
+                <Text>Status</Text>
+                <Text>{baggage.status}</Text>
+              </View>
+            </>
+          ) : (
+            <Text>No baggage information available.</Text>
+          )}
         </View>
       </View>
     </Page>
   </Document>
 );
 
-// Main component
 export default function ViewPDF() {
   const location = useLocation();
-  const { tripDetails } = location.state || {};
+  const { tripDetails, profileDetails } = location.state || {};
+  const [baggageDetails, setBaggageDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchBaggage = async () => {
+      const username = localStorage.getItem("username");
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}baggage/`);
+        const baggageList = res.data;
+        const matched = baggageList.find(
+          (item) => item.user.username === username
+        );
+        if (matched) {
+          setBaggageDetails(matched);
+        }
+      } catch (err) {
+        console.error("Failed to fetch baggage details:", err);
+      }
+    };
+    fetchBaggage();
+  }, []);
 
   return (
     <div className="view-pdf-container">
@@ -127,7 +233,11 @@ export default function ViewPDF() {
             borderRadius: "15px",
           }}
         >
-          <TripPDF trip={tripDetails} />
+          <TripPDF
+            trip={tripDetails}
+            profile={profileDetails}
+            baggage={baggageDetails}
+          />
         </PDFViewer>
       </div>
     </div>

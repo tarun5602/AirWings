@@ -9,6 +9,9 @@ const ASSETS = {
   contactUsImage: require("./images/contactUsImage.jpeg"),
   offerSectionBackgroundImage: require("./images/SectionOfferBackground.png"),
   heroSectionPlaneImage: require("./images/HeroSectionPlane.png"),
+
+  viewPdfArrowRightIcon: require("./icons/arrow-right-icon.png"),
+  viewPdfTickIcon: require("./icons/tick-circleicon.png"),
 };
 
 export default ASSETS;

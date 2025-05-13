@@ -20,26 +20,28 @@ import ROUTES from "../../../../../../Config/routes";
 export default function MyTrips() {
   const [loading, setLoading] = useState(true);
   const [flights, setFlights] = useState([]);
+  const [profileDetails, setProfileDetails] = useState(null);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     setLoading(true);
     const fetchBookings = async () => {
       const username = localStorage.getItem("username");
 
-      let user_id;
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}profile?username=${username}`
         );
         if (response.data.data.id) {
-          user_id = response.data.data.id;
+          setProfileDetails(response.data.data);
+          console.log("Profile Details:", response.data.data);
+
+
           try {
             const response1 = await axios.get(
               `${process.env.REACT_APP_API_URL}booking?username=${username}`
             );
-            if (response1.data.status) { 
+            if (response1.data.status) {
               const formattedBookings = response1.data.data.map(
                 (booking, index) => ({
                   id: index,
@@ -64,7 +66,6 @@ export default function MyTrips() {
                   status: "On Time",
                 })
               );
-
               setFlights(formattedBookings);
             }
           } catch (error) {
@@ -80,14 +81,14 @@ export default function MyTrips() {
   }, []);
 
   const handlePDF = (trip) => {
+    console.log(trip)
     navigate(ROUTES.servicesPageMyTripsPageViewPDF, {
       state: {
         tripDetails: trip,
-        
+        profileDetails: profileDetails,
       },
     });
   };
-  
 
   return (
     <div className="myTripsBaseContainer">
@@ -100,7 +101,7 @@ export default function MyTrips() {
           <CustomLoader />
         </div>
       ) : flights.length === 0 ? (
-        <p style={{paddingTop: "20px",}}>No Trips found.</p>
+        <p style={{ paddingTop: "20px" }}>No Trips found.</p>
       ) : (
         <div className="myTripInformationBaseContainer">
           {flights.map((item) => (
@@ -191,7 +192,10 @@ export default function MyTrips() {
                 </div>
 
                 <div className="myTripsInformationMainItemModifactionButtonBaseContainer">
-                  <CustomButton title={"Download PDF"} onClick={() => handlePDF(item)} />
+                  <CustomButton
+                    title={"Download PDF"}
+                    onClick={() => handlePDF(item)}
+                  />
                   <CustomButton title={"Modification"} />
                   <CustomButton title={"Cancel"} />
                 </div>
