@@ -23,12 +23,14 @@ function LoginPage() {
   };
 
   const handleSignUp = () => {
-    navigate(ROUTES.registerPage)
+    navigate(ROUTES.registerPage);
   };
 
   const handleLogin = async () => {
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!trimmedEmail && !trimmedPassword) {
       toast("Please enter email and password.");
@@ -40,8 +42,18 @@ function LoginPage() {
       return;
     }
 
+    if (!emailRegex.test(trimmedEmail)) {
+      toast("Please enter a valid email address.");
+      return;
+    }
+
     if (!trimmedPassword) {
       toast("Please enter your password.");
+      return;
+    }
+
+    if (trimmedPassword.length < 6) {
+      toast("Password must be at least 6 characters long.");
       return;
     }
 
