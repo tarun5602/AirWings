@@ -69,7 +69,7 @@ export default function BaggageTracking() {
                 className="baggageTrackingInformationItemContainer"
               >
                 <p>{baggage.baggage_id}</p>
-                <p>{baggage.passenger_name}</p>
+                <p>{baggage.user}</p>
                 <p>{baggage.status}</p>
                 <p>{new Date(baggage.check_in_time).toLocaleString()}</p>
                 <p>{baggage.flight}</p>

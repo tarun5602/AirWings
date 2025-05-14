@@ -16,19 +16,71 @@ export default function FlightBookingForm() {
   const [passportNumber, setPassportNumber] = React.useState("");
   const navigate = useNavigate();
 
+  const validateBaggage = () => {
+    for (const [i, baggage] of baggageList.entries()) {
+      const weight = Number(baggage.weight);
+      const quantity = Number(baggage.quantity);
+
+      // Parse dimensions string "LxWxH" to numbers
+      const dims = baggage.dimensions.split("x").map((d) => Number(d.trim()));
+      const totalDimension = dims.reduce((a, b) => a + b, 0);
+
+      if (!weight || isNaN(weight) || weight <= 0 || weight > 32) {
+        toast.error(`Baggage: Weight must be between 1 and 32 kg.`);
+        return false;
+      }
+
+      if (
+        dims.length !== 3 ||
+        dims.some((d) => isNaN(d) || d <= 0) ||
+        totalDimension > 158
+      ) {
+        toast.error(
+          `Baggage ${
+            i + 1
+          }: Dimensions must be in format LxWxH and total ≤ 158 cm.`
+        );
+        return false;
+      }
+
+      if (!quantity || isNaN(quantity) || quantity < 1 || quantity > 2) {
+        toast.error(`Baggage: Quantity must be 1 or 2.`);
+        return false;
+      }
+
+      if (!baggage.description.trim()) {
+        toast.error(`Baggage: Description is required.`);
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmit = async () => {
     const username = localStorage.getItem("username");
     const flightId = data.flightDetail.id;
     const profileId = data.profileDetail.id;
 
+    const passportRegex = /^[A-Z][0-9]{7}$/;
+
     if (!passportNumber) {
-      alert("Please enter your passport number");
+      toast.error("Please enter your passport number.");
+      return;
+    }
+    if (!passportRegex.test(passportNumber)) {
+      toast.error(
+        "Invalid passport number. It must be 1 capital letter followed by 7 digits (e.g. A1234567)."
+      );
+      return;
+    }
+    if (!validateBaggage()) {
       return;
     }
 
     try {
       const baggageIds = [];
       let user_id;
+
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}profile?username=${username}`
@@ -38,6 +90,7 @@ export default function FlightBookingForm() {
         }
       } catch (error) {
         toast.error("Error fetching profile.");
+        return;
       }
 
       for (const baggage of baggageList) {
@@ -55,10 +108,11 @@ export default function FlightBookingForm() {
         if (baggageRes.data.status) {
           baggageIds.push(baggageRes.data.data.id);
         } else {
-          toast.error("Failed to add baggage");
+          toast.error("Failed to add baggage.");
           return;
         }
       }
+
       for (const baggageId of baggageIds) {
         const bookingRes = await axios.post(
           `${process.env.REACT_APP_API_URL}booking/`,
@@ -82,7 +136,8 @@ export default function FlightBookingForm() {
       toast.success("Booking Successful!");
       // navigate(ROUTES.homePage);
     } catch (error) {
-      toast.error("Error during booking. Check console.");
+      console.error(error);
+      toast.error("Error during booking.");
     }
   };
 
@@ -109,7 +164,7 @@ export default function FlightBookingForm() {
     return age;
   }
   const age = calculateAge();
-  data.profileDetail.age = age; 
+  data.profileDetail.age = age;
 
   return (
     <div className="flightBookingFormBaseContainer">
@@ -198,6 +253,7 @@ export default function FlightBookingForm() {
             <div className="flighBookingFormGrid">
               <label>Weight (kg)</label>
               <CustomInput
+                placeholder={"In Kg"}
                 value={item.weight}
                 onChange={(e) => handleChange(index, "weight", e.target.value)}
               />
@@ -205,6 +261,7 @@ export default function FlightBookingForm() {
             <div className="flighBookingFormGrid">
               <label>Dimensions</label>
               <CustomInput
+                placeholder={"55x40x60"}
                 value={item.dimensions}
                 onChange={(e) =>
                   handleChange(index, "dimensions", e.target.value)
@@ -245,7 +302,7 @@ export default function FlightBookingForm() {
             <CustomInput
               value={passportNumber}
               onChange={(e) => setPassportNumber(e.target.value)}
-              placeholder="Enter Passport Number"
+              placeholder="A1234567"
             />
           </div>
         </div>

@@ -81,139 +81,217 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     justifyContent: "space-between",
+    flexWrap: "wrap",
   },
   gridItem: {
     width: "25%",
+    marginBottom: 10,
+  },
+  pricingBreakdown: {
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
+    borderTopStyle: "solid",
+    gap: 6,
+  },
+
+  pricingRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 4,
+  },
+
+  label: {
+    fontSize: 12,
+    color: "#444",
+  },
+
+  value: {
+    fontSize: 12,
+    color: "#000",
+  },
+
+  totalRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    paddingTop: 6,
+    borderTopWidth: 1,
+    borderTopColor: "#000",
+    borderTopStyle: "solid",
+  },
+
+  totalLabel: {
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+
+  totalValue: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#debb89",
   },
 });
 
-const TripPDF = ({ trip, profile, baggage }) => (
-  <Document>
-    <Page style={styles.page} size="A4">
-      <View style={styles.mainHeader}>
-        <Text style={styles.title}>
-          Air<Text style={styles.wings}>Wings</Text>
-        </Text>
-        <View style={styles.confirmedSection}>
-          <Image src={ASSETS.viewPdfTickIcon} style={styles.icon} />
-          <Text>Booking Confirmed</Text>
-        </View>
-      </View>
+const TripPDF = ({ trip, profile, baggage }) => {
+  const gstRate = 0.18;
+  const gst = trip.totalPrice * gstRate;
+  const totalWithGST = trip.totalPrice + gst;
 
-      <View style={styles.greeting}>
-        <Text>Hi,</Text>
-        <Text>
-          Your flight from <Text>{trip.fromLocation}</Text> to{" "}
-          <Text>{trip.toLocation}</Text> is confirmed.
-        </Text>
-      </View>
-
-      <View style={styles.routeBaseRow}>
-        <View style={styles.routeRow}>
-          <Text>
-            {trip.fromLocation} {trip.fromTime}
+  return (
+    <Document>
+      <Page style={styles.page} size="A4">
+        <View style={styles.mainHeader}>
+          <Text style={styles.title}>
+            Air<Text style={styles.wings}>Wings</Text>
           </Text>
-          <Text>{trip.fromDate}</Text>
+          <View style={styles.confirmedSection}>
+            <Image src={ASSETS.viewPdfTickIcon} style={styles.icon} />
+            <Text>Booking Confirmed</Text>
+          </View>
         </View>
-        <Image src={ASSETS.viewPdfArrowRightIcon} style={styles.arrowIcon} />
-        <View style={styles.routeRow}>
-          <Text>
-            {trip.toLocation} {trip.toTime}
-          </Text>
-          <Text>{trip.toDate}</Text>
-        </View>
-      </View>
 
-      <View style={styles.BaseInfoContainer}>
-        <Text style={styles.heading}>Passenger Information</Text>
-        <View style={styles.grid}>
-          <View style={styles.gridItem}>
-            <Text>Name</Text>
+        <View style={styles.greeting}>
+          <Text>Hi,</Text>
+          <Text>
+            Your flight from <Text>{trip.fromLocation}</Text> to{" "}
+            <Text>{trip.toLocation}</Text> is confirmed.
+          </Text>
+        </View>
+
+        <View style={styles.routeBaseRow}>
+          <View style={styles.routeRow}>
             <Text>
-              1. {profile.first_name} {profile.last_name}
+              {trip.fromLocation} {trip.fromTime}
             </Text>
+            <Text>{trip.fromDate}</Text>
           </View>
-          <View style={styles.gridItem}>
-            <Text>Age</Text>
-            <Text>{profile.age}</Text>
-          </View>
-          <View style={styles.gridItem}>
-            <Text>Gender</Text>
-            <Text>{profile.gender || "N/A"}</Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.BaseInfoContainer}>
-        <Text style={styles.heading}>Flight Details</Text>
-        <View style={styles.grid}>
-          <View style={styles.gridItem}>
-            <Text>Terminal</Text>
-            <Text>{trip.terminal}</Text>
-          </View>
-          <View style={styles.gridItem}>
-            <Text>Gate</Text>
-            <Text>{trip.gate}</Text>
-          </View>
-          <View style={styles.gridItem}>
-            <Text>Seat</Text>
-            <Text>{trip.seat}</Text>
-          </View>
-          <View style={styles.gridItem}>
-            <Text>Class</Text>
-            <Text>{trip.class}</Text>
+          <Image src={ASSETS.viewPdfArrowRightIcon} style={styles.arrowIcon} />
+          <View style={styles.routeRow}>
+            <Text>
+              {trip.toLocation} {trip.toTime}
+            </Text>
+            <Text>{trip.toDate}</Text>
           </View>
         </View>
-      </View>
 
-      <View style={styles.BaseInfoContainer}>
-        <Text style={styles.heading}>Baggage Details</Text>
-        <View style={styles.grid}>
-          {baggage ? (
-            <>
-              <View style={styles.gridItem}>
-                <Text>Baggage ID</Text>
-                <Text>{baggage.baggage_id}</Text>
-              </View>
-              <View style={styles.gridItem}>
-                <Text>Quantity</Text>
-                <Text>{baggage.quantity}</Text>
-              </View>
-              <View style={styles.gridItem}>
-                <Text>Weight</Text>
-                <Text>{baggage.weight} Kg</Text>
-              </View>
-              <View style={styles.gridItem}>
-                <Text>Status</Text>
-                <Text>{baggage.status}</Text>
-              </View>
-            </>
+        <View style={styles.BaseInfoContainer}>
+          <Text style={styles.heading}>Passenger Information</Text>
+          <View style={styles.grid}>
+            <View style={styles.gridItem}>
+              <Text>Name</Text>
+              <Text>
+                1. {profile.first_name} {profile.last_name}
+              </Text>
+            </View>
+            <View style={styles.gridItem}>
+              <Text>Age</Text>
+              <Text>{profile.age}</Text>
+            </View>
+            <View style={styles.gridItem}>
+              <Text>Gender</Text>
+              <Text>{profile.gender || "N/A"}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.BaseInfoContainer}>
+          <Text style={styles.heading}>Flight Details</Text>
+          <View style={styles.grid}>
+            <View style={styles.gridItem}>
+              <Text>Terminal</Text>
+              <Text>{trip.terminal}</Text>
+            </View>
+            <View style={styles.gridItem}>
+              <Text>Gate</Text>
+              <Text>{trip.gate}</Text>
+            </View>
+            <View style={styles.gridItem}>
+              <Text>Seat</Text>
+              <Text>{trip.seat}</Text>
+            </View>
+            <View style={styles.gridItem}>
+              <Text>Class</Text>
+              <Text>{trip.class}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.BaseInfoContainer}>
+          <Text style={styles.heading}>Baggage Details</Text>
+          {baggage.length > 0 ? (
+            <View style={styles.grid}>
+              {baggage.map((item, index) => (
+                <React.Fragment key={item.id}>
+                  <View style={styles.gridItem}>
+                    <Text>Baggage ID</Text>
+                    <Text>{item.baggage_id}</Text>
+                  </View>
+                  <View style={styles.gridItem}>
+                    <Text>Quantity</Text>
+                    <Text>{item.quantity}</Text>
+                  </View>
+                  <View style={styles.gridItem}>
+                    <Text>Weight</Text>
+                    <Text>{item.weight} Kg</Text>
+                  </View>
+                  <View style={styles.gridItem}>
+                    <Text>Description</Text>
+                    <Text>{item.description}</Text>
+                  </View>
+                </React.Fragment>
+              ))}
+            </View>
           ) : (
             <Text>No baggage information available.</Text>
           )}
         </View>
-      </View>
-    </Page>
-  </Document>
-);
+
+        <View style={styles.BaseInfoContainer}>
+          <Text style={styles.heading}>Total Pricing</Text>
+          <View style={styles.pricingBreakdown}>
+            <View style={styles.pricingRow}>
+              <Text style={styles.label}>Base Fare</Text>
+              <Text style={styles.value}>{trip.totalPrice.toFixed(2)}</Text>
+            </View>
+            <View style={styles.pricingRow}>
+              <Text style={styles.label}>GST Rate</Text>
+              <Text style={styles.value}>18%</Text>
+            </View>
+            <View style={styles.pricingRow}>
+              <Text style={styles.label}>GST Amount</Text>
+              <Text style={styles.value}>{gst.toFixed(2)}</Text>
+            </View>
+            <View style={styles.totalRow}>
+              <Text style={styles.totalLabel}>Final Price (Incl. GST)</Text>
+              <Text style={styles.totalValue}>{totalWithGST.toFixed(2)}</Text>
+            </View>
+          </View>
+        </View>
+        
+      </Page>
+    </Document>
+  );
+};
 
 export default function ViewPDF() {
   const location = useLocation();
   const { tripDetails, profileDetails } = location.state || {};
-  const [baggageDetails, setBaggageDetails] = useState(null);
+  const [baggageDetails, setBaggageDetails] = useState([]);
 
   useEffect(() => {
     const fetchBaggage = async () => {
       const username = localStorage.getItem("username");
       try {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}baggage/`);
-        const baggageList = res.data;
-        const matched = baggageList.find(
-          (item) => item.user.username === username
+        const baggageList = res.data.data || [];
+
+        const filtered = baggageList.filter(
+          (item) => item.user?.username === username
         );
-        if (matched) {
-          setBaggageDetails(matched);
-        }
+
+        setBaggageDetails(filtered);
       } catch (err) {
         console.error("Failed to fetch baggage details:", err);
       }
