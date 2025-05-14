@@ -37,7 +37,16 @@ function RegisterPage() {
       toast("Password and Confirm Password cannot be empty");
     } else if (password !== confirmPassword) {
       toast("Passwords do not match");
-    } else {
+    }else if (password.length < 6) {
+    toast("Password must be at least 6 characters long");
+  } else {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
+    if (!passwordRegex.test(password)) {
+      toast("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+      return;
+    }
+    
+    else {
       setRegisterButtonText("Please wait...");
       try {
         const response = await axios.post(
@@ -51,6 +60,7 @@ function RegisterPage() {
         toast("Failed to register. Please try again later.");
       }
       setRegisterButtonText("Set Password");
+      }
     }
   };
 

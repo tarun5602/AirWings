@@ -31,6 +31,7 @@ function LoginPage() {
     const trimmedPassword = password.trim();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
 
     if (!trimmedEmail && !trimmedPassword) {
       toast("Please enter email and password.");
@@ -54,6 +55,11 @@ function LoginPage() {
 
     if (trimmedPassword.length < 6) {
       toast("Password must be at least 6 characters long.");
+      return;
+    }
+
+    if (!passwordRegex.test(trimmedPassword)) {
+      toast("Password must include uppercase, lowercase, number, and special character.");
       return;
     }
 
