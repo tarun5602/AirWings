@@ -62,7 +62,7 @@ export default function MyTrips() {
                   class: booking.flight.flights_class,
                   passengers: "1 Person",
                   totalPrice: booking.flight.price || "N/A",
-                  baggage: `${booking.baggage.quantity}x${booking.baggage.weight}Kg`,
+                  baggage: booking.baggage,
                   status: "On Time",
                 })
               );
@@ -80,12 +80,13 @@ export default function MyTrips() {
     fetchBookings();
   }, []);
 
-  const handlePDF = (trip) => {
+  const handlePDF = (trip, baggage) => {
     console.log(trip)
     navigate(ROUTES.servicesPageMyTripsPageViewPDF, {
       state: {
         tripDetails: trip,
         profileDetails: profileDetails,
+        baggageDetails: baggage
       },
     });
   };
@@ -186,7 +187,7 @@ export default function MyTrips() {
                     <LuBaggageClaim />
                     <div className="myTripInformationMainItemPriceBaggageContainer">
                       <p>Baggage</p>
-                      <h4>{item.baggage}</h4>
+                      <h4>{item.baggage.baggage_id ?? ""}</h4>
                     </div>
                   </div>
                 </div>
@@ -194,7 +195,7 @@ export default function MyTrips() {
                 <div className="myTripsInformationMainItemModifactionButtonBaseContainer">
                   <CustomButton
                     title={"Download PDF"}
-                    onClick={() => handlePDF(item)}
+                    onClick={() => handlePDF(item, item.baggage)}
                   />
                   <CustomButton title={"Modification"} />
                   <CustomButton title={"Cancel"} />

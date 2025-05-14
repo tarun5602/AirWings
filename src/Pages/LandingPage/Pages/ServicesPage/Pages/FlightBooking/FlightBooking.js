@@ -13,6 +13,7 @@ import ROUTES from "../../../../../../Config/routes";
 export default function FlightBooking() {
   const [loading, setLoading] = useState(true);
   const [flightInfo, setFlightInfo] = useState([]);
+
   const navigate = useNavigate();
 
   const fetchFlights = async () => {

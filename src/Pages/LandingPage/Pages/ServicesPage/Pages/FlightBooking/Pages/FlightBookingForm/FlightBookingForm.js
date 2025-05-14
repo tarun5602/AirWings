@@ -21,7 +21,6 @@ export default function FlightBookingForm() {
       const weight = Number(baggage.weight);
       const quantity = Number(baggage.quantity);
 
-      // Parse dimensions string "LxWxH" to numbers
       const dims = baggage.dimensions.split("x").map((d) => Number(d.trim()));
       const totalDimension = dims.reduce((a, b) => a + b, 0);
 
@@ -36,9 +35,7 @@ export default function FlightBookingForm() {
         totalDimension > 158
       ) {
         toast.error(
-          `Baggage ${
-            i + 1
-          }: Dimensions must be in format LxWxH and total ≤ 158 cm.`
+          `Baggage: Dimensions must be in format LxWxH and total ≤ 158 cm.`
         );
         return false;
       }
@@ -253,7 +250,7 @@ export default function FlightBookingForm() {
             <div className="flighBookingFormGrid">
               <label>Weight (kg)</label>
               <CustomInput
-                placeholder={"In Kg"}
+                placeholder={"32 Kg"}
                 value={item.weight}
                 onChange={(e) => handleChange(index, "weight", e.target.value)}
               />
@@ -271,6 +268,7 @@ export default function FlightBookingForm() {
             <div className="flighBookingFormGrid">
               <label>Quantity</label>
               <CustomInput
+                placeholder={"2"}
                 value={item.quantity}
                 type={"number"}
                 onChange={(e) => {
@@ -284,6 +282,7 @@ export default function FlightBookingForm() {
             <div className="flighBookingFormGrid">
               <label>Description</label>
               <CustomInput
+                placeholder={"Enter Description"}
                 value={item.description}
                 onChange={(e) =>
                   handleChange(index, "description", e.target.value)

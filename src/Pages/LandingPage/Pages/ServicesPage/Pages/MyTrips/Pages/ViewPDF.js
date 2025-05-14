@@ -220,32 +220,24 @@ const TripPDF = ({ trip, profile, baggage }) => {
 
         <View style={styles.BaseInfoContainer}>
           <Text style={styles.heading}>Baggage Details</Text>
-          {baggage.length > 0 ? (
-            <View style={styles.grid}>
-              {baggage.map((item, index) => (
-                <React.Fragment key={item.id}>
-                  <View style={styles.gridItem}>
-                    <Text>Baggage ID</Text>
-                    <Text>{item.baggage_id}</Text>
-                  </View>
-                  <View style={styles.gridItem}>
-                    <Text>Quantity</Text>
-                    <Text>{item.quantity}</Text>
-                  </View>
-                  <View style={styles.gridItem}>
-                    <Text>Weight</Text>
-                    <Text>{item.weight} Kg</Text>
-                  </View>
-                  <View style={styles.gridItem}>
-                    <Text>Description</Text>
-                    <Text>{item.description}</Text>
-                  </View>
-                </React.Fragment>
-              ))}
+          <View style={styles.grid}>
+            <View style={styles.gridItem}>
+              <Text>Baggage ID</Text>
+              <Text>{baggage.baggage_id}</Text>
             </View>
-          ) : (
-            <Text>No baggage information available.</Text>
-          )}
+            <View style={styles.gridItem}>
+              <Text>Dimensions</Text>
+              <Text>{baggage.dimensions}</Text>
+            </View>
+            <View style={styles.gridItem}>
+              <Text>Quantity</Text>
+              <Text>{baggage.quantity}</Text>
+            </View>
+            <View style={styles.gridItem}>
+              <Text>Status</Text>
+              <Text>{baggage.status}</Text>
+            </View>
+          </View>
         </View>
 
         <View style={styles.BaseInfoContainer}>
@@ -269,7 +261,6 @@ const TripPDF = ({ trip, profile, baggage }) => {
             </View>
           </View>
         </View>
-        
       </Page>
     </Document>
   );
@@ -277,8 +268,8 @@ const TripPDF = ({ trip, profile, baggage }) => {
 
 export default function ViewPDF() {
   const location = useLocation();
-  const { tripDetails, profileDetails } = location.state || {};
-  const [baggageDetails, setBaggageDetails] = useState([]);
+  console.log(location.state);
+  const { tripDetails, profileDetails, baggageDetails } = location.state || {};
 
   useEffect(() => {
     const fetchBaggage = async () => {
@@ -290,8 +281,6 @@ export default function ViewPDF() {
         const filtered = baggageList.filter(
           (item) => item.user?.username === username
         );
-
-        setBaggageDetails(filtered);
       } catch (err) {
         console.error("Failed to fetch baggage details:", err);
       }
