@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 
 export default function BaggageTracking() {
   const [baggages, setBaggages] = useState([]);
+  const [filteredBaggages, setFilteredBaggages] = useState([]);
+  const [trackingNumber, setTrackingNumber] = useState("");
   const [loading, setLoading] = useState(true);
   const [color] = useState("var(--baseColor)");
 
@@ -18,9 +20,11 @@ export default function BaggageTracking() {
         `${process.env.REACT_APP_API_URL}baggage/`
       );
       setBaggages(response.data.data);
+      setFilteredBaggages(response.data.data); 
     } catch (error) {
       toast.error("Error fetching baggage data");
       setBaggages([]);
+      setFilteredBaggages([]);
     }
     setLoading(false);
   };
@@ -29,6 +33,24 @@ export default function BaggageTracking() {
     fetchBaggageData();
   }, []);
 
+  const handleTrack = () => {
+    if (!trackingNumber.trim()) {
+      toast.warn("Please enter a tracking number.");
+      return;
+    }
+
+    const filtered = baggages.filter(
+      (b) =>
+        b.baggage_id.toLowerCase() === trackingNumber.trim().toLowerCase()
+    );
+
+    if (filtered.length === 0) {
+      toast.info("No baggage found with that tracking number.");
+    }
+
+    setFilteredBaggages(filtered);
+  };
+
   return (
     <div className="baggageTrackingBaseContainer">
       <h2>Tracking Your Baggage</h2>
@@ -36,8 +58,12 @@ export default function BaggageTracking() {
 
       <div className="baggageTrackingInputBaseContainer">
         <div className="baggageTrackingInputContainer">
-          <CustomInput placeholder={"Enter Tracking Number"} />
-          <CustomButton title={"Track"} />
+          <CustomInput
+            placeholder={"Enter Tracking Number"}
+            value={trackingNumber}
+            onChange={(e) => setTrackingNumber(e.target.value)}
+          />
+          <CustomButton title={"Track"} onClick={handleTrack} />
         </div>
 
         <div className="baggageTrackingInformationBaseContainer">
@@ -60,10 +86,10 @@ export default function BaggageTracking() {
             >
               <ClipLoader color={color} size={50} />
             </div>
-          ) : baggages.length === 0 ? (
+          ) : filteredBaggages.length === 0 ? (
             <p style={{ padding: "10px" }}>No baggage found.</p>
           ) : (
-            baggages.map((baggage) => (
+            filteredBaggages.map((baggage) => (
               <div
                 key={baggage.baggage_id}
                 className="baggageTrackingInformationItemContainer"
