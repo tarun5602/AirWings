@@ -3,7 +3,6 @@ import "./styles.css";
 import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../../../../components/CustomButton/CustomButton";
 import CustomLoader from "../../../../../../components/CustomLoader/CustomLoader";
-import { MdOutlineSwapHorizontalCircle } from "react-icons/md";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { Bounce } from "react-toastify";
@@ -13,6 +12,12 @@ import ROUTES from "../../../../../../Config/routes";
 export default function FlightBooking() {
   const [loading, setLoading] = useState(true);
   const [flightInfo, setFlightInfo] = useState([]);
+  const [flightInfoFilter, setFlightInfoFilter] = useState([]);
+
+  const [searchFrom, setSearchFrom] = useState("");
+  const [searchTo, setSearchTo] = useState("");
+  const [searchDepartureDate, setSearchDepartureDate] = useState("");
+  const [searchArrivalDate, setSearchArrivalDate] = useState("");
 
   const navigate = useNavigate();
 
@@ -23,6 +28,7 @@ export default function FlightBooking() {
         `${process.env.REACT_APP_API_URL}flights/`
       );
       setFlightInfo(response.data.data || []);
+      setFlightInfoFilter(response.data.data || []);
     } catch (error) {
       toast.error("Error fetching flights:", error);
       setFlightInfo([]);
@@ -33,6 +39,44 @@ export default function FlightBooking() {
   useEffect(() => {
     fetchFlights();
   }, []);
+
+  useEffect(() => {
+    const filtered = flightInfoFilter.filter((flight) => {
+      const fromMatch = flight.departure
+        .toLowerCase()
+        .includes(searchFrom.trim().toLowerCase());
+
+      const toMatch = flight.arrival
+        .toLowerCase()
+        .includes(searchTo.trim().toLowerCase());
+
+      const depMatch = searchDepartureDate
+        ? flight.departure_time.slice(0, 10) === searchDepartureDate
+        : true;
+
+      const arrMatch = searchArrivalDate
+        ? flight.arrival_time.slice(0, 10) === searchArrivalDate
+        : true;
+
+      if (
+        !searchFrom &&
+        !searchTo &&
+        !searchDepartureDate &&
+        !searchArrivalDate
+      )
+        return true;
+
+      return fromMatch && toMatch && depMatch && arrMatch;
+    });
+
+    setFlightInfo(filtered);
+  }, [
+    searchFrom,
+    searchTo,
+    searchDepartureDate,
+    searchArrivalDate,
+    flightInfoFilter,
+  ]);
 
   const handleBookNow = async (data) => {
     try {
@@ -62,25 +106,44 @@ export default function FlightBooking() {
     <div className="flightBookingBaseContainer">
       <div className="flightBookingSetRouteBaseContainer">
         <div className="flightBookingSetRouteDetailsBaseContianer">
-          <p>Round Trip</p>
-          <p>1 Passenger</p>
-          <p>Economy</p>
+          <p>Search Trip</p>
         </div>
 
         <div className="flightBookingSetRouteInputBaseContainer">
           <div className="flightBookingSetRouteInputOne">
-            <CustomInput width={"50%"} placeholder={"From"} />
-            <MdOutlineSwapHorizontalCircle size={25} />
-            <CustomInput width={"50%"} placeholder={"To"} />
+            <CustomInput
+              width={"50%"}
+              placeholder={"From"}
+              value={searchFrom}
+              onChange={(e) => setSearchFrom(e.target.value)}
+            />
+            <CustomInput
+              width={"50%"}
+              placeholder={"To"}
+              value={searchTo}
+              onChange={(e) => setSearchTo(e.target.value)}
+            />
           </div>
           <div className="flightBookingSetRouteInputTwo">
-            <CustomInput type={"date"} width={"50%"} />
-            <CustomInput type={"date"} width={"50%"} />
+            <CustomInput
+              type={"date"}
+              width={"50%"}
+              placeholder={"Departure"}
+              value={searchDepartureDate}
+              onChange={(e) => setSearchDepartureDate(e.target.value)}
+            />
+            <CustomInput
+              type={"date"}
+              width={"50%"}
+              placeholder={"Arrival"}
+              value={searchArrivalDate}
+              onChange={(e) => setSearchArrivalDate(e.target.value)}
+            />
           </div>
         </div>
 
         <div className="flightBookingSetRouteSubmitButtonContainer">
-          <CustomButton title={"Submit"} />
+          <CustomButton title={"Clear"} />
         </div>
       </div>
 
@@ -105,6 +168,19 @@ export default function FlightBooking() {
               <p>
                 {new Date(info.departure_time).toLocaleTimeString()} -{" "}
                 {new Date(info.arrival_time).toLocaleTimeString()}
+              </p>
+              <p>
+                {new Date(info.departure_time).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}{" "}
+                -{" "}
+                {new Date(info.arrival_time).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}
               </p>
               <p>{info.flights_class} Class</p>
               <p>Rs. {info.price}</p>

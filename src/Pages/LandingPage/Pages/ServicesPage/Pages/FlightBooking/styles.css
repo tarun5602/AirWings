@@ -53,6 +53,7 @@
   display: grid;
   justify-items: start;
   align-items: center;
-  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  grid-template-columns: repeat(6, 1fr);
   border-bottom: 1px solid var(--grayColor);
 }

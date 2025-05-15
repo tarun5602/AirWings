@@ -17,7 +17,6 @@
     display: flex;
     justify-content: space-between;
 }
-
 .flightBookingFormGridBaseContainer{
     display: grid;
     align-items: flex-end;

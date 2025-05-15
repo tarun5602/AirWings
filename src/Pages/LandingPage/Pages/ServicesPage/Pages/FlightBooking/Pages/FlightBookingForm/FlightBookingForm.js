@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./styles.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -53,90 +53,101 @@ export default function FlightBookingForm() {
     return true;
   };
 
-  const handleSubmit = async () => {
-    const username = localStorage.getItem("username");
-    const flightId = data.flightDetail.id;
-    const profileId = data.profileDetail.id;
+  const handleSubmit = () => {
+    navigate(ROUTES.servicesPageFlightBookingPageCheckOut)
+  }
 
-    const passportRegex = /^[A-Z][0-9]{7}$/;
+  // const handleSubmit = async () => {
+  //   const username = localStorage.getItem("username");
+  //   const flightId = data.flightDetail.id;
+  //   const profileId = data.profileDetail.id;
 
-    if (!passportNumber) {
-      toast.error("Please enter your passport number.");
-      return;
-    }
-    if (!passportRegex.test(passportNumber)) {
-      toast.error(
-        "Invalid passport number. It must be 1 capital letter followed by 7 digits (e.g. A1234567)."
-      );
-      return;
-    }
-    if (!validateBaggage()) {
-      return;
-    }
+  //   const passportRegex = /^[A-Z][0-9]{7}$/;
 
-    try {
-      const baggageIds = [];
-      let user_id;
+  //   if (!passportNumber) {
+  //     toast.error("Please enter your passport number.");
+  //     return;
+  //   }
+  //   if (!passportRegex.test(passportNumber)) {
+  //     toast.error(
+  //       "Invalid passport number. It must be 1 capital letter followed by 7 digits (e.g. A1234567)."
+  //     );
+  //     return;
+  //   }
+  //   if (!validateBaggage()) {
+  //     return;
+  //   }
 
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}profile?username=${username}`
-        );
-        if (response.data.id) {
-          user_id = response.data.id;
-        }
-      } catch (error) {
-        toast.error("Error fetching profile.");
-        return;
-      }
+  //   try {
+  //     const baggageIds = [];
+  //     let user_id;
 
-      for (const baggage of baggageList) {
-        const baggageRes = await axios.post(
-          `${process.env.REACT_APP_API_URL}baggage/`,
-          {
-            user: user_id,
-            weight: baggage.weight,
-            dimensions: baggage.dimensions,
-            description: baggage.description,
-            quantity: baggage.quantity,
-          }
-        );
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.REACT_APP_API_URL}profile?username=${username}`
+  //       );
+  //       if (response.data.id) {
+  //         user_id = response.data.id;
+  //       }
+  //     } catch (error) {
+  //       toast.error("Error fetching profile.");
+  //       return;
+  //     }
 
-        if (baggageRes.data.status) {
-          baggageIds.push(baggageRes.data.data.id);
-        } else {
-          toast.error("Failed to add baggage.");
-          return;
-        }
-      }
+  //     for (const baggage of baggageList) {
+  //       const baggageRes = await axios.post(
+  //         `${process.env.REACT_APP_API_URL}baggage/`,
+  //         {
+  //           user: user_id,
+  //           weight: baggage.weight,
+  //           dimensions: baggage.dimensions,
+  //           description: baggage.description,
+  //           quantity: baggage.quantity,
+  //         }
+  //       );
 
-      for (const baggageId of baggageIds) {
-        const bookingRes = await axios.post(
-          `${process.env.REACT_APP_API_URL}booking/`,
-          {
-            user_id: user_id,
-            profile_id: profileId,
-            flight_id: flightId,
-            baggage_id: baggageId,
-            username: username,
-            passport_number: passportNumber,
-            num_passengers: 5,
-          }
-        );
+  //       if (baggageRes.data.status) {
+  //         baggageIds.push(baggageRes.data.data.id);
+  //       } else {
+  //         toast.error("Failed to add baggage.");
+  //         return;
+  //       }
+  //     }
 
-        if (!bookingRes.data.status) {
-          toast.error("Booking failed for baggage ID " + baggageId);
-          return;
-        }
-      }
+  //     for (const baggageId of baggageIds) {
+  //       const bookingRes = await axios.post(
+  //         `${process.env.REACT_APP_API_URL}booking/`,
+  //         {
+  //           user_id: user_id,
+  //           profile_id: profileId,
+  //           flight_id: flightId,
+  //           baggage_id: baggageId,
+  //           username: username,
+  //           passport_number: passportNumber,
+  //           num_passengers: 5,
+  //         }
+  //       );
 
-      toast.success("Booking Successful!");
-      // navigate(ROUTES.homePage);
-    } catch (error) {
-      console.error(error);
-      toast.error("Error during booking.");
-    }
-  };
+  //       if (!bookingRes.data.status) {
+  //         toast.error("Booking failed for baggage ID " + baggageId);
+  //         return;
+  //       }
+  //     }
+
+  //     toast.success("Booking Successful!");
+  //     navigate(ROUTES.servicesPageFlightBookingPageCheckOut, {
+  //       state: {
+  //         flightDetail: data.flightDetail,
+  //         profileDetail: data.profileDetail,
+  //         baggageList: baggageList,
+  //         passportNumber: passportNumber,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Error during booking.");
+  //   }
+  // };
 
   const [baggageList, setBaggageList] = useState([
     { weight: "", dimensions: "", quantity: "", description: "" },
@@ -193,6 +204,10 @@ export default function FlightBookingForm() {
           <div className="flighBookingFormGrid">
             <label>Age</label>
             <CustomInput value={age} />
+          </div>
+          <div className="flighBookingFormGrid">
+            <label>Gender</label>
+            <CustomInput value={data.profileDetail.gender} />
           </div>
         </div>
       </div>
