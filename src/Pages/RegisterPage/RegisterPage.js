@@ -23,10 +23,6 @@ function RegisterPage() {
 
   const navigate = useNavigate();
 
-  // const customProgressBarStyle = {
-  //   backgroundColor: "var(--secondaryColor)",
-  // };
-
   const handleRegister = async () => {
     if (name == "" || email == "") {
       toast("Please enter your Credentials");

@@ -7,6 +7,7 @@ const ROUTES = {
     servicesPage: "/services",
     servicesPageFlightBookingPage: "/services/flight-booking",
     servicesPageFlightBookingFormPage: "/services/flight-booking/booking-form",
+    servicesPageFlightBookingPageCheckOut: "/services/flight-booking/checkout",
     servicesPageMyTripsPage: "/services/my-trips",
     servicesPageMyTripsPageViewPDF:"/services/my-trips/viewPDF",
     servicesPageBaggageTrackingPage: "/services/baggage-Tracking",
