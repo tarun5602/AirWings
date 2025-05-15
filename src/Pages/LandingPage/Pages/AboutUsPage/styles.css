@@ -18,6 +18,8 @@
     bottom: 0%;
     right: 0%;
     background-color: var(--blackColorDim);
+    flex-direction: column;
+    gap: 30px;
 }
 .aboutUsMissionBaseContainer{
 
