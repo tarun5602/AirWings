@@ -23,31 +23,31 @@ export default function HomePage() {
   const destinations = [
     {
       id: 1,
-      city: "Paris",
-      country: "France",
-      price: 599,
-      image: ASSETS.destinationParisImage,
+      state: "Delhi",
+      city: "New Delhi",
+      price: "2,399",
+      image: ASSETS.destinationDelhiImage,
     },
     {
       id: 2,
-      city: "Santorini",
-      country: "Greece",
-      price: 799,
-      image: ASSETS.destinationSantoriniImage,
+      state: "Maharashtra",
+      city: "Mumbai",
+      price: "3,899",
+      image: ASSETS.destinationMumbaiImage,
     },
     {
       id: 3,
-      city: "Tokyo",
-      country: "Japan",
-      price: 899,
-      image: ASSETS.destinationTokyoImage,
+      state: "Karnataka",
+      city: "Bengaluru",
+      price: "5,699",
+      image: ASSETS.destinationBengaluruImage,
     },
     {
       id: 4,
-      city: "Bali",
-      country: "Indonesia",
-      price: 699,
-      image: ASSETS.destinationBaliImage,
+      state: "Tamil Nadu",
+      city: "Chennai",
+      price: "5,878",
+      image: ASSETS.destinationTamilnaduImage,
     },
   ];
 
@@ -148,13 +148,13 @@ export default function HomePage() {
                   style={{ backgroundImage: `url(${destination.image})` }}
                 ></div>
                 <div className="popularDestinationCardInfo">
-                  <h2>{destination.city}</h2>
+                  <h2>{destination.state}</h2>
                   <p
                     style={{
                       color: "var(--grayColor)",
                     }}
                   >
-                    {destination.country}
+                    {destination.city}
                   </p>
                   <p
                     style={{

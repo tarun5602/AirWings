@@ -2,10 +2,12 @@ const ASSETS = {
   loginBackImage: require("./images/loginBackImage.jpg"),
   registerBackImage: require("./images/registerbackImage.jpg"),
   aboutUsPageImage: require("./images/aboutUsImage.jpg"),
-  destinationParisImage: require("./images/destinationParisImage.jpg"),
-  destinationSantoriniImage: require("./images/destinationSantoriniImage.jpg"),
-  destinationTokyoImage: require("./images/destinationTokyoImage.jpg"),
-  destinationBaliImage: require("./images/destinationBaliImage.jpg"),
+
+  destinationDelhiImage: require("./images/DestinationNewDelhi.jpg"),
+  destinationMumbaiImage: require("./images/DestinationMumbaiSea.jpg"),
+  destinationBengaluruImage: require("./images/DestinationBengaluru.jpeg"),
+  destinationTamilnaduImage: require("./images/DestinationTamilnadu.jpg"),
+
   contactUsImage: require("./images/contactUsImage.jpeg"),
   offerSectionBackgroundImage: require("./images/SectionOfferBackground.png"),
   heroSectionPlaneImage: require("./images/HeroSectionPlane.png"),

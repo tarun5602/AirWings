@@ -71,9 +71,9 @@ export default function BaggageTracking() {
           <div className="baggageTrackingInformationContainer">
             <h4>Tracking Baggage</h4>
             <h4>Owner</h4>
-            <h4>Status</h4>
-            <h4>Last Updated</h4>
             <h4>Flight</h4>
+            <h4>Quantity</h4>
+            <h4>Status</h4>
           </div>
 
           {loading ? (
@@ -96,9 +96,9 @@ export default function BaggageTracking() {
               >
                 <p>{baggage.baggage_id}</p>
                 <p>{baggage.user}</p>
+                <p>{baggage.Flight}</p>
+                <p>{baggage.quantity}</p>
                 <p>{baggage.status}</p>
-                <p>{new Date(baggage.check_in_time).toLocaleString()}</p>
-                <p>{baggage.flight}</p>
               </div>
             ))
           )}

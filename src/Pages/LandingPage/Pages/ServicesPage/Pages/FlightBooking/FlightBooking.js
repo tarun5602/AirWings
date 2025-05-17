@@ -78,6 +78,13 @@ export default function FlightBooking() {
     flightInfoFilter,
   ]);
 
+  const handleClearFilters = () => {
+    setSearchFrom("");
+    setSearchTo("");
+    setSearchDepartureDate("");
+    setSearchArrivalDate("");
+  };
+
   const handleBookNow = async (data) => {
     try {
       const flightDetail = data ?? {};
@@ -143,7 +150,7 @@ export default function FlightBooking() {
         </div>
 
         <div className="flightBookingSetRouteSubmitButtonContainer">
-          <CustomButton title={"Clear"} />
+          <CustomButton title={"Clear"} onClick={handleClearFilters} />
         </div>
       </div>
 

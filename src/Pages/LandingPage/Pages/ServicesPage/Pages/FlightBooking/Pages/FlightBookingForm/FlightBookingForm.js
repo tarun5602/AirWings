@@ -54,8 +54,8 @@ export default function FlightBookingForm() {
   };
 
   const handleSubmit = () => {
-    navigate(ROUTES.servicesPageFlightBookingPageCheckOut)
-  }
+    navigate(ROUTES.servicesPageFlightBookingPageCheckOut);
+  };
 
   // const handleSubmit = async () => {
   //   const username = localStorage.getItem("username");
@@ -265,9 +265,15 @@ export default function FlightBookingForm() {
             <div className="flighBookingFormGrid">
               <label>Weight (kg)</label>
               <CustomInput
+                type={"number"}
                 placeholder={"32 Kg"}
                 value={item.weight}
-                onChange={(e) => handleChange(index, "weight", e.target.value)}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value <= 50) {
+                    handleChange(index, "weight", e.target.value);
+                  }
+                }}
               />
             </div>
             <div className="flighBookingFormGrid">
@@ -275,20 +281,31 @@ export default function FlightBookingForm() {
               <CustomInput
                 placeholder={"55x40x60"}
                 value={item.dimensions}
-                onChange={(e) =>
-                  handleChange(index, "dimensions", e.target.value)
-                }
+                maxLength={9}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/[^0-9x]/gi, "").toLowerCase();
+                  const parts = value.replace(/x/g, "").match(/.{1,2}/g);
+                  if (parts) {
+                    value = parts.join("x");
+                  }
+                  const xCount = (value.match(/x/g) || []).length;
+                  if (xCount > 2) {
+                    value = value.slice(0, value.lastIndexOf("x"));
+                  }
+                  handleChange(index, "dimensions", value);
+                }}
               />
             </div>
             <div className="flighBookingFormGrid">
               <label>Quantity</label>
               <CustomInput
+                type={"number"}
                 placeholder={"2"}
                 value={item.quantity}
-                type={"number"}
                 onChange={(e) => {
                   const value = Number(e.target.value);
-                  if (value <= 46) {
+                  if (value <= 9) {
                     handleChange(index, "quantity", e.target.value);
                   }
                 }}

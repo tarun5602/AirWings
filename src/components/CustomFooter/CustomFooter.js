@@ -14,14 +14,14 @@ import ROUTES from "../../Config/routes";
 export default function CustomFooter() {
   const navigate = useNavigate();
 
-  const linkList = [
+  const mainLinks = [
     {
       title: "Home",
       path: ROUTES.homePage,
     },
     {
       title: "Services",
-      path: ROUTES.servicesPage,
+      path: ROUTES.servicesPageFlightBookingPage,
     },
     {
       title: "About Us",
@@ -32,10 +32,27 @@ export default function CustomFooter() {
       path: ROUTES.contactUsPage,
     },
     {
-      title: "Blog",
+      title: "FAQs",
+      path: ROUTES.FAQPage,
+    },
+  ];
+
+  const services = [
+    {
+      title: "Flight Booking",
+      path: ROUTES.servicesPageFlightBookingPage,
     },
     {
-      title: "FAQs",
+      title: "My Trips",
+      path: ROUTES.servicesPageMyTripsPage,
+    },
+    {
+      title: "Baggage Tracking",
+      path: ROUTES.servicesPageBaggageTrackingPage,
+    },
+    {
+      title: "Feedback",
+      path: ROUTES.servicesPagesSupportPage,
     },
   ];
 
@@ -58,7 +75,7 @@ export default function CustomFooter() {
         <div className="cutomFooterQuickLinksContainer">
           <h3>Quick Links</h3>
           <div className="customFooterQuickLinks">
-            {linkList.map((item) => {
+            {mainLinks.map((item) => {
               return (
                 <p onClick={() => navigate(item.path)}>
                   <FaLongArrowAltRight size={13} /> {item.title}
@@ -69,20 +86,25 @@ export default function CustomFooter() {
         </div>
         <div className="customFooterServicesContainer">
           <h3>Services</h3>
-          <div className="customFooterServices">
-          <p>Flight Booking</p>
-          <p>Flight Information</p>
-          <p>Baggage/CheckIn</p>
-          <p>Deals</p>
-          <p>Support</p>
+          <div className="customFooterQuickLinks">
+            {services.map((item) => {
+              return (
+                <p onClick={() => navigate(item.path)}>
+                  <FaLongArrowAltRight size={13} /> {item.title}
+                </p>
+              );
+            })}
           </div>
         </div>
         <div className="customfooterContactUsContainer">
           <h3>Contact Us</h3>
           <div className="customFooterContactUs">
             <div className="customFooterContactUsLocation">
-              <MdOutlineLocationOn size={25} />
-              <span>23 Main Street, Anytown, USA</span>
+              <MdOutlineLocationOn size={52} />
+              <span>
+                AirWings Pvt. Ltd. Skyview Plaza,
+                Chandigarh, India
+              </span>
             </div>
             <div className="customFooterContactUsCall">
               <LuPhoneCall size={20} />

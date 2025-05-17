@@ -38,6 +38,22 @@
   display: flex;
   flex-direction: column;
 }
+.customSelectInput {
+  padding: 10px;
+  border: 1.5px solid var(--borderColor);
+  border-radius: 20px;
+  color: var(--borderColor);
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  transition: border 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.customSelectInput option {
+  color: var(--blackColor);
+}
 .feedbackFormFeedbackBaseContainer {
   width: 100%;
   display: flex;

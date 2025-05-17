@@ -20,14 +20,17 @@
 .profilePageContentIconContainer {
   width: 70px;
   height: 70px;
-  border-radius: 50%;
+  font-weight: bold;
+  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--whiteColor);
-  color: var(--baseColor);
+  border-radius: 50%;
+  color: var(--whiteColor);
 }
 .profilePageContentNameContainer {
+  font-weight: bold;
+  font-size: 22px;
 }
 .profilePageContentTableBaseContainer {
   width: 100%;

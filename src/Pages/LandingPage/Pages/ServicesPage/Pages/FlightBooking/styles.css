@@ -17,8 +17,11 @@
 .flightBookingSetRouteDetailsBaseContianer {
   width: 100%;
   display: flex;
-  padding: 20px;
-  gap: 40px;
+  padding: 20px 0px 0px 30px;
+}
+.flightBookingSetRouteDetailsBaseContianer p{
+  font-weight: bold;
+  font-size: 20px;
 }
 .flightBookingSetRouteInputBaseContainer {
   display: flex;

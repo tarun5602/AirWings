@@ -26,6 +26,25 @@ export default function ProfilePage() {
   const username = localStorage.getItem("username");
   const email = localStorage.getItem("email");
 
+  const getRandomColor = () => {
+    const colors = [
+      "#3D3D3D", // Charcoal
+      "#1C1C1C", // Almost Black
+      "#4B4453", // Deep Eggplant
+      "#2E3440", // Arctic Night
+      "#2F4858", // Dark Slate
+      "#3A0CA3", // Deep Indigo
+      "#432818", // Rich Brown
+      "#2D3142", // Charcoal Blue
+      "#36454F", // Charcoal Gray
+      "#002B5B", // Navy Ink
+      "#001524", // Midnight
+      "#1E1E1E", // Dark Gray
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+  const avatarColor = useMemo(() => getRandomColor(), []);
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -155,7 +174,12 @@ export default function ProfilePage() {
       </div>
       <div className="profilePageContentContainer">
         <div className="profilePageContentProfileBaseContainer">
-          <div className="profilePageContentIconContainer">
+          <div
+            style={{
+              backgroundColor: avatarColor,
+            }}
+            className="profilePageContentIconContainer"
+          >
             {username.charAt(0).toUpperCase()}
           </div>
           <div className="profilePageContentNameContainer">

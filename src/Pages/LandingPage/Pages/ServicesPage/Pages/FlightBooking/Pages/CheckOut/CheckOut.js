@@ -96,14 +96,8 @@ export default function CheckOut() {
           </div>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          backgroundColor: "red",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+
+      <div className="checkoutPayButton">
         <PayPalButtons
           style={{
             layout: "vertical",
@@ -112,7 +106,6 @@ export default function CheckOut() {
             label: "paypal",
           }}
           createOrder={(data, actions) => {
-            alert("Create ORDER DONE");
             return actions.order.create({
               purchase_units: [
                 {
