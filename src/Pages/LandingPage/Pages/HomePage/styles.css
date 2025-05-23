@@ -202,9 +202,10 @@
   align-items: center;
   justify-content: center;
   background-color: #ccc;
-  color: #fff;
+  color: var(--whiteColor);
   font-size: 24px;
   font-weight: bold;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .testimonialsCardImageTextContainer {
   padding: 10px;

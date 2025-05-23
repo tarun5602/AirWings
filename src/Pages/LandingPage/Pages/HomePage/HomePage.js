@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./styles.css";
 import CustomButton from "../../../../components/CustomButton/CustomButton";
 import ASSETS from "../../../../assets";
@@ -9,16 +9,34 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { Rating } from "react-simple-star-rating";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../../../Config/routes";
+import { toast, ToastContainer } from "react-toastify";
+import { Bounce } from "react-toastify";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const backImageRef = useRef(null);
+  const navigate = useNavigate();
 
   const [offers, setOffers] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(false);
   const [color] = useState("var(--baseColor)");
+
+  const randomColors = [
+    "#4B6587", // Slate Blue
+    "#2A9D8F", // Teal Green
+    "#6D6875", // Dusty Mauve
+    "#3F3D56", // Deep Charcoal
+    "#2C3A47", // Gunmetal
+    "#7D5A50", // Warm Mocha
+    "#4ECDC4", // Muted Aqua
+    "#5D6D7E", // Steel Blue
+    "#6C5B7B", // Elegant Purple
+    "#8E8D8A", // Stone Gray
+  ];
 
   const destinations = [
     {
@@ -50,6 +68,31 @@ export default function HomePage() {
       image: ASSETS.destinationTamilnaduImage,
     },
   ];
+
+  useEffect(() => {
+    const checkProfileCompletion = async () => {
+      try {
+        const username = localStorage.getItem("username");
+        const profileResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}profile?username=${username}`
+        );
+
+        if (profileResponse.data.status) {
+          const profile = profileResponse.data.data;
+          const isComplete =
+            profile.first_name && profile.last_name;
+
+          if (!isComplete) {
+            toast.warning("Please complete your profile before proceeding.");
+          }
+        }
+      } catch (error) {
+        // toast.error(error.response.data.message);
+      }
+    };
+
+    checkProfileCompletion();
+  }, []);
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -87,6 +130,14 @@ export default function HomePage() {
     fetchTestimonials();
   }, []);
 
+  const initialsColorMap = useMemo(() => {
+    const map = {};
+    testimonials.forEach((t) => {
+      map[t.id] = randomColors[Math.floor(Math.random() * randomColors.length)];
+    });
+    return map;
+  }, [testimonials]);
+
   useEffect(() => {
     gsap.to(backImageRef.current, {
       scale: 10,
@@ -98,6 +149,10 @@ export default function HomePage() {
       },
     });
   }, []);
+
+  const booknow = () => {
+    navigate(ROUTES.servicesPageFlightBookingPage);
+  };
 
   return (
     <div className="HomePageBaseContainer">
@@ -127,10 +182,10 @@ export default function HomePage() {
               unforgettable memories.
             </p>
             <CustomButton
-              title={"Get Started"}
+              title={"Book Now"}
+              onClick={booknow}
               width={"20%"}
               height={"9%"}
-              color={"var(--baseColor)"}
             />
           </div>
           <div
@@ -242,9 +297,15 @@ export default function HomePage() {
                 {testimonials.map((testimonial) => (
                   <div className="testimonialsCard" key={testimonial.id}>
                     <div className="testimonialsCardImageBaseContainer">
-                      <div className="testimonialsCardImageContainer">
+                      <div
+                        className="testimonialsCardImageContainer"
+                        style={{
+                          backgroundColor: initialsColorMap[testimonial.id],
+                        }}
+                      >
                         {testimonial.name.charAt(0).toUpperCase()}
                       </div>
+
                       <div className="testimonialsCardImageTextContainer">
                         <h3
                           style={{ textAlign: "left" }}
@@ -265,6 +326,7 @@ export default function HomePage() {
         </section>
         <CustomFooter />
       </div>
+      <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );
 }

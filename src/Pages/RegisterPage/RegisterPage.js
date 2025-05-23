@@ -65,7 +65,7 @@ function RegisterPage() {
       <div className="RegisterPageContentCardBaseContainer">
         <div className="RegisterPageContentContainer">
           <div className="RegisterPageHeaderContainer">
-            <h1>Create an account👌</h1>
+            <h1>Create an account</h1>
           </div>
           <div className="RegisterPageInputContainer">
             <div className="RegisterPageInputTitleContainer">

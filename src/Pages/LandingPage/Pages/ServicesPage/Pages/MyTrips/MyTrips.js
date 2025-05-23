@@ -56,8 +56,8 @@ export default function MyTrips() {
                   toTime: new Date(
                     booking.flight.arrival_time
                   ).toLocaleTimeString(),
-                  terminal: "T4",
-                  gate: "G7",
+                  terminal: booking.flight.terminal,
+                  gate: booking.flight.gate,
                   seat: "12A",
                   class: booking.flight.flights_class,
                   passengers: "1 Person",
@@ -197,7 +197,6 @@ export default function MyTrips() {
                     title={"Download PDF"}
                     onClick={() => handlePDF(item, item.baggage)}
                   />
-                  <CustomButton title={"Modification"} />
                   <CustomButton title={"Cancel"} />
                 </div>
               </div>

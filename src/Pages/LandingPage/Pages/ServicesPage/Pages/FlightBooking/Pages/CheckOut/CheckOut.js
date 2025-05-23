@@ -6,7 +6,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function CheckOut() {
   const location = useLocation();
-  const { flightDetail, profileDetail, baggageList, passportNumber } =
+  const { flightDetail, profileDetail, baggageList } =
     location.state || {};
 
   return (
@@ -77,22 +77,13 @@ export default function CheckOut() {
         <h3>Baggae Details</h3>
         <div className="checkoutGridBaseContianer">
           <div className="checkoutGridContainer">
-            <p>{baggageList?.weight ?? ""}Kg</p>
+            <p>{baggageList[0].weight ?? ""}Kg</p>
           </div>
           <div className="checkoutGridContainer">
-            <p>{baggageList?.dimensions ?? ""}</p>
+            <p>{baggageList[0].dimensions ?? ""}</p>
           </div>
           <div className="checkoutGridContainer">
-            <p>{baggageList?.quantity ?? ""}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="checkoutContainer">
-        <h3>Passport Details</h3>
-        <div className="checkoutGridBaseContianer">
-          <div className="checkoutGridContainer">
-            <p>{passportNumber?.passportNumber ?? ""}</p>
+            <p>{baggageList[0].quantity ?? ""}</p>
           </div>
         </div>
       </div>

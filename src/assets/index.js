@@ -14,6 +14,7 @@ const ASSETS = {
 
   viewPdfArrowRightIcon: require("./icons/arrow-right-icon.png"),
   viewPdfTickIcon: require("./icons/tick-circleicon.png"),
+  chatBootIcon: require("./icons/assistant-svgrepo-com.png")
 };
 
 export default ASSETS;
