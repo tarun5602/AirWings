@@ -8,13 +8,15 @@ const ASSETS = {
   destinationBengaluruImage: require("./images/DestinationBengaluru.jpeg"),
   destinationTamilnaduImage: require("./images/DestinationTamilnadu.jpg"),
 
-  contactUsImage: require("./images/contactUsImage.jpeg"),
+  // contactUsImage: require("./images/contactUsImage.jpeg"),
+  contactUsImage: require("./images/galaxycontact.jpg"),
   offerSectionBackgroundImage: require("./images/SectionOfferBackground.png"),
   heroSectionPlaneImage: require("./images/HeroSectionPlane.png"),
 
   viewPdfArrowRightIcon: require("./icons/arrow-right-icon.png"),
   viewPdfTickIcon: require("./icons/tick-circleicon.png"),
-  chatBootIcon: require("./icons/assistant-svgrepo-com.png")
+  chatBootIcon: require("./icons/assistant-svgrepo-com.png"),
+  paymentImage: require("./images/PaymentImage.jpg"),
 };
 
 export default ASSETS;

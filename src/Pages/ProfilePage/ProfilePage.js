@@ -21,6 +21,7 @@ export default function ProfilePage() {
     country: "",
     postal_code: "",
     gender: "",
+    gender_other: "",
   });
 
   const username = localStorage.getItem("username");
@@ -70,10 +71,75 @@ export default function ProfilePage() {
   }, [username, email]);
 
   const handleChange = (key, value) => {
+    const alphaOnlyFields = [
+      "first_name",
+      "last_name",
+      "city",
+      "state",
+      "country",
+    ];
+    const numericOnlyFields = ["phone_number", "postal_code"];
+
+    let newValue = value;
+    if (alphaOnlyFields.includes(key)) {
+      newValue = newValue.replace(/[^a-zA-Z]/g, "");
+      newValue =
+        newValue.charAt(0).toUpperCase() + newValue.slice(1).toLowerCase();
+    }
+
+    if (numericOnlyFields.includes(key)) {
+      newValue = newValue.replace(/[^0-9]/g, "");
+      if (key === "phone_number") {
+        newValue = newValue.slice(0, 10);
+      } else if (key === "postal_code") {
+        newValue = newValue.slice(0, 6);
+      }
+    }
     setProfile((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: newValue,
     }));
+  };
+
+  const handleBlur = (key) => {
+    const value = profile[key]?.trim();
+
+    const requiredFields = {
+      first_name: "First name is required.",
+      last_name: "Last name is required.",
+      address: "Address is required.",
+      date_of_birth: "Date of birth is required.",
+      country: "Country is required.",
+      state: "State is required.",
+      city: "City is required.",
+    };
+
+    if (requiredFields[key] && !value) {
+      toast.error(requiredFields[key]);
+      return;
+    }
+
+    if (key === "phone_number") {
+      if (!value) {
+        toast.error("Phone number is required.");
+      } else if (value.length !== 10) {
+        toast.error("Phone number must be exactly 10 digits.");
+      }
+    }
+
+    if (key === "postal_code") {
+      if (!value) {
+        toast.error("Postal code is required.");
+      } else if (value.length !== 6) {
+        toast.error("Postal code must be exactly 6 digits.");
+      }
+    }
+
+    if (key === "gender_other" && profile.gender === "O") {
+      if (!value) {
+        toast.error("Please specify your gender.");
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -86,6 +152,7 @@ export default function ProfilePage() {
       address,
       date_of_birth,
       gender,
+      gender_other,
       country,
       postal_code,
       state,
@@ -107,7 +174,7 @@ export default function ProfilePage() {
     if (!phone_number.trim()) {
       toast.error("Phone number is required.");
       isValid = false;
-    } else if (!/^\d{10}$/.test(phone_number.trim())) {
+    } else if (phone_number.length !== 10) {
       toast.error("Phone number must be exactly 10 digits.");
       isValid = false;
     }
@@ -125,6 +192,9 @@ export default function ProfilePage() {
     if (!gender) {
       toast.error("Gender is required.");
       isValid = false;
+    } else if (gender === "O" && !gender_other.trim()) {
+      toast.error("Please specify your gender.");
+      isValid = false;
     }
 
     if (!country.trim()) {
@@ -134,6 +204,9 @@ export default function ProfilePage() {
 
     if (!postal_code.trim()) {
       toast.error("Postal code is required.");
+      isValid = false;
+    } else if (postal_code.length !== 6) {
+      toast.error("Postal code must be exactly 6 digits.");
       isValid = false;
     }
 
@@ -196,6 +269,7 @@ export default function ProfilePage() {
                   required
                   value={profile.first_name}
                   onChange={(e) => handleChange("first_name", e.target.value)}
+                  onBlur={() => handleBlur("first_name")}
                   placeholder="First Name"
                 />
               </div>
@@ -205,6 +279,7 @@ export default function ProfilePage() {
                   required
                   value={profile.last_name}
                   onChange={(e) => handleChange("last_name", e.target.value)}
+                  onBlur={() => handleBlur("last_name")}
                   placeholder="Last Name"
                 />
               </div>
@@ -218,7 +293,9 @@ export default function ProfilePage() {
                   required
                   value={profile.phone_number}
                   onChange={(e) => handleChange("phone_number", e.target.value)}
-                  placeholder="+91 9876543210"
+                  placeholder="9876543210"
+                  onBlur={() => handleBlur("phone_number")}
+                  type={"tel"}
                 />
               </div>
               <div className="profilePageContentFormContainer profilePageContentAddressContainer">
@@ -227,6 +304,7 @@ export default function ProfilePage() {
                   required
                   value={profile.address}
                   onChange={(e) => handleChange("address", e.target.value)}
+                  onBlur={() => handleBlur("address")}
                   placeholder="123 Aviation Street"
                 />
               </div>
@@ -239,6 +317,7 @@ export default function ProfilePage() {
                   onChange={(e) =>
                     handleChange("date_of_birth", e.target.value)
                   }
+                  onBlur={() => handleBlur("date_of_birth")}
                 />
               </div>
 
@@ -272,6 +351,17 @@ export default function ProfilePage() {
                     />
                     Other
                   </label>
+                  {profile.gender === "O" && (
+                    <CustomInput
+                      required
+                      value={profile.gender_other || ""}
+                      onChange={(e) =>
+                        handleChange("gender_other", e.target.value)
+                      }
+                      onBlur={() => handleBlur("gender_other")}
+                      placeholder="Please specify"
+                    />
+                  )}
                 </div>
               </div>
 
@@ -281,6 +371,7 @@ export default function ProfilePage() {
                   required
                   value={profile.country}
                   onChange={(e) => handleChange("country", e.target.value)}
+                  onBlur={() => handleBlur("country")}
                   placeholder="India"
                 />
               </div>
@@ -290,6 +381,7 @@ export default function ProfilePage() {
                   required
                   value={profile.postal_code}
                   onChange={(e) => handleChange("postal_code", e.target.value)}
+                  onBlur={() => handleBlur("postal_code")}
                   placeholder="143001"
                 />
               </div>
@@ -299,6 +391,7 @@ export default function ProfilePage() {
                   required
                   value={profile.state}
                   onChange={(e) => handleChange("state", e.target.value)}
+                  onBlur={() => handleBlur("state")}
                   placeholder="Punjab"
                 />
               </div>
@@ -308,6 +401,7 @@ export default function ProfilePage() {
                   required
                   value={profile.city}
                   onChange={(e) => handleChange("city", e.target.value)}
+                  onBlur={() => handleBlur("city")}
                   placeholder="Amritsar"
                 />
               </div>

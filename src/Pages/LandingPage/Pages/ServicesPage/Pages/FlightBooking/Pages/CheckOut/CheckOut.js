@@ -1,20 +1,25 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./styles.css";
 import CustomPayment from "../../../../../../../../components/CustomPayment/CustomPayment";
-import { PayPalButtons } from "@paypal/react-paypal-js";
+import { toast } from "react-toastify";
+import ROUTES from "../../../../../../../../Config/routes";
 
 export default function CheckOut() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const { flightDetail, profileDetail, baggageList } =
-    location.state || {};
+  const {
+    flightDetail = {},
+    profileDetail = {},
+    baggageList = [],
+  } = location.state || {};
 
   return (
     <div className="checkoutBaseContainer">
       <h2 style={{ textAlign: "center" }}>Checkout</h2>
       <div className="checkoutContainer">
         <h3>Personal Details</h3>
-        <div className="checkoutGridBaseContianer">
+        <div className="checkoutGridBaseContainer">
           <div className="checkoutGridContainer">
             <p>
               {profileDetail?.first_name ?? ""} {profileDetail?.last_name ?? ""}
@@ -77,45 +82,26 @@ export default function CheckOut() {
         <h3>Baggae Details</h3>
         <div className="checkoutGridBaseContianer">
           <div className="checkoutGridContainer">
-            <p>{baggageList[0].weight ?? ""}Kg</p>
+            <p>{baggageList?.[0]?.weight ?? ""}Kg</p>
           </div>
           <div className="checkoutGridContainer">
-            <p>{baggageList[0].dimensions ?? ""}</p>
+            <p>{baggageList?.[0]?.dimensions ?? ""}</p>
           </div>
           <div className="checkoutGridContainer">
-            <p>{baggageList[0].quantity ?? ""}</p>
+            <p>{baggageList?.[0]?.quantity ?? ""}</p>
           </div>
         </div>
       </div>
 
       <div className="checkoutPayButton">
-        <PayPalButtons
-          style={{
-            layout: "vertical",
-            color: "blue",
-            shape: "rect",
-            label: "paypal",
-          }}
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: "5.00",
-                    currency_code: "USD",
-                  },
-                },
-              ],
-            });
-          }}
-          onApprove={(data, actions) => {
-            return actions.order.capture().then((details) => {
-              alert(`Payment completed by ${details.payer.name.given_name}`);
-              console.log("Full Payment Details:", details);
-            });
-          }}
-          onError={(err) => {
-            console.error("PayPal Checkout Error", err);
+        <CustomPayment
+          amount={flightDetail?.price ?? 500}
+          onSuccess={(response) => {
+            console.log(
+              "Payment successful with ID: " + response.razorpay_payment_id
+            );
+            navigate(ROUTES.servicesPageMyTripsPage);
+            // You can also trigger booking creation here
           }}
         />
       </div>

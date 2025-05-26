@@ -5,8 +5,10 @@ import { IoAirplaneSharp, IoReorderThreeOutline } from "react-icons/io5";
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../Config/routes";
+import { useLocation } from "react-router-dom";
 
 function CustomNavBar() {
+  const location = useLocation();
   const sideBarRef = useRef();
   const navigate = useNavigate();
 
@@ -56,7 +58,11 @@ function CustomNavBar() {
       </div>
       <div className="customNavbarLinkContainer">
         {linkList.map((item) => (
-          <p key={item.title} onClick={() => navigate(item.path)}>
+          <p
+            key={item.title}
+            onClick={() => navigate(item.path)}
+            className={location.pathname === item.path ? "active-link" : ""}
+          >
             {item.title}
           </p>
         ))}

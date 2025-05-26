@@ -191,7 +191,13 @@ const TripPDF = ({ trip, profile, baggage }) => {
             </View>
             <View style={styles.gridItem}>
               <Text>Gender</Text>
-              <Text>{profile.gender || "N/A"}</Text>
+              <Text>
+                {profile.gender === "M"
+                  ? "Male"
+                  : profile.gender === "F"
+                  ? "Female"
+                  : profile.gender_other || "Other"}
+              </Text>
             </View>
           </View>
         </View>

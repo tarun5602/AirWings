@@ -1,11 +1,12 @@
 import React from "react";
 import "./styles.css";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import ROUTES from "../../../../Config/routes";
 import CustomButton from "../../../../components/CustomButton/CustomButton";
 
 export default function ServicesPage() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const sidebarLinks = [
     {
@@ -32,16 +33,21 @@ export default function ServicesPage() {
         <h2
           style={{
             paddingTop: "20px",
-            color: "var(--baseColor)"}}
+            color: "var(--baseColor)",
+          }}
         >
           Services
         </h2>
         {sidebarLinks.map((item) => (
-          <CustomButton 
+          <CustomButton
             title={item.title}
-            backgroundColor={"transparent"}
-            border={"1px solid var(--baseColor)"}
+            backgroundColor={
+              location.pathname === item.path
+                ? "var(--secondaryColor)"
+                : "transparent"
+            }
             color={"var(--baseColor)"}
+            border={"1px solid var(--baseColor)"}
             onClick={() => navigate(item.path)}
           />
         ))}

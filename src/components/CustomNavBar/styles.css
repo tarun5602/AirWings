@@ -56,6 +56,10 @@
   color: var(--secondaryColor);
   font-weight: bold;
 }
+.active-link {
+  color: var(--secondaryColor) !important;
+  font-weight: bold;
+}
 
 .customNavbarProfileContainer {
   flex: 1;

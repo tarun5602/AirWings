@@ -53,95 +53,99 @@ export default function FlightBookingForm() {
   };
 
   const handleSubmit = async () => {
-    const username = localStorage.getItem("username");
-    const flightId = data.flightDetail.id;
-    const profileId = data.profileDetail.id;
-
-    if (!validateBaggage()) {
-      return;
-    }
-
-    try {
-      const baggageIds = [];
-      let user_id;
-
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}profile?username=${username}`
-        );
-        const profile = response.data?.data;
-        if (!profile?.id) {
-          toast.error("Invalid profile response.");
-          return;
-        }
-        user_id = profile.id;
-
-        // const profile = response.data.data;
-        // const isProfileComplete = profile.first_name && profile.last_name;
-
-        // if (!isProfileComplete) {
-        //   toast.error("Please complete your profile before booking.");
-        //   return;
-        // }
-      } catch (error) {
-        toast.error("Error fetching profile.");
-        return;
-      }
-
-      for (const baggage of baggageList) {
-        const baggageRes = await axios.post(
-          `${process.env.REACT_APP_API_URL}baggage/`,
-          {
-            user: user_id,
-            weight: baggage.weight,
-            flight: flightId,
-            dimensions: baggage.dimensions,
-            description: baggage.description,
-            quantity: baggage.quantity,
-          }
-        );
-
-        if (baggageRes.data.status) {
-          baggageIds.push(baggageRes.data.data.id);
-        } else {
-          toast.error("Failed to add baggage.");
-          return;
-        }
-      }
-
-      for (const baggageId of baggageIds) {
-        const bookingRes = await axios.post(
-          `${process.env.REACT_APP_API_URL}booking/`,
-          {
-            user_id: user_id,
-            profile_id: profileId,
-            flight_id: flightId,
-            baggage_id: baggageId,
-            username: username,
-            
-            num_passengers: 5,
-          }
-        );
-
-        if (!bookingRes.data.status) {
-          toast.error("Booking failed for baggage ID " + baggageId);
-          return;
-        }
-      }
-
-      toast.success("Booking Successful!");
-      navigate(ROUTES.servicesPageFlightBookingPageCheckOut, {
-        state: {
-          flightDetail: data.flightDetail,
-          profileDetail: data.profileDetail,
-          baggageList: baggageList,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-      toast.error("Error during booking.");
-    }
+    navigate(ROUTES.servicesPageFlightBookingPageCheckOut);
   };
+
+  // const handleSubmit = async () => {
+  //   const username = localStorage.getItem("username");
+  //   const flightId = data.flightDetail.id;
+  //   const profileId = data.profileDetail.id;
+
+  //   if (!validateBaggage()) {
+  //     return;
+  //   }
+
+  //   try {
+  //     const baggageIds = [];
+  //     let user_id;
+
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.REACT_APP_API_URL}profile?username=${username}`
+  //       );
+  //       const profile = response.data?.data;
+  //       if (!profile?.id) {
+  //         toast.error("Invalid profile response.");
+  //         return;
+  //       }
+  //       user_id = profile.id;
+
+  //       // const profile = response.data.data;
+  //       // const isProfileComplete = profile.first_name && profile.last_name;
+
+  //       // if (!isProfileComplete) {
+  //       //   toast.error("Please complete your profile before booking.");
+  //       //   return;
+  //       // }
+  //     } catch (error) {
+  //       toast.error("Error fetching profile.");
+  //       return;
+  //     }
+
+  //     for (const baggage of baggageList) {
+  //       const baggageRes = await axios.post(
+  //         `${process.env.REACT_APP_API_URL}baggage/`,
+  //         {
+  //           user: user_id,
+  //           weight: baggage.weight,
+  //           flight: flightId,
+  //           dimensions: baggage.dimensions,
+  //           description: baggage.description,
+  //           quantity: baggage.quantity,
+  //         }
+  //       );
+
+  //       if (baggageRes.data.status) {
+  //         baggageIds.push(baggageRes.data.data.id);
+  //       } else {
+  //         toast.error("Failed to add baggage.");
+  //         return;
+  //       }
+  //     }
+
+  //     for (const baggageId of baggageIds) {
+  //       const bookingRes = await axios.post(
+  //         `${process.env.REACT_APP_API_URL}booking/`,
+  //         {
+  //           user_id: user_id,
+  //           profile_id: profileId,
+  //           flight_id: flightId,
+  //           baggage_id: baggageId,
+  //           username: username,
+
+  //           num_passengers: 5,
+  //         }
+  //       );
+
+  //       if (!bookingRes.data.status) {
+  //         toast.error("Booking failed for baggage ID " + baggageId);
+  //         return;
+  //       }
+  //     }
+
+  //     toast.success("Booking Successful!");
+  //     navigate(ROUTES.servicesPageFlightBookingPageCheckOut, {
+  //       state: {
+  //         flightDetail: data.flightDetail,
+  //         profileDetail: data.profileDetail,
+  //         baggageList: baggageList,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Error during booking.");
+  //   }
+  // };
 
   const [baggageList, setBaggageList] = useState([
     { weight: "", dimensions: "", quantity: "", description: "" },
@@ -152,6 +156,13 @@ export default function FlightBookingForm() {
     updatedList[index][field] = value;
     setBaggageList(updatedList);
   };
+
+  const displayGender =
+    data.profileDetail.gender === "M"
+      ? "Male"
+      : data.profileDetail.gender === "F"
+      ? "Female"
+      : data.profileDetail.gender_other || "Other";
 
   return (
     <div className="flightBookingFormBaseContainer">
@@ -186,7 +197,7 @@ export default function FlightBookingForm() {
           </div>
           <div className="flighBookingFormGrid">
             <label>Gender</label>
-            <CustomInput value={data.profileDetail.gender} />
+            <CustomInput value={displayGender} />
           </div>
         </div>
       </div>
@@ -225,8 +236,8 @@ export default function FlightBookingForm() {
             <CustomInput value={data.flightDetail.airline} />
           </div>
           <div className="flighBookingFormGrid">
-            <label>Available Seats</label>
-            <CustomInput value={data.flightDetail.seats_available} />
+            <label>Price</label>
+            <CustomInput value={`₹ ${data.flightDetail.price}`} />
           </div>
           <div className="flighBookingFormGrid">
             <label>Class</label>
@@ -312,7 +323,10 @@ export default function FlightBookingForm() {
           </div>
         </div>
       </div>
-      <CustomButton title={"Submit"} onClick={handleSubmit} />
+
+      <div className="flightBookingFormButtonContainer">
+        <CustomButton height={"40px"} title={"Submit"} onClick={handleSubmit} />
+      </div>
       <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );

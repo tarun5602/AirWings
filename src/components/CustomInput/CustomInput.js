@@ -10,6 +10,7 @@ function CustomInput({
   isSecureEntry = false,
   value,
   onChange,
+  onBlur,
   disable = false,
   width
 }) {
@@ -25,6 +26,7 @@ function CustomInput({
           disabled={disable}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
           placeholder={placeholder ? placeholder : "Enter text"}
           type={isSecureEntry ? (showText ? "text" : "password") : type}
         />
