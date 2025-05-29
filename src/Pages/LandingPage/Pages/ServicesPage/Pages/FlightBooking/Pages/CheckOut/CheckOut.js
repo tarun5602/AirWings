@@ -22,6 +22,7 @@ export default function CheckOut() {
   const platformFee = basePrice * platformFeeRate;
 
   const totalAmount = basePrice + gstAmount + platformFee;
+  const totalAmountInPaise = Math.round(totalAmount * 100);
 
   return (
     <div className="checkoutBaseContainer">
@@ -126,7 +127,7 @@ export default function CheckOut() {
 
       <div className="checkoutPayButton">
         <CustomPayment
-          amount={totalAmount}
+          amount={totalAmountInPaise}
           onSuccess={(response) => {
             console.log(
               "Payment successful with ID: " + response.razorpay_payment_id

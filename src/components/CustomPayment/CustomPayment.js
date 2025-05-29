@@ -18,7 +18,7 @@ const CustomPayment = ({ amount, onSuccess }) => {
 
     const options = {
       key: "rzp_test_dRWiKHS7zr2Gki",
-      amount: amount * 100,
+      amount: amount,
       currency: "INR",
       name: "AirWings",
       description: "Flight Ticket Payment",
@@ -48,7 +48,7 @@ const CustomPayment = ({ amount, onSuccess }) => {
 
   return (
     <div>
-      <CustomButton onClick={handlePayment} title={`Pay ₹${amount}`} />
+      <CustomButton onClick={handlePayment} title={`Pay ₹${(amount / 100).toFixed(2)}`} />
       <ToastContainer draggable autoClose={5000} transition={Bounce} />
     </div>
   );

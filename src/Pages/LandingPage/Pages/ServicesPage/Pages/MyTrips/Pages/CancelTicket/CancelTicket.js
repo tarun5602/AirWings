@@ -78,6 +78,10 @@ export default function CancelTicket() {
     }
   };
 
+  const handleKeepTicket = async () => {
+    navigate(ROUTES.servicesPageMyTripsPage);
+  };
+
   return (
     <div className="cancelTicketBaseContainer">
       <div className="cancelTicketContainer">
@@ -165,7 +169,11 @@ export default function CancelTicket() {
               title={"Confirm Cancellation"}
               onClick={handleConfirmCancellation}
             />
-            <CustomButton width={"50%"} title={"Keep My Booking"} />
+            <CustomButton
+              width={"50%"}
+              title={"Keep My Booking"}
+              onClick={handleKeepTicket}
+            />
           </div>
         </div>
       </div>
