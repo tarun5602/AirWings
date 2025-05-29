@@ -10,7 +10,7 @@ import {
   PDFViewer,
   Image,
 } from "@react-pdf/renderer";
-import ASSETS from "../../../../../../../assets";
+import ASSETS from "../../../../../../../../assets";
 import axios from "axios";
 
 const styles = StyleSheet.create({
@@ -136,8 +136,12 @@ const styles = StyleSheet.create({
 
 const TripPDF = ({ trip, profile, baggage }) => {
   const gstRate = 0.18;
-  const gst = trip.totalPrice * gstRate;
-  const totalWithGST = trip.totalPrice + gst;
+  const platformFeeRate = 0.02;
+
+  const basePrice = trip.totalPrice;
+  const gst = basePrice * gstRate;
+  const platformFee = basePrice * platformFeeRate;
+  const finalPrice = basePrice + gst + platformFee;
 
   return (
     <Document>
@@ -251,19 +255,21 @@ const TripPDF = ({ trip, profile, baggage }) => {
           <View style={styles.pricingBreakdown}>
             <View style={styles.pricingRow}>
               <Text style={styles.label}>Base Fare</Text>
-              <Text style={styles.value}>{trip.totalPrice.toFixed(2)}</Text>
+              <Text style={styles.value}>{basePrice.toFixed(2)}</Text>
             </View>
             <View style={styles.pricingRow}>
-              <Text style={styles.label}>GST Rate</Text>
-              <Text style={styles.value}>18%</Text>
-            </View>
-            <View style={styles.pricingRow}>
-              <Text style={styles.label}>GST Amount</Text>
+              <Text style={styles.label}>GST (18%)</Text>
               <Text style={styles.value}>{gst.toFixed(2)}</Text>
             </View>
+            <View style={styles.pricingRow}>
+              <Text style={styles.label}>Platform Fee (2%)</Text>
+              <Text style={styles.value}>{platformFee.toFixed(2)}</Text>
+            </View>
             <View style={styles.totalRow}>
-              <Text style={styles.totalLabel}>Final Price (Incl. GST)</Text>
-              <Text style={styles.totalValue}>{totalWithGST.toFixed(2)}</Text>
+              <Text style={styles.totalLabel}>
+                Final Price (Incl. Tax & Fees)
+              </Text>
+              <Text style={styles.totalValue}>{finalPrice.toFixed(2)}</Text>
             </View>
           </View>
         </View>

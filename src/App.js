@@ -11,7 +11,8 @@ import AboutUsPage from "./Pages/LandingPage/Pages/AboutUsPage/AboutUsPage";
 import FAQPage from "./Pages/LandingPage/Pages/FAQPage/FAQPage";
 import FlightBooking from "./Pages/LandingPage/Pages/ServicesPage/Pages/FlightBooking/FlightBooking";
 import MyTrips from "./Pages/LandingPage/Pages/ServicesPage/Pages/MyTrips/MyTrips";
-import ViewPDF from "./Pages/LandingPage/Pages/ServicesPage/Pages/MyTrips/Pages/ViewPDF";
+import ViewPDF from "./Pages/LandingPage/Pages/ServicesPage/Pages/MyTrips/Pages/ViewPDF/ViewPDF";
+import CancelTicket from "./Pages/LandingPage/Pages/ServicesPage/Pages/MyTrips/Pages/CancelTicket/CancelTicket";
 import BaggageTracking from "./Pages/LandingPage/Pages/ServicesPage/Pages/BaggageTracking/BaggageTracking";
 import Support from "./Pages/LandingPage/Pages/ServicesPage/Pages/Support/Support";
 import FlightBookingForm from "./Pages/LandingPage/Pages/ServicesPage/Pages/FlightBooking/Pages/FlightBookingForm/FlightBookingForm";
@@ -54,6 +55,10 @@ function App() {
               <Route
                 path={ROUTES.servicesPageMyTripsPageViewPDF}
                 element={<ViewPDF />}
+              />
+              <Route
+                path={ROUTES.servicesPageMyTripsPageCancelTicket}
+                element={<CancelTicket />}
               />
               <Route
                 path={ROUTES.servicesPageBaggageTrackingPage}

@@ -23,6 +23,15 @@ export default function MyTrips() {
   const [profileDetails, setProfileDetails] = useState(null);
   const navigate = useNavigate();
 
+  const GST_PERCENT = 18;
+  const PLATFORM_FEE_PERCENT = 2;
+
+  const calculateFinalPrice = (basePrice) => {
+    const gstAmount = (basePrice * GST_PERCENT) / 100;
+    const platformFee = (basePrice * PLATFORM_FEE_PERCENT) / 100;
+    return (basePrice + gstAmount + platformFee).toFixed(2);
+  };
+
   useEffect(() => {
     setLoading(true);
     const fetchBookings = async () => {
@@ -36,36 +45,37 @@ export default function MyTrips() {
           setProfileDetails(response.data.data);
           console.log("Profile Details:", response.data.data);
 
-
           try {
             const response1 = await axios.get(
               `${process.env.REACT_APP_API_URL}booking?username=${username}`
             );
+            console.log("Flight Details", response1.data.data);
             if (response1.data.status) {
-              const formattedBookings = response1.data.data.map(
-                (booking, index) => ({
-                  id: index,
-                  flightNo: booking.flight.flight_number,
-                  fromLocation: booking.flight.departure,
-                  toLocation: booking.flight.arrival,
-                  fromDate: booking.flight.departure_time.split("T")[0],
-                  fromTime: new Date(
-                    booking.flight.departure_time
-                  ).toLocaleTimeString(),
-                  toDate: booking.flight.arrival_time.split("T")[0],
-                  toTime: new Date(
-                    booking.flight.arrival_time
-                  ).toLocaleTimeString(),
-                  terminal: booking.flight.terminal,
-                  gate: booking.flight.gate,
-                  seat: "12A",
-                  class: booking.flight.flights_class,
-                  passengers: "1 Person",
-                  totalPrice: booking.flight.price || "N/A",
-                  baggage: booking.baggage,
-                  status: "On Time",
-                })
-              );
+              const formattedBookings = response1.data.data.map((booking) => ({
+                id: booking.id,
+                flightId: booking.flight.id,
+                flightNo: booking.flight.flight_number,
+                airlineName: booking.flight.airline,
+                fromLocation: booking.flight.departure,
+                toLocation: booking.flight.arrival,
+                fromDate: booking.flight.departure_time.split("T")[0],
+                fromTime: new Date(
+                  booking.flight.departure_time
+                ).toLocaleTimeString(),
+                toDate: booking.flight.arrival_time.split("T")[0],
+                toTime: new Date(
+                  booking.flight.arrival_time
+                ).toLocaleTimeString(),
+                terminal: booking.flight.terminal,
+                gate: booking.flight.gate,
+                seat: "12A",
+                class: booking.flight.flights_class,
+                passengers: "1 Person",
+                totalPrice: booking.flight.price || "N/A",
+                finalPrice: calculateFinalPrice(booking.flight.price || 0),
+                baggage: booking.baggage,
+                status: "On Time",
+              }));
               setFlights(formattedBookings);
             }
           } catch (error) {
@@ -81,12 +91,23 @@ export default function MyTrips() {
   }, []);
 
   const handlePDF = (trip, baggage) => {
-    console.log(trip)
+    console.log(trip);
     navigate(ROUTES.servicesPageMyTripsPageViewPDF, {
       state: {
         tripDetails: trip,
         profileDetails: profileDetails,
-        baggageDetails: baggage
+        baggageDetails: baggage,
+        airlineName: trip.airlineName,
+      },
+    });
+  };
+
+  const handleCancellation = (trip) => {
+    navigate(ROUTES.servicesPageMyTripsPageCancelTicket, {
+      state: {
+        tripDetails: trip,
+        airlineName: trip.airlineName,
+        bookingId: trip.id, 
       },
     });
   };
@@ -180,7 +201,7 @@ export default function MyTrips() {
                     <ImPriceTags />
                     <div className="myTripInformationMainItemPricePriceContainer">
                       <p>Total Price</p>
-                      <h4>{item.totalPrice}</h4>
+                      <h4>{item.finalPrice}</h4>
                     </div>
                   </div>
                   <div className="myTripInformationMainItemPriceBaggageBaseContainer">
@@ -194,10 +215,13 @@ export default function MyTrips() {
 
                 <div className="myTripsInformationMainItemModifactionButtonBaseContainer">
                   <CustomButton
-                    title={"Download PDF"}
+                    title={"Download Ticket"}
                     onClick={() => handlePDF(item, item.baggage)}
                   />
-                  <CustomButton title={"Cancel"} />
+                  <CustomButton
+                    title={"Cancel Ticket"}
+                    onClick={() => handleCancellation(item)}
+                  />
                 </div>
               </div>
             </div>

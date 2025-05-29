@@ -7,6 +7,8 @@ const COLOR = {
   borderColor: "#DDDDDD",
   disableColor: "#f0f0f0",
   footerColor: "#111929",
+  redColor: "#dd2624",
+  greenColor: "#2a985f",
 };
 
 export default COLOR;

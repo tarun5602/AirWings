@@ -14,6 +14,15 @@ export default function CheckOut() {
     baggageList = [],
   } = location.state || {};
 
+  const basePrice = flightDetail?.price ?? 500;
+  const gstRate = 0.18;
+  const platformFeeRate = 0.02;
+
+  const gstAmount = basePrice * gstRate;
+  const platformFee = basePrice * platformFeeRate;
+
+  const totalAmount = basePrice + gstAmount + platformFee;
+
   return (
     <div className="checkoutBaseContainer">
       <h2 style={{ textAlign: "center" }}>Checkout</h2>
@@ -93,15 +102,36 @@ export default function CheckOut() {
         </div>
       </div>
 
+      <div className="checkoutContainer">
+        <h3>Payment Summary</h3>
+        <div className="checkoutGridBaseContianer">
+          <div className="checkoutGridContainer">
+            <p>Base Price:</p>
+            <p>₹{basePrice.toFixed(2)}</p>
+          </div>
+          <div className="checkoutGridContainer">
+            <p>GST (18%):</p>
+            <p>₹{gstAmount.toFixed(2)}</p>
+          </div>
+          <div className="checkoutGridContainer">
+            <p>Platform Fee (2%):</p>
+            <p>₹{platformFee.toFixed(2)}</p>
+          </div>
+          <div className="checkoutGridContainer" style={{ fontWeight: "bold" }}>
+            <p>Total Amount:</p>
+            <p>₹{totalAmount.toFixed(2)}</p>
+          </div>
+        </div>
+      </div>
+
       <div className="checkoutPayButton">
         <CustomPayment
-          amount={flightDetail?.price ?? 500}
+          amount={totalAmount}
           onSuccess={(response) => {
             console.log(
               "Payment successful with ID: " + response.razorpay_payment_id
             );
             navigate(ROUTES.servicesPageMyTripsPage);
-            // You can also trigger booking creation here
           }}
         />
       </div>

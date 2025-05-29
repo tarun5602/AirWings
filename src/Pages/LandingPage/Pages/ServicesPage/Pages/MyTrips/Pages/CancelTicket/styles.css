@@ -1,0 +1,73 @@
+.cancelTicketBaseContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+  overflow: auto;
+}
+.cancelTicketContainer {
+  width: 70%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+}
+.cancelTicketHeadingContainer {
+  width: 100%;
+  padding: 20px;
+  color: var(--whiteColor);
+  background-color: var(--baseColor);
+}
+.cancelTicketContentBaseContainer {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cancelTicketContentFlightBaseContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.cancelTicketContentFlightContainer {
+}
+.cancelTicketContentRefundBaseContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.cancelTicketContentRefundContainer {
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--disableColor);
+  overflow: hidden;
+}
+.cancelTicketContentRefundPrice{
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.cancelTicketContentRefundTotalPrice{
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--borderColor);
+}
+.cancelTicketContentButtonContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+.cancelTicketContentButtonContainer :hover{
+  background-color: var(--baseColor);
+  color: var(--whiteColor);
+}
