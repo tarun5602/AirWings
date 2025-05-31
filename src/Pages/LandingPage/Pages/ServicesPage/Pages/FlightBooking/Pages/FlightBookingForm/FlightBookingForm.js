@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./styles.css";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { Bounce } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -52,100 +51,17 @@ export default function FlightBookingForm() {
     return true;
   };
 
-  // const handleSubmit = async () => {
-  //   navigate(ROUTES.servicesPageFlightBookingPageCheckOut);
-  // };
-
   const handleSubmit = async () => {
-    const username = localStorage.getItem("username");
-    const flightId = data.flightDetail.id;
-    const profileId = data.profileDetail.id;
+    if (!validateBaggage()) return;
 
-    if (!validateBaggage()) {
-      return;
-    }
-
-    try {
-      const baggageIds = [];
-      let user_id;
-
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}profile?username=${username}`
-        );
-
-        const profile = response.data?.data;
-        if (!profile?.user_id) {
-          toast.error("Invalid profile response.");
-          return;
-        }
-        user_id = profile.user_id;
-
-        // const profile = response.data.data;
-        // const isProfileComplete = profile.first_name && profile.last_name;
-
-        // if (!isProfileComplete) {
-        //   toast.error("Please complete your profile before booking.");
-        //   return;
-        // }
-      } catch (error) {
-        toast.error("Error fetching profile.");
-        return;
-      }
-
-      for (const baggage of baggageList) {
-        const baggageRes = await axios.post(
-          `${process.env.REACT_APP_API_URL}baggage/`,
-          {
-            user: user_id,
-            weight: baggage.weight,
-            flight: flightId,
-            dimensions: baggage.dimensions,
-            description: baggage.description,
-            quantity: baggage.quantity,
-          }
-        );
-
-        if (baggageRes.data.status) {
-          baggageIds.push(baggageRes.data.data.baggage_id);
-        } else {
-          toast.error("Failed to add baggage.");
-          return;
-        }
-      }
-
-      for (const baggageId of baggageIds) {
-        const bookingRes = await axios.post(
-          `${process.env.REACT_APP_API_URL}booking/`,
-          {
-            user_id: user_id,
-            profile_id: profileId,
-            flight_id: flightId,
-            baggage_id: baggageId,
-            username: username,
-
-            num_passengers: 5,
-          }
-        );
-
-        if (!bookingRes.data.status) {
-          toast.error("Booking failed for baggage ID " + baggageId);
-          return;
-        }
-      }
-
-      toast.success("Booking Successful!");
-      navigate(ROUTES.servicesPageFlightBookingPageCheckOut, {
-        state: {
-          flightDetail: data.flightDetail,
-          profileDetail: data.profileDetail,
-          baggageList: baggageList,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-      toast.error("Error during booking.");
-    }
+    navigate(ROUTES.servicesPageFlightBookingPageCheckOut, {
+      state: {
+        flightDetail: data.flightDetail,
+        profileDetail: data.profileDetail,
+        baggageList: baggageList,
+        members: members,
+      },
+    });
   };
 
   const [baggageList, setBaggageList] = useState([
@@ -156,6 +72,23 @@ export default function FlightBookingForm() {
     const updatedList = [...baggageList];
     updatedList[index][field] = value;
     setBaggageList(updatedList);
+  };
+
+  const [members, setMembers] = useState([]);
+
+  const handleMemberChange = (index, field, value) => {
+    const updatedMembers = [...members];
+    updatedMembers[index][field] = value;
+    setMembers(updatedMembers);
+  };
+
+  const addMember = () => {
+    setMembers([...members, { full_name: "", age: "", gender: "" }]);
+  };
+
+  const removeMember = (index) => {
+    const updatedMembers = members.filter((_, i) => i !== index);
+    setMembers(updatedMembers);
   };
 
   const displayGender =
@@ -317,10 +250,59 @@ export default function FlightBookingForm() {
       </div>
 
       <div className="flightBookingFormsContainer">
-        <h3>Add Members</h3>
-        <div className="flightBookingFormGridBaseContainer">
+        <div className="flightBookingFormAddBaseContainer">
+          <h3>Add member</h3>
+          <CustomButton title={"+ Add Member"} onClick={addMember} />
+        </div>
+        <div className="flightBookingAddMembersBaseContainer">
           <div className="flighBookingFormGrid">
-            <label></label>
+            {members.length > 0 &&
+              members.map((member, index) => (
+                <div key={index} className="flightBookingFormGridBaseContainer">
+                  <div className="flighBookingFormGrid">
+                    <label>Full Name</label>
+                    <CustomInput
+                      value={member.full_name}
+                      onChange={(e) =>
+                        handleMemberChange(index, "full_name", e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="flighBookingFormGrid">
+                    <label>Age</label>
+                    <CustomInput
+                      type="number"
+                      value={member.age}
+                      onChange={(e) =>
+                        handleMemberChange(index, "age", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="flighBookingFormGrid">
+                    <label>Gender</label>
+                    <select
+                      value={member.gender}
+                      onChange={(e) =>
+                        handleMemberChange(index, "gender", e.target.value)
+                      }
+                      className="customSelectInput"
+                    >
+                      <option value="">Select</option>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                      <option value="O">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="flighBookingFormGrid">
+                    <CustomButton
+                      title={"Remove"}
+                      onClick={() => removeMember(index)}
+                    />
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>

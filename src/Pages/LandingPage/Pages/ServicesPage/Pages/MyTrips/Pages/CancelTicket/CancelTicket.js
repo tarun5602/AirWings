@@ -66,7 +66,7 @@ export default function CancelTicket() {
       );
 
       if (response.data.success) {
-        toast.success("Booking cancelled successfully", {
+        toast.success(`Booking cancelled successfully. Refunded ₹${refundAmount}`, {
           onClose: () => navigate(ROUTES.servicesPageMyTripsPage),
         });
       } else {

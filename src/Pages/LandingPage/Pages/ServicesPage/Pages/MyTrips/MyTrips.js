@@ -32,6 +32,8 @@ export default function MyTrips() {
     return (basePrice + gstAmount + platformFee).toFixed(2);
   };
 
+  const shortId = (id) => id?.slice(0, 6) + "...";
+
   useEffect(() => {
     setLoading(true);
     const fetchBookings = async () => {
@@ -68,13 +70,17 @@ export default function MyTrips() {
                 ).toLocaleTimeString(),
                 terminal: booking.flight.terminal,
                 gate: booking.flight.gate,
-                seat: "12A",
+                seat: booking.flight?.assigned_seats?.map(seat => seat.seat_number).join(", ") || "Not Assigned",
                 class: booking.flight.flights_class,
-                passengers: "1 Person",
+                passengers:
+                  booking.members?.length > 0
+                    ? `${booking.members.length + 1} Persons`
+                    : "1 Person",
                 totalPrice: booking.flight.price || "N/A",
                 finalPrice: calculateFinalPrice(booking.flight.price || 0),
                 baggage: booking.baggage,
                 status: "On Time",
+                members: booking.members || [],
               }));
               setFlights(formattedBookings);
             }
@@ -98,6 +104,7 @@ export default function MyTrips() {
         profileDetails: profileDetails,
         baggageDetails: baggage,
         airlineName: trip.airlineName,
+        members: trip.members,
       },
     });
   };
@@ -107,7 +114,8 @@ export default function MyTrips() {
       state: {
         tripDetails: trip,
         airlineName: trip.airlineName,
-        bookingId: trip.id, 
+        bookingId: trip.id,
+        members: trip.members,
       },
     });
   };
@@ -208,7 +216,9 @@ export default function MyTrips() {
                     <LuBaggageClaim />
                     <div className="myTripInformationMainItemPriceBaggageContainer">
                       <p>Baggage</p>
-                      <h4>{item.baggage.baggage_id ?? ""}</h4>
+                      <h4 title={item.baggage.baggage_id}>
+                        {shortId(item.baggage.baggage_id)}
+                      </h4>
                     </div>
                   </div>
                 </div>
