@@ -37,3 +37,6 @@
     font-weight: bold;
     padding: 20px 70vh;
 }
+.customSelectInput{
+    color: var(--blackColor);
+}

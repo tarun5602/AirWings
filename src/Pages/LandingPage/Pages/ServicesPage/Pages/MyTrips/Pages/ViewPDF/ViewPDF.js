@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const TripPDF = ({ trip, profile, baggage }) => {
+const TripPDF = ({ trip, profile, baggage, members }) => {
   const gstRate = 0.18;
   const platformFeeRate = 0.02;
 
@@ -204,6 +204,31 @@ const TripPDF = ({ trip, profile, baggage }) => {
               </Text>
             </View>
           </View>
+          {members && members.length > 0 && (
+            <>
+              {members.map((member, index) => (
+                <View style={styles.grid} key={member.id}>
+                  <View style={styles.gridItem}>
+                    <Text>
+                      {index + 2}. {member.full_name}
+                    </Text>
+                  </View>
+                  <View style={styles.gridItem}>
+                    <Text>{member.age}</Text>
+                  </View>
+                  <View style={styles.gridItem}>
+                    <Text>
+                      {member.gender === "M"
+                        ? "Male"
+                        : member.gender === "F"
+                        ? "Female"
+                        : "Other"}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </>
+          )}
         </View>
 
         <View style={styles.BaseInfoContainer}>
@@ -316,6 +341,7 @@ export default function ViewPDF() {
             trip={tripDetails}
             profile={profileDetails}
             baggage={baggageDetails}
+            members={location.state?.members || []}
           />
         </PDFViewer>
       </div>

@@ -13,6 +13,7 @@ export default function FlightBookingForm() {
   const location = useLocation();
   const data = location.state;
   const navigate = useNavigate();
+  const [members, setMembers] = useState([]);
 
   const validateBaggage = () => {
     for (const [i, baggage] of baggageList.entries()) {
@@ -74,12 +75,40 @@ export default function FlightBookingForm() {
     setBaggageList(updatedList);
   };
 
-  const [members, setMembers] = useState([]);
-
   const handleMemberChange = (index, field, value) => {
     const updatedMembers = [...members];
-    updatedMembers[index][field] = value;
-    setMembers(updatedMembers);
+
+    if (field === "full_name") {
+      // Remove digits
+      value = value.replace(/[0-9]/g, "");
+
+      // Capitalize the first letter
+      if (value.length > 0) {
+        value = value.charAt(0).toUpperCase() + value.slice(1);
+      }
+
+      updatedMembers[index][field] = value;
+      setMembers(updatedMembers);
+    }
+
+    if (field === "age") {
+      const numericValue = value.replace(/\D/g, ""); // Remove non-digits
+      const age = parseInt(numericValue, 10);
+
+      if (!isNaN(age) && age <= 120) {
+        updatedMembers[index][field] = age.toString();
+        setMembers(updatedMembers);
+      } else if (numericValue === "") {
+        updatedMembers[index][field] = "";
+        setMembers(updatedMembers);
+      }
+      // Otherwise: don't update if invalid
+    }
+
+    if (field === "gender") {
+      updatedMembers[index][field] = value;
+      setMembers(updatedMembers);
+    }
   };
 
   const addMember = () => {
@@ -175,7 +204,7 @@ export default function FlightBookingForm() {
           </div>
           <div className="flighBookingFormGrid">
             <label>Class</label>
-            <CustomInput value={data.flightDetail.flights_class_display} />
+            <CustomInput value={data.flightDetail.flights_class} />
           </div>
         </div>
       </div>

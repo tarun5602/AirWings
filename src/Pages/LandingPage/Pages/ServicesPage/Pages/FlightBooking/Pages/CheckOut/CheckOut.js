@@ -54,7 +54,7 @@ export default function CheckOut() {
 
       <div className="checkoutContainer">
         <h3>Flight Details</h3>
-        <div className="checkoutGridBaseContianer">
+        <div className="checkoutGridBaseContainer">
           <div className="checkoutGridContainer">
             <p>{flightDetail?.flight_number ?? ""}</p>
           </div>
@@ -92,15 +92,15 @@ export default function CheckOut() {
 
       <div className="checkoutContainer">
         <h3>Baggae Details</h3>
-        <div className="checkoutGridBaseContianer">
+        <div className="checkoutGridBaseContainer">
           <div className="checkoutGridContainer">
-            <p>{baggageList?.[0]?.weight ?? ""}Kg</p>
+            <p>{baggageList?.[0]?.weight ?? ""} Kg</p>
           </div>
           <div className="checkoutGridContainer">
-            <p>{baggageList?.[0]?.dimensions ?? ""}</p>
+            <p>{baggageList?.[0]?.dimensions ?? ""} Dimensions</p>
           </div>
           <div className="checkoutGridContainer">
-            <p>{baggageList?.[0]?.quantity ?? ""}</p>
+            <p>{baggageList?.[0]?.quantity ?? ""} Bag</p>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function CheckOut() {
       {members.length > 0 && (
         <div className="checkoutContainer">
           <h3>Additional Members</h3>
-          <div className="checkoutGridBaseContianer">
+          <div className="checkoutGridBaseContainer">
             {members.map((member, index) => (
               <div key={index} className="checkoutGridContainer">
                 <p>
@@ -128,7 +128,7 @@ export default function CheckOut() {
 
       <div className="checkoutContainer">
         <h3>Payment Summary</h3>
-        <div className="checkoutGridBaseContianer">
+        <div>
           <div className="checkoutGridContainer">
             <p style={{ fontWeight: "bold" }}>Base Price:</p>
             <p>₹{basePrice.toFixed(2)}</p>
@@ -201,7 +201,7 @@ export default function CheckOut() {
                   baggage_id: baggageId,
                   username: username,
                   num_passengers: members.length + 1,
-                  members: members, 
+                  members: members,
                 });
 
                 const bookingRes = await axios.post(

@@ -72,8 +72,8 @@ export default function BaggageTracking() {
             <h4>Tracking Baggage</h4>
             <h4>Owner</h4>
             <h4>Flight</h4>
+            <h4>Dimensions</h4>
             <h4>Quantity</h4>
-            <h4>Status</h4>
           </div>
 
           {loading ? (
@@ -95,10 +95,10 @@ export default function BaggageTracking() {
                 className="baggageTrackingInformationItemContainer"
               >
                 <p>{baggage.baggage_id}</p>
-                <p>{baggage.user}</p>
-                <p>{baggage.Flight}</p>
+                <p>{baggage.username}</p>
+                <p>{baggage.flight_name}</p>
+                <p>{baggage.dimensions}</p>
                 <p>{baggage.quantity}</p>
-                <p>{baggage.status}</p>
               </div>
             ))
           )}

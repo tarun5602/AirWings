@@ -90,7 +90,7 @@ export default function HomePage() {
           }
         }
       } catch (error) {
-        toast.error("Error Fetching progile");
+        toast.error("Please Complete your Profile Before Proceeding");
       }
     };
 
@@ -187,6 +187,7 @@ export default function HomePage() {
         }}
       ></div>
       <div style={{ position: "absolute", width: "100%" }}>
+
         <section className="heroSectionBaseContainer">
           <div className="heroSectionImageBaseContainer">
             <img src={ASSETS.homePageHeroBackImage} ref={planeBackHeroRef} />
@@ -250,6 +251,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
         <section className="popularDestinationBaseContainer">
           <h1>Find Special Prices To Favorite Destinations</h1>
           <div className="popularDestinationCardContainer">
@@ -280,6 +282,7 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
         <section className="offersBaseContainer">
           <h1 ref={backImageRef}>
             Find Special Prices To Favorite Destinations
@@ -383,6 +386,7 @@ export default function HomePage() {
             )}
           </div>
         </section>
+
         <CustomFooter />
       </div>
       <ToastContainer draggable autoClose={5000} transition={Bounce} />

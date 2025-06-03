@@ -8,8 +8,7 @@ const ASSETS = {
   destinationBengaluruImage: require("./images/DestinationBengaluru.jpeg"),
   destinationTamilnaduImage: require("./images/DestinationTamilnadu.jpg"),
 
-  // contactUsImage: require("./images/contactUsImage.jpeg"),
-  contactUsImage: require("./images/galaxycontact.jpg"),
+  contactUsImage: require("./images/contactUsImage.jpg"),
   HomePageBackgroundImage: require("./images/HomePageBGSkyImage.jpg"),
   heroSectionPlaneImage: require("./images/HeroSectionPlane.png"),
 

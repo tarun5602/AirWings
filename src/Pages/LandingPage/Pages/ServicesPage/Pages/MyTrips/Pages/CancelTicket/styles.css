@@ -67,7 +67,7 @@
   justify-content: center;
   gap: 25px;
 }
-.cancelTicketContentButtonContainer :hover{
+/* .cancelTicketContentButtonContainer :hover{
   background-color: var(--baseColor);
   color: var(--whiteColor);
-}
+} */
