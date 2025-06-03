@@ -10,13 +10,17 @@ const ASSETS = {
 
   // contactUsImage: require("./images/contactUsImage.jpeg"),
   contactUsImage: require("./images/galaxycontact.jpg"),
-  offerSectionBackgroundImage: require("./images/SectionOfferBackground.png"),
+  HomePageBackgroundImage: require("./images/HomePageBGSkyImage.jpg"),
   heroSectionPlaneImage: require("./images/HeroSectionPlane.png"),
 
   viewPdfArrowRightIcon: require("./icons/arrow-right-icon.png"),
   viewPdfTickIcon: require("./icons/tick-circleicon.png"),
   chatBootIcon: require("./icons/assistant-svgrepo-com.png"),
   paymentImage: require("./images/PaymentImage.jpg"),
+
+  homePageHeroBackImage: require("./images/backImage.png"),
+  homePageHeroPlaneImage: require("./images/planephoto.png"),
+  homePageCloudImage: require("./images/clouds.png"),
 };
 
 export default ASSETS;

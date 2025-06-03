@@ -175,7 +175,65 @@ export default function FlightBookingForm() {
           </div>
           <div className="flighBookingFormGrid">
             <label>Class</label>
-            <CustomInput value={data.flightDetail.flights_class} />
+            <CustomInput value={data.flightDetail.flights_class_display} />
+          </div>
+        </div>
+      </div>
+
+      <div className="flightBookingFormsContainer">
+        <div className="flightBookingFormAddBaseContainer">
+          <h3>Add member</h3>
+          <CustomButton title={"+ Add Member"} onClick={addMember} />
+        </div>
+        <div className="flightBookingAddMembersBaseContainer">
+          <div className="flighBookingFormGrid">
+            {members.length > 0 &&
+              members.map((member, index) => (
+                <div key={index} className="flightBookingFormGridBaseContainer">
+                  <div className="flighBookingFormGrid">
+                    <label>Full Name</label>
+                    <CustomInput
+                      value={member.full_name}
+                      onChange={(e) =>
+                        handleMemberChange(index, "full_name", e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="flighBookingFormGrid">
+                    <label>Age</label>
+                    <CustomInput
+                      type="number"
+                      value={member.age}
+                      onChange={(e) =>
+                        handleMemberChange(index, "age", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="flighBookingFormGrid">
+                    <label>Gender</label>
+                    <select
+                      value={member.gender}
+                      onChange={(e) =>
+                        handleMemberChange(index, "gender", e.target.value)
+                      }
+                      className="customSelectInput"
+                    >
+                      <option value="">Select</option>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                      <option value="O">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="flighBookingFormGrid">
+                    <CustomButton
+                      title={"Remove"}
+                      onClick={() => removeMember(index)}
+                    />
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>
@@ -247,64 +305,6 @@ export default function FlightBookingForm() {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="flightBookingFormsContainer">
-        <div className="flightBookingFormAddBaseContainer">
-          <h3>Add member</h3>
-          <CustomButton title={"+ Add Member"} onClick={addMember} />
-        </div>
-        <div className="flightBookingAddMembersBaseContainer">
-          <div className="flighBookingFormGrid">
-            {members.length > 0 &&
-              members.map((member, index) => (
-                <div key={index} className="flightBookingFormGridBaseContainer">
-                  <div className="flighBookingFormGrid">
-                    <label>Full Name</label>
-                    <CustomInput
-                      value={member.full_name}
-                      onChange={(e) =>
-                        handleMemberChange(index, "full_name", e.target.value)
-                      }
-                    />
-                  </div>
-
-                  <div className="flighBookingFormGrid">
-                    <label>Age</label>
-                    <CustomInput
-                      type="number"
-                      value={member.age}
-                      onChange={(e) =>
-                        handleMemberChange(index, "age", e.target.value)
-                      }
-                    />
-                  </div>
-                  <div className="flighBookingFormGrid">
-                    <label>Gender</label>
-                    <select
-                      value={member.gender}
-                      onChange={(e) =>
-                        handleMemberChange(index, "gender", e.target.value)
-                      }
-                      className="customSelectInput"
-                    >
-                      <option value="">Select</option>
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
-                      <option value="O">Other</option>
-                    </select>
-                  </div>
-
-                  <div className="flighBookingFormGrid">
-                    <CustomButton
-                      title={"Remove"}
-                      onClick={() => removeMember(index)}
-                    />
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
       </div>
 
       <div className="flightBookingFormButtonContainer">

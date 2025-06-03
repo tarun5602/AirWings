@@ -67,7 +67,7 @@ function LandingPage() {
         <div className="landingPageBootBaseContainer">
           {showChat && (
             <div className="landingPageChatBaseContainer">
-              <div className="chatHeader">ChatBot</div>
+              <div className="chatHeader">Aliza</div>
 
               <div className="chatMessages">
                 {chatHistory.map((msg, index) => (

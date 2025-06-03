@@ -2,6 +2,10 @@
   flex: 1;
   display: flex;
   position: relative;
+  overflow-x: hidden;
+}
+.HomePageBaseContainer::-webkit-scrollbar {
+  display: none;
 }
 .HomePageImageBaseContainer {
   background-repeat: no-repeat;
@@ -18,7 +22,7 @@
   width: 100%;
   height: 90vh;
   display: flex;
-  background-color: white;
+  background-color: var(--whiteColor);
 }
 .heroSectionContainerOneBase {
   width: 100%;
@@ -36,6 +40,117 @@
   background-size: cover;
   background-position: center;
 }
+
+.heroSectionImageBaseContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.heroSectionImageBaseContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroSectionGradientBaseContainer {
+  position: absolute;
+  display: flex;
+  height: 90vh;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  background: linear-gradient(to right, #f2920122, #00000033);
+}
+
+.heroSectionContentBaseContainer {
+  position: absolute;
+  display: flex;
+  height: 90vh;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+}
+
+.heroSectionContentTitleContainer {
+  flex: 1;
+  display: flex;
+  padding: 10px 45px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.heroSectionContentTitleContainer h1 {
+  text-shadow: 0px 0px 10px #00000044;
+}
+
+.heroSectionContentTitleContainer #paragraphText {
+  text-shadow: 0px 0px 10px #00000044;
+}
+
+.heroSectionContentPlaneContainer {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(3deg);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.5;
+  }
+}
+
+@keyframes cloudAnimation {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.heroSectionContentPlaneAbsolute {
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+}
+
+.heroSectionContentPlaneContainer #planeImage {
+  width: 900px;
+  height: auto;
+  filter: drop-shadow(0px 0px 10px #00000099);
+  animation: scaleUp 5s infinite alternate ease-in-out;
+}
+
+.heroSectionContentPlaneContainer #cloudImage {
+  opacity: 0.8;
+  animation: cloudAnimation 200s infinite alternate ease-in-out;
+}
+
 .popularDestinationBaseContainer {
   width: 100%;
   height: 90vh;
@@ -175,13 +290,20 @@
 .testimonialsCardContainer {
   width: 100%;
   height: 100%;
-  display: flex;
+  display: inline-flex;
+  overflow: auto;
   align-items: center;
   gap: 40px;
 }
+
+.testimonialsCardContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .testimonialsCard {
-  width: 100%;
-  height: 40%;
+  flex: 0 0 auto;
+  width: 300px;
+  height: 200px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -205,7 +327,7 @@
   color: var(--whiteColor);
   font-size: 24px;
   font-weight: bold;
-   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .testimonialsCardImageTextContainer {
   padding: 10px;

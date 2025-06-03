@@ -31,8 +31,9 @@
     flex-direction: column;
     gap: 5px;
 }
-.customFooterQuickLinks:hover{
+.customFooterQuickLinks p:hover{
     cursor: pointer;
+    color: var(--secondaryColor);
 }
 
 .customFooterServicesContainer{

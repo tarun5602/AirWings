@@ -4,7 +4,7 @@ import CustomButton from "../../../../components/CustomButton/CustomButton";
 import ASSETS from "../../../../assets";
 import CustomFooter from "../../../../components/CustomFooter/CustomFooter";
 import CustomIcon from "../../../../components/CustomIcon/CustomIcon";
-import { gsap } from "gsap";
+import { gsap, wrap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
@@ -18,7 +18,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const backImageRef = useRef(null);
+  const heroSection = useRef(null);
+  const planeHeroRef = useRef(null);
+  const planeBackHeroRef = useRef(null);
   const navigate = useNavigate();
+  const wrapperRef = useRef();
 
   const [offers, setOffers] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
@@ -79,15 +83,14 @@ export default function HomePage() {
 
         if (profileResponse.data.status) {
           const profile = profileResponse.data.data;
-          const isComplete =
-            profile.first_name && profile.last_name;
+          const isComplete = profile.first_name && profile.last_name;
 
           if (!isComplete) {
             toast.warning("Please complete your profile before proceeding.");
           }
         }
       } catch (error) {
-        // toast.error(error.response.data.message);
+        toast.error("Error Fetching progile");
       }
     };
 
@@ -149,6 +152,27 @@ export default function HomePage() {
       },
     });
   }, []);
+  let scrollSpeed = 1;
+  useEffect(() => {
+    const container = wrapperRef.current;
+    
+    if (!container) return
+
+    let scrollAmount = 0;
+
+    const scrollStep = 2;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+    const interval = setInterval(() => {
+      if (scrollAmount >= maxScrollLeft) {
+        scrollAmount = 0;
+      } else {
+        scrollAmount += scrollStep;
+      }
+      container.scrollLeft = scrollAmount;
+    }, 30);
+    return () => clearInterval(interval);
+  }, [testimonials, loading, scrollSpeed, wrapperRef]);
 
   const booknow = () => {
     navigate(ROUTES.servicesPageFlightBookingPage);
@@ -159,39 +183,72 @@ export default function HomePage() {
       <div
         className="HomePageImageBaseContainer"
         style={{
-          backgroundImage: `url(${ASSETS.offerSectionBackgroundImage})`,
+          backgroundImage: `url(${ASSETS.HomePageBackgroundImage})`,
         }}
       ></div>
-      <div style={{ position: "absolute" }}>
+      <div style={{ position: "absolute", width: "100%" }}>
         <section className="heroSectionBaseContainer">
-          <div className="heroSectionContainerOneBase">
-            <h1
-              style={{
-                fontSize: "50px",
-              }}
-            >
-              Explore the World with AirWings
-            </h1>
-            <p
-              style={{
-                color: "var(--grayColor)",
-                fontSize: "20px",
-              }}
-            >
-              Your journey begins with us. Discover new horizons and create
-              unforgettable memories.
-            </p>
-            <CustomButton
-              title={"Book Now"}
-              onClick={booknow}
-              width={"20%"}
-              height={"9%"}
-            />
+          <div className="heroSectionImageBaseContainer">
+            <img src={ASSETS.homePageHeroBackImage} ref={planeBackHeroRef} />
           </div>
-          <div
-            className="heroSectionContainerTwoBase"
-            style={{ backgroundImage: `url(${ASSETS.heroSectionPlaneImage})` }}
-          ></div>
+          <div className="heroSectionGradientBaseContainer"></div>
+          <div className="heroSectionContentBaseContainer">
+            <div className="heroSectionContentTitleContainer">
+              <h1
+                style={{
+                  fontSize: "50px",
+                  fontWeight: "normal",
+                }}
+              >
+                Explore the World with{" "}
+                <span
+                  style={{
+                    fontWeight: "bold",
+                    textDecoration: "underline",
+                  }}
+                >
+                  AirWings
+                </span>
+              </h1>
+              <div id="paragraphText">
+                <p
+                  style={{
+                    color: "var(--blackColorDim)",
+                    fontSize: "20px",
+                  }}
+                >
+                  Your journey begins with us.
+                </p>
+                <p
+                  style={{
+                    color: "var(--blackColorDim)",
+                    fontSize: "15px",
+                  }}
+                >
+                  Discover new horizons and create unforgettable memories.
+                </p>
+              </div>
+
+              <CustomButton
+                title={"Book Now"}
+                onClick={booknow}
+                width={"100px"}
+                height={"40px"}
+                backgroundColor={"var(--baseColor)"}
+                color={"var(--secondaryColor)"}
+              />
+            </div>
+            <div className="heroSectionContentPlaneContainer">
+              <div className="heroSectionContentPlaneAbsolute">
+                <img src={ASSETS.homePageCloudImage} id="cloudImage" />
+              </div>
+              <img
+                src={ASSETS.homePageHeroPlaneImage}
+                ref={planeHeroRef}
+                id="planeImage"
+              />
+            </div>
+          </div>
         </section>
         <section className="popularDestinationBaseContainer">
           <h1>Find Special Prices To Favorite Destinations</h1>
@@ -275,7 +332,7 @@ export default function HomePage() {
                 fontSize: "30px",
               }}
             >
-              Testimonials
+              Love From Our Travelers
             </h1>
 
             {loading ? (
@@ -293,33 +350,35 @@ export default function HomePage() {
                 No testimonials available.
               </p>
             ) : (
-              <div className="testimonialsCardContainer">
-                {testimonials.map((testimonial) => (
-                  <div className="testimonialsCard" key={testimonial.id}>
-                    <div className="testimonialsCardImageBaseContainer">
-                      <div
-                        className="testimonialsCardImageContainer"
-                        style={{
-                          backgroundColor: initialsColorMap[testimonial.id],
-                        }}
-                      >
-                        {testimonial.name.charAt(0).toUpperCase()}
-                      </div>
+              <div className="testimonialsCardContainer" ref={wrapperRef}>
+                {[...testimonials, ...testimonials].map(
+                  (testimonial, index) => (
+                    <div className="testimonialsCard" key={index}>
+                      <div className="testimonialsCardImageBaseContainer">
+                        <div
+                          className="testimonialsCardImageContainer"
+                          style={{
+                            backgroundColor: initialsColorMap[testimonial.id],
+                          }}
+                        >
+                          {testimonial.name.charAt(0).toUpperCase()}
+                        </div>
 
-                      <div className="testimonialsCardImageTextContainer">
-                        <h3
-                          style={{ textAlign: "left" }}
-                        >{`${testimonial.name[0].toUpperCase()}${testimonial.name.slice(
-                          1
-                        )}`}</h3>
-                        <Rating size={16} initialValue={testimonial.rating} />
+                        <div className="testimonialsCardImageTextContainer">
+                          <h3
+                            style={{ textAlign: "left" }}
+                          >{`${testimonial.name[0].toUpperCase()}${testimonial.name.slice(
+                            1
+                          )}`}</h3>
+                          <Rating size={16} initialValue={testimonial.rating} />
+                        </div>
+                      </div>
+                      <div className="testimonialsCardInfo">
+                        <p>{testimonial.message}</p>
                       </div>
                     </div>
-                    <div className="testimonialsCardInfo">
-                      <p>{testimonial.message}</p>
-                    </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             )}
           </div>

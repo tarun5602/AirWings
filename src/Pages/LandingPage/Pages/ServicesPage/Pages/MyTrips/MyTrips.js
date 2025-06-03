@@ -70,7 +70,27 @@ export default function MyTrips() {
                 ).toLocaleTimeString(),
                 terminal: booking.flight.terminal,
                 gate: booking.flight.gate,
-                seat: booking.flight?.assigned_seats?.map(seat => seat.seat_number).join(", ") || "Not Assigned",
+                seat:
+                  booking.flight?.assigned_seats &&
+                  Array.isArray(booking.flight.assigned_seats)
+                    ? booking.flight.assigned_seats
+                        .map((seat) => {
+                          const rawSeat = String(
+                            seat?.seat_number || ""
+                          ).replace(/^[A-Z]?/, "");
+                          const prefix =
+                            booking.flight.flights_class === "BC"
+                              ? "B"
+                              : booking.flight.flights_class === "VC"
+                              ? "V"
+                              : booking.flight.flights_class === "EC"
+                              ? "E"
+                              : "";
+                          return `${prefix}${rawSeat}`;
+                        })
+                        .join(", ")
+                    : "Not Assigned",
+
                 class: booking.flight.flights_class,
                 passengers:
                   booking.members?.length > 0
