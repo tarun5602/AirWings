@@ -32,13 +32,13 @@
     border-top: 1px solid var(--grayColor);
     display: grid;
     justify-items: start;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 10px 0px;
     padding-top: 10px;
 }
 .baggageTrackingInformationItemContainer{
     display: grid;
     justify-items: start;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 2px;
 }
