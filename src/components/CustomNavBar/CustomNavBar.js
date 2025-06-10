@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import CustomButton from "../CustomButton/CustomButton";
 import { IoAirplaneSharp, IoReorderThreeOutline } from "react-icons/io5";
+import { TbXboxX } from "react-icons/tb";
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../Config/routes";
@@ -15,6 +16,7 @@ function CustomNavBar() {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
@@ -22,6 +24,24 @@ function CustomNavBar() {
     setUsername(storedUsername);
     setIsLogin(storedIsLogin);
   }, []);
+
+  const toggleSidebar = () => {
+    if (isSideBarOpen) {
+      gsap.to(sideBarRef.current, {
+        x: "-100%",
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    } else {
+      gsap.set(sideBarRef.current, { x: "-100%" }); // Reset before opening
+      gsap.to(sideBarRef.current, {
+        x: "0%",
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    }
+    setIsSideBarOpen(!isSideBarOpen);
+  };
 
   const handleLogout = () => {
     localStorage.clear();
@@ -39,7 +59,14 @@ function CustomNavBar() {
 
   return (
     <div className="customNavbarBaseContainer">
-      <IoReorderThreeOutline className="threeLineIcon" size={30} />
+      <div className="menuIcon" onClick={toggleSidebar}>
+        {isSideBarOpen ? (
+          <TbXboxX size={30} />
+        ) : (
+          <IoReorderThreeOutline className="threeLineIcon" size={30} />
+        )}
+      </div>
+
       <div className="customNavbarLogoContainer">
         <div className="customNavbarLogoBaseContainer">
           <h2 onClick={() => navigate(ROUTES.homePage)}>
@@ -121,7 +148,13 @@ function CustomNavBar() {
       <div className="customSideNavbarBaseContainer" ref={sideBarRef}>
         <div className="customSideNavbarLinks">
           {linkList.map((item) => (
-            <p key={item.title} onClick={() => navigate(item.path)}>
+            <p
+              key={item.title}
+              onClick={() => {
+                navigate(item.path);
+                toggleSidebar();
+              }}
+            >
               {item.title}
             </p>
           ))}

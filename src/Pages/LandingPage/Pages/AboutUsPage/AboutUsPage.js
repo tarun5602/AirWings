@@ -10,7 +10,7 @@ export default function AboutUsPage() {
   const Mission = [
     {
       id: 1,
-      title: 2 ,
+      title: 2,
       description: "Years of Experience",
       icon: "",
     },
@@ -44,7 +44,7 @@ export default function AboutUsPage() {
     },
     {
       id: 2,
-      title: "Customer  Care",
+      title: "Customer Care", // Note: There was a double space here, "Customer  Care"
       description:
         "We are committed to providing exceptional service at every step of your journey.",
       icon: <LuHeartHandshake size={35} />,
@@ -57,30 +57,16 @@ export default function AboutUsPage() {
       icon: <HiOutlineGlobe size={35} />,
     },
   ];
+
   return (
     <div className="aboutUsBaseContainer">
       <section
         className="aboutUsImageBaseContainer"
-        style={{ backgroundImage: `url(${ASSETS.aboutUsPageImage})` }}
+        style={{ backgroundImage: `url(${ASSETS.aboutUsPageImage})` }} // backgroundImage is often kept inline for dynamic URLs
       >
         <div className="aboutUsInfoContainer">
-          <h1
-            style={{
-              color: "var(--whiteColor)",
-            }}
-          >
-            About Us
-          </h1>
-          <p
-            style={{
-              color: "var(--grayColor)",
-              paddingRight: "100px",
-              paddingLeft: "100px",
-              paddingBottom: "80px",
-              textAlign: "justify",
-              fontSize: "20px",
-            }}
-          >
+          <h1 className="aboutUsInfoTitle">About Us</h1>
+          <p className="aboutUsInfoDescription">
             "We believe every journey should feel effortless — our Airline
             Management System is designed to care for every passenger, with
             intuitive technology that puts comfort, clarity, and connection
@@ -88,26 +74,11 @@ export default function AboutUsPage() {
           </p>
         </div>
       </section>
+
       <section className="aboutUsMissionBaseContainer">
         <div className="aboutUsMissionTextContainer">
-          <h1
-            style={{
-              color: "var(--baseColor)",
-              padding: "50px",
-            }}
-          >
-            Our Mission
-          </h1>
-          <p
-            style={{
-              color: "var(--grayColor)",
-              paddingRight: "100px",
-              paddingLeft: "100px",
-              paddingBottom: "80px",
-              textAlign: "justify",
-              fontSize: "20px",
-            }}
-          >
+          <h1 className="aboutUsMissionMainTitle">Our Mission</h1>
+          <p className="aboutUsMissionMainDescription">
             At AirWings, we are more than just an airline. We are your trusted
             partner in creating unforgettable travel experiences. Our mission is
             to connect people and places with comfort and exciting experiences
@@ -125,6 +96,7 @@ export default function AboutUsPage() {
           ))}
         </div>
       </section>
+
       <section className="aboutUsOurValuesBaseContainer">
         <div className="aboutUsValuesHeading">
           <h1>Our Values</h1>
