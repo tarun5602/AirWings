@@ -111,6 +111,13 @@
 .customSideNavbarBaseContainer {
   display: none;
 }
+.menuIcon {
+  display: flex;
+  justify-content: center;
+  color: var(--whiteColor);
+}
+
+
 /* Tablet Device */
 @media (max-width: 1024px) {
   .customNavbarLinkContainer {
@@ -125,23 +132,25 @@
   .customSideNavbarBaseContainer {
     display: flex;
     position: absolute;
-    /* opacity: 0; */
-    top: 12%;
+    top: 11%;
     bottom: 0%;
     left: 0%;
     right: 0%;
+    transform: translateX(-100%);
     background-color: var(--blackColorDim);
     backdrop-filter: blur(20px);
+    z-index: 2;
   }
   .customSideNavbarLinks {
     width: 65%;
-    height: 100vh;
+    height: 89vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background-color: var(--whiteColor);
   }
+
 }
 /* Standard Mobile */
 @media (max-width: 768px) {

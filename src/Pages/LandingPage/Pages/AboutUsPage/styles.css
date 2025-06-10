@@ -1,74 +1,282 @@
+
 .aboutUsBaseContainer {
-    width: 100%;
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal scroll if any content overflows slightly */
 }
-.aboutUsImageBaseContainer{
-    position: relative;
-    height: 60vh;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+
+/* Section 1: Hero Image and Info */
+.aboutUsImageBaseContainer {
+  position: relative;
+  height: 60vh; /* Base height */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex; /* Added for easier alignment of aboutUsInfoContainer if needed */
+  align-items: center; /* Added */
+  justify-content: center; /* Added */
 }
+
 .aboutUsInfoContainer {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0%;
-    left: 0%;
-    bottom: 0%;
-    right: 0%;
-    background-color: var(--blackColorDim);
-    flex-direction: column;
-    gap: 30px;
+  /* position: absolute; */ /* Can be removed if parent is flex and aligns it */
+  /* top: 0%; */
+  /* left: 0%; */
+  /* bottom: 0%; */
+  /* right: 0%; */
+  width: 100%; /* Ensure it takes full width of parent for background color */
+  height: 100%; /* Ensure it takes full height of parent for background color */
+  background-color: var(--blackColorDim);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Center text for mobile */
+  gap: 20px; /* Reduced gap for mobile */
+  padding: 20px; /* Add padding for content spacing */
 }
-.aboutUsMissionBaseContainer{
 
+.aboutUsInfoTitle {
+  color: var(--whiteColor);
+  font-size: 2.2rem; /* Responsive font size */
 }
-.aboutUsMissionTextContainer{
-    text-align: center;
-}
-.aboutUsMissionAnimationContainer{
-    height: 30vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 200px;
-    color: var(--whiteColor);
-    background-color: var(--baseColor);
-}
-.aboutUsMissionCardContainer{
 
+.aboutUsInfoDescription {
+  color: var(--grayColor);
+  font-size: 1rem; /* Responsive font size */
+  line-height: 1.6;
+  max-width: 800px; /* Limit line length for readability */
+  padding: 0 15px; /* Horizontal padding for mobile */
 }
-.aboutUsMissionTitle{
 
+/* Section 2: Our Mission Text */
+.aboutUsMissionBaseContainer {
+  /* Add padding if needed or let children handle it */
 }
-.aboutUsMissionDescription{
 
+.aboutUsMissionTextContainer {
+  text-align: center;
+  padding: 40px 20px; /* Vertical and horizontal padding */
 }
-.aboutUsOurValuesBaseContainer{
 
+.aboutUsMissionMainTitle {
+  color: var(--baseColor);
+  font-size: 2rem; /* Responsive font size */
+  margin-bottom: 15px;
 }
-.aboutUsValuesHeading{
+
+.aboutUsMissionMainDescription {
+  color: var(--grayColor);
+  font-size: 1rem; /* Responsive font size */
+  line-height: 1.6;
+  max-width: 800px; /* Limit line length */
+  margin: 0 auto; /* Center the paragraph block */
+}
+
+/* Section 3: Mission Animation (Stats Cards) */
+.aboutUsMissionAnimationContainer {
+  /* height: 30vh; */ /* Changed to auto height */
+  display: flex;
+  flex-direction: column; /* Stack cards vertically on mobile */
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Reduced gap */
+  color: var(--whiteColor);
+  background-color: var(--baseColor);
+  padding: 40px 20px; /* Padding for the section */
+}
+
+.aboutUsMissionCardContainer {
+  background-color: rgba(255, 255, 255, 0.1); /* Slight transparency */
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 80%; /* Card width on mobile */
+  max-width: 250px; /* Max card width */
+}
+
+.aboutUsMissionTitle {
+  font-size: 2.5rem; /* Large number */
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.aboutUsMissionDescription {
+  font-size: 0.9rem;
+}
+
+/* Section 4: Our Values */
+.aboutUsOurValuesBaseContainer {
+  padding: 40px 0; /* Vertical padding */
+}
+
+.aboutUsValuesHeading {
+  padding-top: 20px; /* Adjusted from 60px */
+  padding-bottom: 30px; /* Added space below heading */
+  text-align: center;
+}
+
+.aboutUsValuesHeading h1 {
+  font-size: 2rem; /* Responsive font size */
+  color: var(--textColor);
+}
+
+.aboutUsValuesCardContainer {
+  display: flex;
+  flex-direction: column; /* Stack cards vertically on mobile */
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Reduced padding */
+  gap: 30px; /* Reduced gap */
+}
+
+.aboutUsValuesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center icon and text */
+  text-align: center; /* Center text within the card */
+  padding: 25px; /* Reduced padding */
+  gap: 15px; /* Reduced gap */
+  box-shadow: 0 4px 8px var(--grayColor);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transform and shadow */
+  border-radius: 15px; /* Slightly reduced radius */
+  width: 90%; /* Card width on mobile */
+  max-width: 350px; /* Max card width */
+  background-color: var(--whiteColor); /* Ensure background for shadow visibility */
+}
+
+.aboutUsValuesContainer:hover {
+  transform: translateY(-10px); /* Slightly reduced hover effect */
+  cursor: pointer;
+  box-shadow: 0 8px 16px var(--grayColor); /* Enhance shadow on hover */
+}
+
+.aboutUsValueIcon svg { /* Target the SVG inside the icon div */
+  color: var(--baseColor); /* Apply color to icon */
+  margin-bottom: 10px; /* Space below icon */
+}
+
+.aboutUsValueTitle h1 {
+  font-size: 1.4rem; /* Responsive font size */
+  color: var(--textColor);
+  margin-bottom: 10px;
+}
+
+.aboutUsValueDescription {
+  font-size: 0.9rem;
+  color: var(--darkGrayColor);
+  line-height: 1.5;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .aboutUsImageBaseContainer {
+    height: 55vh; /* Slightly adjust height if needed */
+  }
+
+  .aboutUsInfoContainer {
+    gap: 30px; /* Restore original gap */
+  }
+
+  .aboutUsInfoTitle {
+    font-size: 3rem;
+  }
+
+  .aboutUsInfoDescription {
+    font-size: 1.125rem; /* 18px if base is 16px */
+    padding: 0 50px; /* Adjust horizontal padding */
+  }
+
+  .aboutUsMissionTextContainer {
+    padding: 50px 40px;
+  }
+
+  .aboutUsMissionMainTitle {
+    font-size: 2.5rem;
+  }
+
+  .aboutUsMissionMainDescription {
+    font-size: 1.125rem;
+  }
+
+  .aboutUsMissionAnimationContainer {
+    flex-direction: row; /* Cards side-by-side */
+    flex-wrap: wrap; /* Allow wrapping if many cards */
+    justify-content: space-around; /* Distribute space */
+    gap: 30px; /* Gap between cards */
+    padding: 50px;
+    /* height: auto; */ /* Let content define height or set if needed, e.g., 30vh */
+  }
+
+  .aboutUsMissionCardContainer {
+    width: auto; /* Reset width */
+    flex-basis: calc(50% - 20px); /* Two cards per row, considering gap */
+    max-width: 220px;
+  }
+
+  .aboutUsValuesHeading {
     padding-top: 60px;
-    text-align: center;
+  }
+  .aboutUsValuesHeading h1 {
+    font-size: 2.5rem;
+  }
+
+  .aboutUsValuesCardContainer {
+    flex-direction: row; /* Cards side-by-side */
+    flex-wrap: wrap;
+    padding: 60px 40px; /* Adjust padding */
+    gap: 40px; /* Adjust gap */
+  }
+
+  .aboutUsValuesContainer {
+    padding: 30px;
+    flex-basis: calc(50% - 20px); /* Two cards per row, considering gap */
+    max-width: 320px;
+  }
 }
-.aboutUsValuesCardContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 90px 80px;
-    gap: 60px;
-}
-.aboutUsValuesContainer{
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    gap: 20px;
-    box-shadow: 0 4px 8px var(--grayColor);
-    transition: 0.4s ease-in-out;
-    border-radius: 25px;
-}
-.aboutUsValuesContainer:hover{
-    transform: translateY(-30px);
-    cursor: pointer;
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .aboutUsImageBaseContainer {
+    height: 60vh; /* Restore original height or adjust */
+  }
+
+  .aboutUsInfoDescription {
+    font-size: 1.25rem; /* 20px */
+    padding: 0 100px; /* Restore original padding */
+  }
+
+  .aboutUsMissionMainDescription {
+    font-size: 1.25rem;
+  }
+  
+  .aboutUsMissionTextContainer h1 { /* Original from your JS for padding */
+     /* padding: 50px; Replaced by .aboutUsMissionMainTitle */
+  }
+  .aboutUsMissionTextContainer p { /* Original from your JS for padding */
+    /* paddingRight: 100px; */ /* Replaced by .aboutUsMissionMainDescription */
+    /* paddingLeft: 100px; */  /* Replaced by .aboutUsMissionMainDescription */
+    /* paddingBottom: 80px; */ /* Handled by container padding */
+  }
+
+  .aboutUsMissionAnimationContainer {
+    gap: 50px; /* Adjust gap for larger screens if original 200px was intended for very large displays */
+    /* Consider if the original height: 30vh for this section is still desired */
+    /* If you had exactly 4 items and wanted them spaced far apart, you might adjust flex-basis or use justify-content: space-evenly/space-between; */
+  }
+
+  .aboutUsMissionCardContainer {
+    flex-basis: calc(25% - 40px); /* Example for four cards per row */
+    max-width: 200px;
+  }
+
+
+  .aboutUsValuesCardContainer {
+    padding: 90px 80px; /* Restore original padding */
+    gap: 60px; /* Restore original gap */
+  }
+
+  .aboutUsValuesContainer {
+    padding: 40px; /* Restore original padding */
+    flex-basis: calc(33.333% - 40px); /* Three cards per row, considering gap */
+    max-width: 300px; /* Or adjust as needed */
+  }
 }

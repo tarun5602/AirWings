@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# ✈️ AirWings – Flight Booking Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AirWings is a full-stack flight booking platform designed to streamline and enhance the air travel experience. It allows users to search for flights, book tickets, manage trips, track baggage, interact with an AI chatbot, and make secure payments – all in one place.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔧 Tech Stack
 
-### `npm start`
+### 🔹 Frontend
+- React.js
+- Axios
+- React Router DOM
+- Custom CSS (for UI components like navbar, loader, inputs, icons)
+  
+### 🔹 Backend
+- Django
+- Django REST Framework
+- SQLite (Relational Database)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🔹 Integrations
+- Razorpay – Secure Payment Gateway
+- Rasa – AI-powered Chatbot
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📌 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 🔍 Flight Search & Booking  
+- 🧳 Baggage Tracking  
+- 🧾 Trip Management  
+- 💬 AI Chatbot for Real-time Support  
+- 💳 Secure Payments using Razorpay  
+- 📝 Feedback & Contact Forms  
+- 📱 Fully Responsive Design  
+- 🎨 Custom UI Components built from scratch
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧑‍💻 How to Run the Project Locally
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🔹 Prerequisites
+- Node.js & npm
+- Python 3.x
+- Django & Django REST Framework
+- Rasa (optional for chatbot)
+  
+### 🔹 Backend Setup
+```bash
+cd airwings_backend
+pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver at 8000 port
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🔹 Frontend Setup
+cd airwings_frontend
+npm install
+npm start
 
-### `npm run eject`
+The frontend will run on http://localhost:3000 and the backend on http://localhost:8000.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+✅ Testing
+Manual testing for all user interactions and booking scenarios
+API tested via Postman
+Validations implemented on frontend to prevent empty or incorrect inputs
+Responsive UI tested across browsers
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+📜 License
+This project is part of an academic submission and is free to use for educational purposes.
