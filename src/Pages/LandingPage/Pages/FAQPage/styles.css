@@ -46,3 +46,33 @@
   justify-content: space-between;
   color: var(--baseColor);
 }
+
+@media (max-width: 768px) {
+  .faqPageBaseHeaderContainer {
+    font-size: 1.5rem; /* or adjust based on your design */
+    padding: 10px;
+    text-align: center;
+  }
+
+  .faqPageBaseContentContainer {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .faqPageBaseContentItemContainer {
+    font-size: 0.95rem;
+    padding: 10px;
+    line-height: 1.5;
+  }
+
+  .faqPageBaseHeaderContainer h1,
+  .faqPageBaseHeaderContainer h2 {
+    font-size: 1.4rem;
+  }
+
+  .faqPageBaseContentItemContainer p {
+    font-size: 0.95rem;
+  }
+}
+
+
