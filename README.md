@@ -53,11 +53,9 @@ python manage.py migrate
 python manage.py runserver at 8000 port
 
 ### 🔹 Frontend Setup
-cd airwings_frontend
+cd Airwings
 npm install
 npm start
-
-The frontend will run on http://localhost:3000 and the backend on http://localhost:8000.
 
 ---
 

@@ -34,3 +34,17 @@
   bottom: 0%;
   padding: 20px;
 }
+
+@media (max-width: 768px) {
+  .servicesPageBaseContainer {
+    flex-direction: column;
+  }
+  .servicesPageSideBarContainer {
+    width: 100%;
+    border-radius: 0px;
+    box-shadow: none;
+  }
+  .servicesPageContentContainer {
+    width: 100%;
+  }
+}

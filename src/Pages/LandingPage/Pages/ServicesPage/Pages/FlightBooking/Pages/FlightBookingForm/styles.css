@@ -40,3 +40,41 @@
 .customSelectInput{
     color: var(--blackColor);
 }
+
+@media (max-width: 768px) {
+  .flightBookingFormGridBaseContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .flightBookingFormAddBaseContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .flightBookingFormButtonContainer {
+    padding: 20px 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .flightBookingFormGridBaseContainer {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .flightBookingFormsContainer {
+    padding: 15px;
+  }
+
+  .flightBookingFormButtonContainer {
+    padding: 15px 0;
+  }
+
+  .flightBookingFormButtonContainer button {
+    width: 100%;
+    max-width: 100%;
+    font-size: 1rem;
+  }
+}

@@ -205,7 +205,6 @@
   width: 100%;
   height: 90vh;
   position: relative;
-  backdrop-filter: blur(4px);
 }
 .offersBaseContainer h1 {
   width: 100%;
@@ -334,4 +333,149 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .HomePageBaseContainer {
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .heroSectionBaseContainer,
+  .popularDestinationBaseContainer,
+  .offersBaseContainer,
+  .testimonialsBaseContainer {
+    height: auto;
+    min-height: unset;
+    padding-bottom: 40px;
+  }
+
+  .heroSectionContainerOneBase,
+  .heroSectionContainerTwoBase {
+    width: 100%;
+    padding: 20px;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .heroSectionContentBaseContainer,
+  .heroSectionContentPlaneContainer,
+  .heroSectionGradientBaseContainer {
+    position: static;
+    height: auto;
+    width: 100%;
+  }
+
+  .heroSectionContentTitleContainer {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .heroSectionContentTitleContainer h1,
+  .heroSectionContentTitleContainer h2 {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .heroSectionContentPlaneContainer #planeImage {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .popularDestinationCardContainer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .popularDestinationCardImage {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .popularDestinationCardContainer .cardText {
+    font-size: 1rem;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .popularDestinationCardContainer button {
+    width: 100%;
+    max-width: 300px;
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .offersSectionContainer {
+    position: static;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 20px;
+    margin-top: 20px;
+  }
+
+  .offersContainer {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .testimonialsCardContainer {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .testimonialsCard {
+    flex: 0 0 85%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .testimonialsAbsoluteBaseContainer,
+  .testimonialsAbsoluteBaseOneContainer,
+  .testimonialsAbsoluteBaseTwoContainer {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSectionContentTitleContainer h1,
+  .heroSectionContentTitleContainer h2 {
+    font-size: 1.3rem;
+  }
+
+  .popularDestinationCardImage {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .offersContainer {
+    padding: 15px;
+  }
+
+  .testimonialsCard {
+    flex: 0 0 90%;
+  }
 }
